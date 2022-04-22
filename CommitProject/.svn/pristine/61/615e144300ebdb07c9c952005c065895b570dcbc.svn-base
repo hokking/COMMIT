@@ -1,0 +1,55 @@
+package kr.or.ddit.commit.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.sun.xml.internal.bind.v2.runtime.Location;
+
+import kr.or.ddit.commit.service.IJoinService;
+import kr.or.ddit.commit.service.JoinServiceImpl;
+import kr.or.ddit.commit.vo.CompanyVO;
+import kr.or.ddit.commit.vo.MemberVO;
+import kr.or.ddit.commit.vo.WorkerVO;
+
+@WebServlet("/companyInsert.do")
+public class CompanyInsert extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
+		MemberVO memvo = new MemberVO();
+		memvo.setMem_id(request.getParameter("company_id"));
+		memvo.setMem_pass(request.getParameter("company_pass"));
+		memvo.setMem_num(2);
+		
+		CompanyVO comvo = new CompanyVO();
+		comvo.setMem_id(request.getParameter("company_id"));
+		comvo.setCom_name(request.getParameter("company_name"));
+		comvo.setCom_num(request.getParameter("company_registration"));
+		comvo.setCom_url(request.getParameter("company_url"));
+		comvo.setCom_tel(request.getParameter("company_tel"));
+		comvo.setCom_ceo(request.getParameter("company_ceo"));
+		comvo.setCom_addr(request.getParameter("company_add1")+request.getParameter("company_add2"));
+		
+		IJoinService service = JoinServiceImpl.getInstance();
+		String mid = service.memberJoin(memvo);
+		service.companyJoin(comvo);
+		
+		request.setAttribute("id", mid);
+		request.getRequestDispatcher("join/result.jsp").forward(request, response);
+		
+	
+	
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

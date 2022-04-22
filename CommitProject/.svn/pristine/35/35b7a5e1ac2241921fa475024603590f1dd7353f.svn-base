@@ -1,0 +1,180 @@
+<%@page import="kr.or.ddit.commit.vo.CompanyVO"%>
+<%@page import="kr.or.ddit.commit.service.CompanyInfoServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.ICompanyInfoService"%>
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@page import="kr.or.ddit.commit.vo.RegionVO"%>
+<%@page import="kr.or.ddit.commit.service.RegionServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IRegionService"%>
+<%@page import="kr.or.ddit.commit.vo.JobworkVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.JobworkServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IJobworkService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">              
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<title>Insert title here</title>
+<%
+	HttpSession session1 = request.getSession();
+	MemberVO loginMember = (MemberVO)session1.getAttribute("loginMember");
+
+	ICompanyInfoService cservice = CompanyInfoServiceImpl.getInstance();
+	CompanyVO cvo = cservice.companyDetail(loginMember.getMem_id());
+%>
+<script>
+	$(function() {
+		
+		
+		$('#save').on('click', function() {
+			// 글 수정폼에서 수정 후 확인 버튼
+			// modal창에 입력한 내용 가져오기
+//	 		a = $('#modifyModal input[name=subject]').val();
+//	 		b = $('#modifyModal input[name=writer]').val();
+//	 		$('#modifyModal input[name=mail]').val();
+//	 		$('#modifyModal textarea').val();
+//	 		$('#modifyModal input[name=num]').val();
+//	 		fdata = {"subject" : a, "writer" : b,...};
+					
+			data = $('#recruitInsert').serializeArray();
+	 			console.log(data);
+				// 서버로 전송 - ajax
+			$.ajax({
+				url : '<%=request.getContextPath()%>/recruitInsert.do',
+				data : data,
+				type : 'post',
+				success : function(res) {
+					
+				},
+				dataType : 'json'
+			})
+		})
+		
+		var IMP = window.IMP;
+		IMP.init("imp75988108");
+		$('#check_module').on('click', function() {
+			
+			IMP.request_pay({
+				pg: 'inicis',
+				pay_method: 'card',
+				merchant_uid: 'commit_' + new Date().getTime(),
+				name: '주문명:결제테스트',
+				amount: 100,
+				buyer_email: '<%=cvo.getMem_id()%>',
+				buyer_name: '<%=cvo.getCom_name()%>',
+				buyer_tel: '<%=cvo.getCom_tel()%>',
+				buyer_addr: '<%=cvo.getCom_addr()%>'
+			}, function(rsp) {
+				console.log(rsp);
+				if (rsp.success) {
+					$.ajax({
+						url : '<%=request.getContextPath()%>/payInsert.do',
+						type : 'get',
+						data : {
+							"method" : rsp.pay_method,
+							"time" : rsp.pay_method,
+							"amount" : rsp.paid_amount,
+							"id" : <%=loginMember.getMem_id()%>},
+						dataType : 'json'
+					})
+					var msg = '결제가 완료되었습니다.';
+// 					msg += '고유ID : ' + rsp.imp_uid;
+// 					msg += '상점 거래ID : ' + rsp.merchant_uid;
+// 					msg += '결제 금액 : ' + rsp.paid_amount;
+// 					msg += '카드 승인번호 : ' + rsp.apply_num;
+// 					msg += '결제 승인 시간 : ' + rsp.paid_at;
+// 					msg += '결제 수단 : ' + rsp.pay_method;
+// 					msg += '결제 금액 : ' + rsp.paid_amount;
+					location.href= "<%=request.getContextPath()%>/mypage/mypageMain.jsp";
+				} else {
+					var msg = '결제에 실패하였습니다.';
+// 					msg += '에러내용 : ' + rsp.error_msg;
+				}
+				alert(msg);
+			})
+		})
+	})
+</script>
+</head>
+<body>
+<%
+	IJobworkService service = JobworkServiceImpl.getInstance();
+	List<JobworkVO> jobList = service.selectAllJobwork();
+	
+	IRegionService gservice = RegionServiceImpl.getInstance();
+	List<RegionVO> regionList = gservice.selectAllRegion();
+	
+%>
+	<div>
+	   
+	   <form id="recruitInsert">
+	   		<table>
+				<tr>
+					<td><label>공고명</label></td>
+					<td><input class="intxt" type="text" name="title"></td>
+				</tr>
+				<tr>
+    				<td><label>공고시작일</label></td>
+    				<td><input class="intxt" type="date" name="sdate"></td>
+    			</tr>
+				<tr>
+    				<td><label>공고게시일</label></td>
+    				<td>
+    					<select name="rview">
+    						<option>게시일</option>
+    						<option value="7">7일</option>
+    						<option value="14">14일</option>
+    					</select>
+    				</td>
+    			</tr>
+		    	<tr>
+		    		<td><label>포지션</label></td>
+		    		<td><select name="pst">
+		    				<option>포지션</option>
+<%
+				for(JobworkVO jw : jobList) {
+%>
+    				<option value="<%= jw.getWork_num()%>"><%= jw.getWork_name() %></option>
+<%
+				}
+%>
+    					</select>
+    				</td>
+    			</tr>
+    			<tr>
+    				<td><label>지역</label></td>
+    				<td><select name="reg">
+    						<option>지역</option>
+<%
+				for(RegionVO rg : regionList) {
+%>
+    				<option value="<%= rg.getReg_num() %>"><%= rg.getReg_name() %></option>
+<%
+				}
+%>
+    					</select>
+    				</td>
+    			</tr>
+      			<tr><td colspan="2"><label>우대사항</label><br></td></tr>
+    			<tr><td colspan="2"><textarea name="spec" rows="10" cols="50"></textarea></td></tr>
+	   			<tr><td colspan="2"><label>주요업무</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="duty" rows="10" cols="50"></textarea></td></tr>
+		   		<tr><td colspan="2"><label>자격요건</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="qlt" rows="10" cols="50"></textarea></td></tr>
+		   		<tr><td colspan="2"><label>복지및 혜택</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="bnf" rows="10" cols="50"></textarea></td></tr>
+				<tr>
+				
+				</tr>
+			</table>
+   		</form>
+		
+      <button id="check_module" style="padding:10px; margin-left:10%">결제</button>
+	</div>
+</body>
+</html>

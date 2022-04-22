@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#worker').on('click', function(){
+			location.href="<%=request.getContextPath()%>/join/workerJoin.jsp";
+		})
+		$('#company').on('click', function(){
+			location.href="<%=request.getContextPath()%>/join/companyJoin.jsp";
+		})
+	})
+
+</script>
+</head>
+<body>
+<input type="button" name="worker" id="worker" value="구직회원">
+<input type="button" name="company" id="company" value="기업회원">
+</body>
+</html>

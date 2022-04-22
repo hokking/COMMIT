@@ -1,0 +1,45 @@
+<%@page import="kr.or.ddit.commit.vo.CompanyVO"%>
+<%@page import="kr.or.ddit.commit.service.CompanyInfoServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.ICompanyInfoService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<%
+	String id = request.getParameter("mem_id");
+	ICompanyInfoService service = CompanyInfoServiceImpl.getInstance();
+	CompanyVO cvo = new CompanyVO();
+	cvo = service.companyDetail(id);
+%>
+<div>
+이미지 넣을 공간
+</div>
+<div>
+<table>
+	<tr>
+		<td>대표자 명</td>
+		<td><%=cvo.getCom_ceo() %></td>
+	</tr>
+	<tr>
+		<td>이메일</td>
+		<td><%=cvo.getMem_id() %></td>
+	</tr>
+	<tr>
+		<td>홈페이지</td>
+		<td><%=cvo.getCom_url() %></td>
+	</tr>
+	<tr>
+		<td>기업주소</td>
+		<td><%=cvo.getCom_addr() %></td>
+	</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<%@page import="java.util.Map"%>
+<%@page import="kr.or.ddit.commit.vo.FreedomVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.FreedomServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFreedomService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<style>
+#searchFreeBoard{
+	height : 25px;
+}
+</style>
+
+<script>
+$(function(){
+	$('#board_write').on('click', function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomBoard.jsp";
+	})
+})
+
+$(function(){
+	$('#search').on('click',function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomSearch.jsp";
+	})
+})
+
+
+</script>
+
+</head>
+<body>
+
+
+<div>
+	<div>"전체 <strong>563,435</strong>건"</div>
+	<div>
+		<div>
+			<select title="검색내용">
+			 	 <option value="1">제목</option> 
+			 	 <option value="2">작성자</option>
+			 </select>
+			 <input type="text" value placeholder="어떤 이야기가 있을까?">
+			 <button type="button" id="search">검색</button>
+		</div>
+	</div>
+</div>
+<br>
+<div>
+	 <div>
+		<span>
+			<input type="checkbox" value="list">
+			<label>전체보기</label>
+		</span>
+		<span>
+			<input type="checkbox" value="ready">
+			<label>#취준</label>
+		</span>
+		<span>
+			<input type="checkbox" value="change">
+			<label>#이직</label>
+		</span>
+		<span>
+			<input type="checkbox" value="escape">
+			<label>#퇴사</label>
+		</span>
+		<span>
+			<input type="checkbox" value="talk">
+			<label>#잡담</label>
+		</span>
+	</div>
+	<br>
+	<button type="button" id="board_write">게시글 작성</button>
+</div>
+
+<%
+	IFreedomService service = FreedomServiceImpl.getService();
+	List<FreedomVO> list = service.selectAllFreeBoard();
+	
+%>
+
+<%
+if(list != null) {
+	for(FreedomVO vo : list ){
+
+%>
+
+<table>
+<tr>
+<th>No</th><th>제목</th><th>작성일</th><th>조회수</th>
+</tr>
+<tr>
+	<td><%=vo.getFreedom_num() %></td>
+	<td><a href="<%= request.getContextPath() %>/freedom/freedomDetail.jsp"><%=vo.getFreedom_title() %></a></td>
+	<td><%=vo.getFreedom_date().substring(0, 10) %></td>
+	<td><%=vo.getFreedom_view() %></td>
+</tr>
+</table>
+
+<%
+	}
+} else {	
+%>
+<h4>게시물이 없습니다</h4>
+
+<%
+}
+%>
+
+</body>
+</html>

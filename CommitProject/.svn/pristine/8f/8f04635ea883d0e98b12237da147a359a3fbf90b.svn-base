@@ -1,0 +1,113 @@
+package kr.or.ddit.commit.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.commit.dao.FreedomDaoImpl;
+import kr.or.ddit.commit.dao.IFreedomDao;
+import kr.or.ddit.commit.vo.FreedomVO;
+
+public class FreedomServiceImpl implements IFreedomService {
+
+	private IFreedomDao dao;
+	private static IFreedomService service;
+	
+	public FreedomServiceImpl() {
+		dao = FreedomDaoImpl.getDao();
+	}
+	
+	public static IFreedomService getService() {
+		if(service ==null) service = new FreedomServiceImpl();
+		
+		return service;
+		
+	}
+	
+	@Override
+	public List<FreedomVO> selectAllFreeBoard() {
+		List<FreedomVO> list = null;
+		
+		try {
+			list = dao.selectAllFreeBoard();			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void insertFreeboard(FreedomVO vo) {
+		
+		try {
+			dao.insertFreeboard(vo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public FreedomVO selectOneFreeBoard(int freedomnum){
+		FreedomVO vo = null;
+		
+		try {
+			vo = dao.selectOneFreeBoard(freedomnum);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
+
+	@Override
+	public List<FreedomVO> searchTitleFreeBoard(String title) {
+		List<FreedomVO> list = null;
+		try {
+			list = dao.searchTitleFreeBoard(title);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<FreedomVO> searchMemIdFreeBoard(String memId) {
+		List<FreedomVO> list = null;
+		try {
+			list = dao.searchMemIdFreeBoard(memId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int updateFreeboard(FreedomVO vo) {
+		int num = 0;
+		
+		try {
+			num = dao.updateFreeboard(vo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return num;
+	}
+
+	@Override
+	public int deleteFreeboard(int freedomnum) {
+		int num2 = 0;
+		
+		try {
+			num2 = dao.deleteFreeboard(freedomnum);
+		} catch (SQLException e) {	
+			e.printStackTrace();
+		}
+		
+		return num2;
+	}
+
+
+
+}

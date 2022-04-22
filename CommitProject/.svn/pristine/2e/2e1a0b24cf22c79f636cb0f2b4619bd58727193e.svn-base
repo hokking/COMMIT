@@ -1,0 +1,7 @@
+package kr.or.ddit.commit.dao;
+
+public interface IFreeRepleDao {
+	
+//	public int List
+
+}

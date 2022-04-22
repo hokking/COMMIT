@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="freedom">
+	<select id = "selectByPage" resultClass="freedomVO" parameterClass="map">
+	 <![CDATA[
+     select A.* from (
+	    select freedom_num as fnum, B.*  from (
+	         select * from freedom
+	         order by num desc) B
+	     where freedom_num <= #end#) A
+     where A.fnum >= #start#
+     ]]>
+	
+	</select>
+
+
+</sqlMap>

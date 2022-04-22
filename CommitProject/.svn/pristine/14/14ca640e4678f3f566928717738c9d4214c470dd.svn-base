@@ -1,0 +1,56 @@
+package kr.or.ddit.commit.vo;
+
+public class CompanyVO {
+	private String MEM_ID;
+	private String COM_NUM;
+	private String COM_NAME;
+	private String COM_TEL;
+	private String COM_MAIL;
+	private String COM_ADDR;
+	private String COM_TEST;
+	
+	public String getMEM_ID() {
+		return MEM_ID;
+	}
+	public void setMEM_ID(String mEM_ID) {
+		MEM_ID = mEM_ID;
+	}
+	public String getCOM_NUM() {
+		return COM_NUM;
+	}
+	public void setCOM_NUM(String cOM_NUM) {
+		COM_NUM = cOM_NUM;
+	}
+	public String getCOM_NAME() {
+		return COM_NAME;
+	}
+	public void setCOM_NAME(String cOM_NAME) {
+		COM_NAME = cOM_NAME;
+	}
+	public String getCOM_TEL() {
+		return COM_TEL;
+	}
+	public void setCOM_TEL(String cOM_TEL) {
+		COM_TEL = cOM_TEL;
+	}
+	public String getCOM_MAIL() {
+		return COM_MAIL;
+	}
+	public void setCOM_MAIL(String cOM_MAIL) {
+		COM_MAIL = cOM_MAIL;
+	}
+	public String getCOM_ADDR() {
+		return COM_ADDR;
+	}
+	public void setCOM_ADDR(String cOM_ADDR) {
+		COM_ADDR = cOM_ADDR;
+	}
+	public String getCOM_TEST() {
+		return COM_TEST;
+	}
+	public void setCOM_TEST(String cOM_TEST) {
+		COM_TEST = cOM_TEST;
+	}
+	
+	
+}

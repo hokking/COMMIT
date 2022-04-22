@@ -1,0 +1,47 @@
+<%@page import="kr.or.ddit.commit.vo.FavoriteVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.FavoriteServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFavoriteService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>관심공고 조회 화면</title>
+<%
+IFavoriteService service = FavoriteServiceImpl.getInstance();
+List<FavoriteVO> list = service.getAllfav();
+%>
+
+
+</head>
+<body>
+
+	<h2>관심공고</h2>
+	<div id="list"></div>
+	<br><br>
+	
+	<table border='1'>
+	<tr>
+		<th>No</th><th>제목</th>
+	</tr>
+<%
+	for(FavoriteVO vo : list){
+%>
+	<tr>
+		<td><%=vo.getFavorite_num()%></td>
+	
+	</tr>
+<%		
+	}
+%>
+	
+	
+	
+	</table>
+	
+
+
+</body>
+</html>

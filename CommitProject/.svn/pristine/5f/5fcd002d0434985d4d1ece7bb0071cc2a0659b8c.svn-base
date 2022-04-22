@@ -1,0 +1,29 @@
+<%@page import="kr.or.ddit.commit.vo.RecruitVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	List<RecruitVO> list = (List<RecruitVO>)request.getAttribute("list");
+%>
+[
+<%
+	for(int i = 0; i < list.size(); i++) {
+		RecruitVO vo = list.get(i);
+		if(i > 0) out.print(",");
+%>
+	{
+		"rcnum" : "<%= vo.getRecruit_num() %>",
+		"rname" : "<%= vo.getRecruit_name() %>",
+		"rstart" : "<%= vo.getRecruit_start() %>",
+		"rend" : "<%= vo.getRecruit_end() %>",
+		"rspec" : "<%= vo.getRecruit_spec() %>",
+		"id" : "<%= vo.getMem_id() %>",
+		"rgnum" : "<%= vo.getReg_num() %>",
+		"wnum" : "<%= vo.getWork_num() %>",
+		"pnum" : "<%= vo.getPay_num() %>"
+	}	
+
+<%
+	}
+%>
+]

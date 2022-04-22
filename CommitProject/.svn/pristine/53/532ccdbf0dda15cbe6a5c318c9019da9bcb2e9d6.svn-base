@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<style>
+#board_content{
+	height : 50px;
+}
+</style>
+</head>
+<body>
+<form>
+	<div>
+		<div>
+			<span>카테고리</span>
+			<select>
+			 	 <option value="1"><li><a href=""><span>취준</span></a></li></option> 
+			 	 <option value="2"><li><a href=""><span>이직</span></a></li></option>
+			 	 <option value="2"><li><a href=""><span>잡담</span></a></li></option>
+			 	 <option value="2"><li><a href=""><span>퇴사</span></a></li></option>
+			 </select>
+		</div>
+		<br>
+		<div>
+			<input type="text" placeholder="제목을 입력해주세요">
+		</div>
+		<br>
+		<div>
+			<textarea placeholder="내용을 입력해주세요"></textarea>
+		</div>
+		<br>
+		<div>
+			<div>#해시태그 입력</div>
+		<div>
+			<span>
+				<input type="checkbox" value="ready">
+				<label>#취준</label>
+			</span>
+			<span>
+				<input type="checkbox" value="change">
+				<label>#이직</label>
+			</span>
+			<span>
+				<input type="checkbox" value="escape">
+				<label>#퇴사</label>
+			</span>
+			<span>
+				<input type="checkbox" value="talk">
+				<label>#잡담</label>
+			</span>
+		</div>
+		</div>
+		<br>
+		<div>
+			<button type="button">게시글 등록</button>
+		</div>	
+	</div>
+</form>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.commit.vo.ResumeVO;
+
+public interface IResumeDao{
+
+	public int selectresume(String mem_id) throws SQLException;
+	
+	public void insertresume(ResumeVO vo) throws SQLException;
+	
+	public int updateresume(ResumeVO vo) throws SQLException;
+	
+	public List<ResumeVO> listresume(String mem_id) throws SQLException;
+	
+	public List<ResumeVO> detailresume(int resume_num) throws SQLException;
+	
+}

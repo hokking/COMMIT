@@ -1,0 +1,63 @@
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원 로그인</title>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"></script>
+
+</head>
+<body>
+<%
+	String result = (String)request.getAttribute("fail");
+	String memid = (String)session.getAttribute("loginMember");
+	if(memid==null){
+%>
+
+	<form action="<%=request.getContextPath() %>/Login.do" method="post">
+	<table border='1'>
+	<tr>
+	<td>아이디</td>
+	<td><input type="text" name="mem_id" placeholder="ID를 입력하세요."></td>
+	</tr>
+	
+	<tr>
+	<td>비밀번호</td>
+	<td><input type="password" name="mem_pass" placeholder="Password를 입력하세요."></td>
+	</tr>
+	
+	<tr>
+	<%
+	if(result != null){
+	%>
+	<td colspan="2" style="text-align:center;"><span id="spanid"><%=result %></span></td>
+	<%	
+	}
+	
+	%>
+	</tr>
+	<tr>
+	<td colspan="2"><input type="submit" value="Login">
+	</tr>
+
+</table>
+
+</form>
+
+<%
+}else{
+%>
+
+<h3><%=memid %>님 환영합니다.</h3>
+<input type="button" id="logout" value="로그아웃">
+
+<%
+}
+%>
+</body>
+</html>	

@@ -1,0 +1,52 @@
+package kr.or.ddit.commit.vo;
+
+public class WorkerVO {
+
+	private String MEM_ID;
+	private String MEM_NAME;
+	private String MEM_GENDER;
+	private String MEM_BIR;
+	private String MEM_ADDR;
+	private String MEM_TEL;
+	
+	
+	public String getMEM_ID() {
+		return MEM_ID;
+	}
+	public void setMEM_ID(String mEM_ID) {
+		MEM_ID = mEM_ID;
+	}
+	public String getMEM_NAME() {
+		return MEM_NAME;
+	}
+	public void setMEM_NAME(String mEM_NAME) {
+		MEM_NAME = mEM_NAME;
+	}
+	public String getMEM_GENDER() {
+		return MEM_GENDER;
+	}
+	public void setMEM_GENDER(String mEM_GENDER) {
+		MEM_GENDER = mEM_GENDER;
+	}
+	public String getMEM_BIR() {
+		return MEM_BIR;
+	}
+	public void setMEM_BIR(String mEM_BIR) {
+		MEM_BIR = mEM_BIR;
+	}
+	public String getMEM_ADDR() {
+		return MEM_ADDR;
+	}
+	public void setMEM_ADDR(String mEM_ADDR) {
+		MEM_ADDR = mEM_ADDR;
+	}
+	public String getMEM_TEL() {
+		return MEM_TEL;
+	}
+	public void setMEM_TEL(String mEM_TEL) {
+		MEM_TEL = mEM_TEL;
+	}
+	
+	
+	
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+<sqlMap namespace="freeReple">
+
+	<select id="selectAllFreeReple" resultClass="FreeRepleVO">
+		select MEM_ID,REPLE_NUM, REPLE_DATE,REPLE_CON,FREEDOM_NUM, nvl(Reple_first,0)Reple_first
+		 		from reple
+		 		where freedom_num=#freedom_num#
+	</select>
+
+<!-- 	<select id="totalCount" resultClass="int"> -->
+<!--       select count(*) from reple -->
+<!--     </select> -->
+
+	<insert id="insertFreeReple" parameterClass="FreeRepleVO">
+		insert into reple(MEM_ID,REPLE_NUM, REPLE_DATE,REPLE_CON,FREEDOM_NUM)
+		values(
+			#mem_id#,
+			REPLE_NUM_SEQ.nextval,
+			sysdate,
+			#reple_con#,
+			#freedom_num#
+			)	
+	</insert>
+	
+   <delete id="deleteFreeReple" parameterClass="int">            
+   		delete reple where reple_num= #reple_num#
+   </delete>   
+   
+   <update id="updateFreeReple" parameterClass="FreeRepleVO">
+   		update reple set reple_con = #reple_con#,
+   						 reple_date = sysdate
+   					where reple_num = #reple_num#
+   </update>
+
+</sqlMap>
+

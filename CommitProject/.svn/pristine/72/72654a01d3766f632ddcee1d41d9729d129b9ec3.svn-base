@@ -1,0 +1,14 @@
+package kr.or.ddit.commit.service;
+
+import java.util.List;
+
+import kr.or.ddit.commit.vo.RecruitVO;
+
+public interface IRecruitService {
+	
+	public List<RecruitVO> selectAllRecruit();
+	
+	public RecruitVO selectRecruit(int recruitNum);
+	
+	public void insertRecruit(RecruitVO vo);
+}

@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<form>
+			<label>공고명</label><input class="intxt" type="text" name="title"><br>
+    		<label>공고시작일</label><input class="intxt" type="date" name="writer"><br>
+    		<label>공고마감일</label><input class="intxt" type="date" name="writer"><br>
+    		<label>포지션</label>
+    			<section>
+    				<option></option>
+    			</section>
+      		<label>우대사항</label><input class="intxt" type="text" name="mail"><br>
+      		<input type="hidden" name="num">
+      		<label>내용</label><br> 
+   			<textarea class="intxt" name="content" rows="10" cols="50"></textarea>
+   			<input type="button" value="확인" id="mod">
+   		</form>
+	</div>
+</body>
+</html>

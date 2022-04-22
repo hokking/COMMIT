@@ -1,0 +1,81 @@
+<%@page import="kr.or.ddit.commit.vo.JobworkVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.JobworkServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IJobworkService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script>
+	$(function() {
+		$('#plu').on('click', function() {
+			$('#di').append("<input type='text' class='spec'><br>");
+		})
+		
+		$('#ok').on('click', function() {
+			// 글 수정폼에서 수정 후 확인 버튼
+			// modal창에 입력한 내용 가져오기
+//	 		a = $('#modifyModal input[name=subject]').val();
+//	 		b = $('#modifyModal input[name=writer]').val();
+//	 		$('#modifyModal input[name=mail]').val();
+//	 		$('#modifyModal textarea').val();
+//	 		$('#modifyModal input[name=num]').val();
+//	 		fdata = {"subject" : a, "writer" : b,...};
+					
+			data = $('#recruitInsert').serializeArray();
+	 			console.log(data);
+				// 서버로 전송 - ajax
+			$.ajax({
+				url : '/CommitProject/recruitInsert.do',
+				data : data,
+				type : 'post',
+				success : function(res) {
+					
+				},
+				dataType : 'json'
+			})
+		})	
+	})
+</script>
+</head>
+<body>
+<%
+	IJobworkService service = JobworkServiceImpl.getInstance();
+
+	List<JobworkVO> jobList = service.selectAllJobwork();
+%>
+	<div>
+		<form id="recruitInsert">
+			<label>공고명</label><input class="intxt" type="text" name="title"><br>
+    		<label>공고시작일</label><input class="intxt" type="date" name="writer"><br>
+    		<label>공고마감일</label><input class="intxt" type="date" name="writer"><br>
+    		<label>포지션</label>
+    			<select>
+<%
+	for(JobworkVO jw : jobList) {
+%>
+    				<option><%= jw.getWork_name() %></option>
+<%
+	}
+%>
+    			</select><br>
+      		<label>우대사항</label><input type="button" value="추가" id="plu">
+    			<div id="di">
+		    		<input type="text" class="spec"><br>
+		      		<input type="hidden" name="num">
+	      		</div>
+	   		<label>주요업무</label><br> 
+	 		<textarea name="content" rows="10" cols="50"></textarea><br>
+	   		<label>자격요건</label><br> 
+	 		<textarea name="content" rows="10" cols="50"></textarea><br>
+	   		<label>복지및 혜택</label><br> 
+	 		<textarea name="content" rows="10" cols="50"></textarea><br>
+			<input type="button" value="확인" id="ok">
+   		</form>
+	</div>
+</body>
+</html>

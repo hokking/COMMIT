@@ -1,0 +1,41 @@
+package kr.or.ddit.commit.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.commit.vo.FreedomVO;
+
+public class FreedomServiceImpl implements IFreedomService {
+
+	@Override
+	public List<FreedomVO> selectFreeBoard(Map<String, Integer> map) throws SQLException {
+		
+		return null;
+	}
+
+	@Override
+	public int insertFreeboard(FreedomVO vo) throws SQLException {
+		
+		return 0;
+	}
+
+	@Override
+	public int updateFreeboard(FreedomVO vo) throws SQLException {
+		
+		return 0;
+	}
+
+	@Override
+	public int deleteFreeboard(int freedomnum) throws SQLException {
+		
+		return 0;
+	}
+
+	@Override
+	public int searchFreeboard(FreedomVO vo) throws SQLException {
+		
+		return 0;
+	}
+
+}

@@ -1,0 +1,41 @@
+<%@page import="kr.or.ddit.commit.vo.RecruitVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	
+</script>
+</head>
+<body>
+<% 
+	RecruitVO recruitVo = (RecruitVO)request.getAttribute("recruitVo");
+
+%>
+	<h2><%= recruitVo.getRecruit_name() %></h2>
+	<%= recruitVo.getCom_name() %>
+	<h4>포지션</h4>
+	<div>
+		<%= recruitVo.getWork_name() %>
+	</div>
+	<h4>주요업무</h4>
+	<div>
+		<%= recruitVo.getRecruit_duty() %>
+	</div>
+	<h4>자격요건</h4>
+	<div>
+		<%= recruitVo.getRecruit_qlt() %>
+	</div>
+	<h4>우대사항</h4>
+	<div>
+		<%= recruitVo.getRecruit_spec() %>
+	</div>
+	<h4>복지 및 혜택</h4>
+	<div>
+		<%= recruitVo.getRecruit_bnf() %>
+	</div>
+</body>
+</html>

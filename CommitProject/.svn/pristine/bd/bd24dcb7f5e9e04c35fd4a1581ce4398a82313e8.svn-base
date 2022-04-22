@@ -1,0 +1,61 @@
+package kr.or.ddit.commit.controller;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.beanutils.BeanUtils;
+
+import kr.or.ddit.commit.service.IQnaService;
+import kr.or.ddit.commit.service.QnaServiceImpl;
+import kr.or.ddit.commit.vo.QnaVO;
+
+/**
+ * Servlet implementation class QnaInsert
+ */
+@WebServlet("/QnaInsert.do")
+public class QnaInsert extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public QnaInsert() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
+		QnaVO vo = new QnaVO();
+		
+		try {
+			BeanUtils.populate(vo, request.getParameterMap());
+		} catch (IllegalAccessException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		IQnaService service = QnaServiceImpl.getInstance();
+		
+		int num = service.insertQna(vo);
+		
+		request.setAttribute("res", num);
+		
+		request.getRequestDispatcher("qna/result.jsp").forward(request, response);
+	
+	}
+
+}

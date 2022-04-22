@@ -1,0 +1,76 @@
+/**
+ * 
+ */
+
+function saveNotice(){
+	$.ajax({
+		
+		url : '/CommitProject/NoticeInsert.do',
+		data : data,
+		type : 'post',
+		success : function(res){
+			//modal 닫기
+			$('#myModal').modal('hide');
+			
+			//modal 안의 입력 내용 지우기
+			$('.intxt').val("");
+			location.href = "/CommitProject/notice/noticemain.jsp"
+		},
+		error : function(xhr){
+			alert("상태 : " + xhr.status);
+		},
+		dataType : 'json'
+	})
+}
+
+function updateNotice(){
+	$.ajax({
+		
+		url : '/CommitProject/NoticeUpdate.do',
+		data : data,
+		type : 'post',
+		success : function(res){
+			//alert(res.sw);
+	 		
+	 		//modal 안의 입력 내용 지우기
+	 		$('#myModal .intxt').text("");
+	 		
+			//modal 닫기
+			$('#myModal').modal('hide');
+			location.href = "/CommitProject/notice/noticedetail.jsp?notice_num="+res.notice_num;
+		},
+		error :  function(xhr){
+			alrert("상태 : " + xhr.status);
+		},
+		dataType : 'json'
+		
+	})
+
+}
+
+function listPage(cpage){
+	$.ajax({
+		
+		url : '/CommitProject/NoticeList.do',
+		data : {"page" : cpage},
+		type : 'get',
+		success : function(res){
+			
+		},
+		error : function(xhr){
+			alrert("상태 : " + xhr.status);
+		},
+		dataType : 'json'
+	})
+	
+	
+	
+	
+}
+
+
+
+
+
+
+

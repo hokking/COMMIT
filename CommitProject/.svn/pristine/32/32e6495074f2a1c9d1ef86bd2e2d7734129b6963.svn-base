@@ -1,0 +1,179 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+    <!DOCTYPE html>
+<html lang="kr">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+ 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  
+  <style type="text/css">
+  .ziptr:hover{
+  	background: lime;
+  }
+  </style>
+  <script type="text/javascript">
+  $(function(){
+	  
+	  	
+	  
+	   
+	// 우편번호 검색-modal. modal창에서 검색버튼 클릭하면
+	$('#but').on('click', function(){
+		dongvalue = $('#dong').val().trim();
+		
+		
+		if(dongvalue.length <1){
+			alert("입력하세요");
+			return false;
+		}
+		// 서버로 전송하기
+		$.ajax({
+			/* jqpro는 contextpath와 동일 */
+			url : "<%= request.getContextPath()%>/ZipSearch.do",
+			data: {"dong" : dongvalue},
+			type : 'post',
+			success : function(res){
+				str ="<table>"
+				str += "<tr><td>우편번호</td>";
+				str += "<td>주소</td><td>번지</td></tr>"
+				$.each(res, function(i, v){
+					
+					str += "<tr class = 'ziptr'><td>"+res[i].zipcode+"</td>";
+					str += "<td>"+v.addr+"</td><td>"+v.bunji+"</td></tr>"
+					
+				})
+				str+="</table>";
+				
+				$('#result').html(str);
+			},
+			error : function(xhr){
+				alert("상태: "+ xhr.status)
+			},
+			dataType : 'json'
+			
+		})
+	}) 
+	
+	
+	$(document).on('click','.ziptr', function(){
+		zip = $('td:eq(0)', this).text();
+		addr = $('td:eq(1)', this).text();
+		
+		// 부모의 input창의 넣는다,,
+		$('#zip').val(zip);
+		$('#add1').val(addr);
+		
+		
+		// 실행결과 지우기
+		
+	/* 	$('#dong').val("");
+		$('#result').empty(); */
+		
+		$('#myModal').modal('hide');
+				
+	})
+	
+	// 모달닫는 이벤트 - 실행결과 지우기
+	  $("#myModal").on('hide.bs.modal', function(){
+		  $('#dong').val("");
+		  $('#result').empty();
+	  });
+		  
+	  /* 가입-저장하기  */
+	  $('form').on('submit', function(){
+		/*  alert("submit"); */
+			  
+		//입력한 모든 값 가져오기 - 정규식
+		console.log($('form').serialize());
+		console.log($('form').serializeArray());
+		console.log($('form').serializeJSON());
+	 	
+		if(!regkeyup()) return false;
+		
+		// 각 항목에 대한 정규식이 통과되면 서버로 전송
+		$.ajax({
+			url : '/jqpro/Insert.do',
+			data: $('form').serializeArray(),
+			type : 'post',
+			success : function(res){
+				
+			},
+			error : function(xhr){
+				alert("상태: "+ xhr.status);
+			},
+			dataType : 'json'
+			
+		}) 
+	 })
+  })
+  
+  </script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Horizontal form</h2>
+  <form class="form-horizontal" onsubmit = "return false;">
+  
+   
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="zip">우편번호</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" id="zip" placeholder="Enter zip" name="mem_zip">
+      </div>
+     
+       
+       <input type="button" class="btn" data-toggle="modal" data-target="#myModal">번호검색modal</input>
+    </div>
+    
+  
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">제출</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog"> <!--  modal-lg -->
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="modal-title"><p id="hi">반가워요</p> <p id="come">커밋으로 come IT!</p></div>
+        </div>
+        <div class="modal-body">
+        	<h3>찾는 동이름을 입력하세요</h3>
+			<input type= "text" name="dong" id="dong">
+			<button type = "button" id ="but">검색</button>
+			<br><br>
+			<div id = "result">
+			</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+</body>
+</html>
+
+
+
+
+    

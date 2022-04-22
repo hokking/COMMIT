@@ -1,0 +1,101 @@
+<%@page import="kr.or.ddit.commit.vo.FreerepleVO"%>
+<%@page import="kr.or.ddit.commit.service.FreeRepleServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFreeRepleService"%>
+<%@page import="kr.or.ddit.commit.vo.FreedomVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.FreedomServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFreedomService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+
+<script>
+$(function(){
+	$('#tomain').on('click',function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomMain.jsp";
+	})
+
+	$('#reple_write').on('click',function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomDetail.jsp";
+	})
+	
+	$('#board_write').on('click', function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomBoard.jsp";
+	})	
+})
+
+</script>
+
+
+</head>
+<body>
+
+<br>
+<div>
+	<button type="button" id="tomain">목록으로 돌아가기</button>
+</div>
+
+<% 
+	String search_select = request.getParameter("search_select");
+	String search_text = request.getParameter("search_text");
+%>
+
+<br>
+<%=search_text%>(으)로 검색한 게시글입니다.
+<br>
+<%=search_select%>
+<%
+	IFreedomService service = FreedomServiceImpl.getService();
+
+	List<FreedomVO> list = null;
+	
+	if(search_select.equals("1")){
+		list = service.searchTitleFreeBoard(search_text);  
+		
+	}else {  
+		list = service.searchMemIdFreeBoard(search_text);
+	}
+	
+%>
+
+<table>
+<tr>
+<th>No</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th>
+</tr>
+
+<%
+if(list != null) {
+	for(FreedomVO vo : list ){
+
+%>
+
+<tr>
+	<td><%=vo.getFreedom_num() %></td>
+	<td><a href="<%= request.getContextPath() %>/freedom/freedomDetail.jsp"><%=vo.getFreedom_title() %></a></td>
+	<td><%=vo.getMem_id() %></td>
+	<td><%=vo.getFreedom_date().substring(0, 10) %></td>
+	<td><%=vo.getFreedom_view() %></td>
+</tr>
+
+<%
+	}
+} else {	
+%>
+</table>
+<h4>게시물이 없습니다</h4>
+
+<%
+}
+%>
+
+
+</body>
+</html>

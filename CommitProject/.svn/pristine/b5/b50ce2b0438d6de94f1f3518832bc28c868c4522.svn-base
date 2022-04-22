@@ -1,0 +1,27 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.commit.vo.RecruitVO;
+
+public interface IRecruitDao {
+	// 채용공고 전체 출력
+	public List<RecruitVO> selectAllRecruit() throws SQLException;
+	
+	// 채용공고 지역 필터 출력
+	public List<RecruitVO> selectRegRecruit(int regNum) throws SQLException;
+	
+	// 채용공고 일 필터 출력
+	public List<RecruitVO> selectJobRecruit(int workNum) throws SQLException;
+	
+	// 채용공고 지역일 필터 출력
+	public List<RecruitVO> selectRJRecruit(Map<String, Integer> map) throws SQLException;
+	
+	// 채용공고 선택한거 출력
+	public RecruitVO selectRecruit(int recruitNum) throws SQLException;
+	
+	// 채용공고 등록
+	public void insertRecruit(RecruitVO vo) throws SQLException;
+}

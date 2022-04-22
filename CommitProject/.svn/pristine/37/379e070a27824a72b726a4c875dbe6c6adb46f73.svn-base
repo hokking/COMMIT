@@ -1,0 +1,47 @@
+<%@page import="kr.or.ddit.commit.vo.CompanyVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.CompanyInfoServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.ICompanyInfoService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+	List<CompanyVO> list = (List<CompanyVO>)request.getAttribute("comList");
+	if(list == null){
+		ICompanyInfoService service = CompanyInfoServiceImpl.getInstance();
+		list = service.companyInfoAll();		
+	}
+%>
+<table border="1">
+	<tr>
+		<th>No</th>
+		<th>기업 명</th>
+	</tr>
+<%
+	if(list != null){
+		for(int i = 0; i < list.size(); i++){
+%>
+	<tr>
+		<td><%=i+1 %></td>
+		<td><a href="<%=request.getContextPath()%>/companyinfo/companyDetail.jsp?mem_id=<%=list.get(i).getMem_id() %>"><%=list.get(i).getCom_name() %></a></td>
+	</tr>		
+<%
+		}
+	} else {
+%>
+	<tr>
+		<td colspan="2">등록된 기업이 없습니다.</td>
+	</tr>
+<%
+	}
+%>
+</table>
+
+</body>
+</html>

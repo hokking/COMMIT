@@ -1,0 +1,197 @@
+<%@page import="kr.or.ddit.commit.vo.JobworkVO"%>
+<%@page import="kr.or.ddit.commit.service.JobworkServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IJobworkService"%>
+<%@page import="kr.or.ddit.commit.service.RegionServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IRegionService"%>
+<%@page import="kr.or.ddit.commit.vo.RegionVO"%>
+<%@page import="kr.or.ddit.commit.vo.HrVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.HrServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IHrService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<title>인재풀 메인</title>
+<style type="text/css">
+.container{
+	margin-top:20px;
+	margin-bottom: 10px;
+	width: 1000px;
+}
+
+h1{
+	margin-left : 10px;
+}
+table{
+	margin-left : 10px;
+	width : 600px;
+}
+
+tr, th, td{
+	text-align : center;
+}
+
+
+</style>
+
+<script type="text/javascript">
+	$(function(){
+		$('input:checkbox').on('change', function() {
+			rchk_arr = new Array();
+			jchk_arr = new Array();
+			
+			$('input:checkbox[name=regchk]:checked').each(function() {
+				var chk = $(this).val();
+				if(chk == 'all') {
+					rchk_arr = new Array();
+					return false;
+				}
+				rchk_arr.push(chk);
+			})
+			
+			$('input:checkbox[name=jwchk]:checked').each(function() {
+				var chk = $(this).val();
+				if(chk == "all") {
+					jchk_arr = new Array();
+					return false;
+				}
+				jchk_arr.push(chk);
+			})
+			console.log(rchk_arr);
+			console.log(jchk_arr);
+			$.ajax({
+				url : '<%=request.getContextPath()%>/hrFilter.do',
+				data : {
+					"jarr" : jchk_arr,
+					"rarr" : rchk_arr
+				},
+				type : 'get',
+				success : function(res){
+					str = "<table border = '1'>";
+					$.each(res, function(i,v){
+					str += "<tr><th>지역</th><th>포지션</th><th>제목</th></tr>"
+					str += "<tr><td>" + v.resume_area + "<td>"	
+					str += "<td>" + v.resume_job + "<td>"	
+					str += "<td><a href='<%=request.getContextPath()%>/hr/hrDetail.jsp?resume_num=" + v.resume_title + "'</a></td></tr>"	
+					})
+				str += "</table>";
+				$('#hrlist').html(str);
+				},
+				dataType : 'json'
+				
+			})
+			
+		})
+		$('#rall').on('click', function() {
+			if ($('#rall').is(':checked')) {
+				$('input[name=regchk]:checkbox').prop('checked', true);
+			} else {
+				$('input[name=regchk]:checkbox').prop('checked', false);
+			}
+		})
+		$('#jall').on('click', function() {
+			if ($('#jall').is(':checked')) {
+				$('input[name=jwchk]:checkbox').prop('checked', true);
+			} else {
+				$('input[name=jwchk]:checkbox').prop('checked', false);
+			}
+		})		
+		
+		
+		
+	})
+
+
+</script>
+
+
+</head>
+<body>
+<%
+	IHrService hservice = HrServiceImpl.getInstance();
+	List<HrVO> hlist = hservice.getAllhr();
+	
+	IRegionService rservice = RegionServiceImpl.getInstance();
+	List<RegionVO> rlist = rservice.selectAllRegion();
+	
+	IJobworkService jservice = JobworkServiceImpl.getInstance();
+	List<JobworkVO> jlist = jservice.selectAllJobwork();
+	
+
+%>		
+
+<article>
+	<h1><b>인재풀</b></h1>
+      <div class="container">	
+		<div class="dropdown" style="float: left;">
+            <button class="btn btn-default dropdown-toggle" type="button"
+               id="menu1" data-toggle="dropdown">
+               	지역 <span class="caret"></span>
+            </button>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+               <li role="presentation">
+                   <li><input role="menuitem" tabindex="-1" type="checkbox" id="rall" name="regchk" value="all"> 전체</li>
+<%
+            for(RegionVO rg : rlist) {
+%>
+                   <li><input role="menuitem" tabindex="-1" type="checkbox" name="regchk" id="<%= rg.getReg_num() %>" value="<%= rg.getReg_num() %>"> <%= rg.getReg_name() %></li>
+<%
+            }
+%>
+			</ul>
+         </div>
+         <div class="dropdown" style="float: left;">
+            <button class="btn btn-default dropdown-toggle" type="button"
+               id="menu1" data-toggle="dropdown">
+               	포지션 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+               <li role="presentation">
+                   <li><input role="menuitem" tabindex="-1" type="checkbox" id="jall" name="jwchk" value="all"> 전체</li>
+<%
+            for(JobworkVO jw : jlist) {
+%>
+                   <li><input role="menuitem" tabindex="-1" type="checkbox" 
+                   name="jwchk" id="<%= jw.getWork_num() %>" value="<%= jw.getWork_num() %>"> 
+                   <%= jw.getWork_name() %> </li>
+<%
+            }
+%>
+            </ul>
+         </div>
+		</div>         
+		<br>
+		<div id="hrlist">
+			<table border='1'>
+			
+		<tr>
+			<th>지역</th><th>포지션</th><th>제목</th>
+		</tr>	
+<%
+		for(HrVO hvo : hlist){
+%>			
+		<tr>
+			<td><%=hvo.getResume_area() %></td>
+			<td><%=hvo.getResume_job() %></td>
+			<td><a href="<%=request.getContextPath() %>/hr/hrDetail.jsp?resume_num=<%=hvo.getResume_num()%>"><%=hvo.getResume_title() %></a></td>
+		</tr>
+		<%
+		}
+		%>	
+			</table>
+
+	</div>
+
+         
+			
+</article>	
+
+</body>
+</html>

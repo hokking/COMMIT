@@ -1,0 +1,12 @@
+package kr.or.ddit.commit.service;
+
+import java.util.List;
+
+import kr.or.ddit.commit.vo.FreeRepleVO;
+
+public interface IFreeRepleService {
+	
+	public List<FreeRepleVO> selectAllFreeReple();
+	
+
+}

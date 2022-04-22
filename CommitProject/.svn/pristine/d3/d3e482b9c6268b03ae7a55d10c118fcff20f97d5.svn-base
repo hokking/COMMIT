@@ -1,0 +1,84 @@
+/**
+ * 
+ */
+
+function saveNotice(){
+	$.ajax({
+		
+		url : '/CommitProject/NoticeInsert.do',
+		data : data,
+		type : 'post',
+		success : function(res){
+			//modal 닫기
+			$('#myModal').modal('hide');
+			
+			//modal 안의 입력 내용 지우기
+			$('.intxt').val("");
+			location.href = "/CommitProject/notice/noticemain.jsp"
+		},
+		error : function(xhr){
+			alert("상태 : " + xhr.status);
+		},
+		dataType : 'json'
+	})
+}
+
+function updateNotice(){
+	$.ajax({
+		
+		url : '/CommitProject/NoticeUpdate.do',
+		data : data,
+		type : 'post',
+		success : function(res){
+			alert(res.sw);
+			
+			//화면수정 - modal창에 입력된 값을 가져오기
+			title = $('#myModal input[name=subject]').val();
+			content = $('#myModal textarea').val(); //\r\n이 포함
+	 		content = content.replace(/\r/g,"").replace(/\n/g, "<br>");
+	 		
+	 		//화면에 출력하기
+	 		
+	 		//modal 안의 입력 내용 지우기
+	 		$('#myModal .intxt').text("");
+	 		
+			//modal 닫기
+			$('#myModal').modal('hide');
+			location.href = "/CommitProject/notice/noticedetail.jsp"
+		},
+		error :  function(xhr){
+			alrert("상태 : " + xhr.status);
+		},
+		dataType : 'json'
+		
+	})
+	
+}
+
+function deleteNotice(){
+	
+	$.ajax({
+		
+		url : '/CommitProject/NoticeDelete.do',
+		type : 'post',
+		success : function(res){
+			alert(res.sw);
+			location.href = "/CommitProject/notice/noticedetail.jsp"
+		},
+		error : function(xhr){
+			alert("상태 : " + xhr.status);
+		},
+		dataType : 'json'
+	})
+}
+
+
+
+
+
+
+
+
+
+
+

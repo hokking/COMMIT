@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
+<script>
+$(function(){
+	$('#searchbtn').on('click', function(){
+		search = $('#companysearch').val();
+		$("#comifr").attr("src", "<%=request.getContextPath()%>/searchCompany.do?comname=" + search);
+	})
+})
+</script>
+
+</head>
+<body>
+<div>
+	<input type="text" name="companysearch" id="companysearch">
+	<button type="button" id="searchbtn" >검색</button>
+</div>
+<iframe id="comifr" name="comifr" src="<%=request.getContextPath() %>/companyinfo/companyAll.jsp" style="width:1500px; height: 1500px; border: 0;">
+</iframe>
+</body>
+</html>

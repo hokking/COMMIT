@@ -1,0 +1,398 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+body,ul,li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/*라이브러리*/
+html,body {
+  overflow-x : hidden;
+}
+.con {
+  margin: 0 auto;
+}
+.row::after {
+  content:"";
+  display: block;
+  clear: both;
+}
+.cell {
+  float: left;
+}
+.img-box img {
+  display: block;
+  width: 100%;
+}
+
+/*커스텀*/
+
+.con {
+  max-width: 1200px;
+}
+
+/*사이드 메뉴 바*/
+.side-menu-button {
+  display: none;
+}
+@media (max-width: 1400px) {
+  .side-menu-button {
+    display: block;
+  }
+}
+/*사이드 메뉴 버튼*/
+.side-menu-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  
+}
+.side-menu-button .img-box {
+  margin-top: 30px;
+  width: 20px;
+}
+/*사이드 메뉴 박스*/
+.side-menu-button:hover .side-menu-bar {
+  left: 0;
+}
+.side-menu-bar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  height: 100%;
+  width: 300px;
+  background-color: white;
+  box-sizing: border-box;
+  z-index:3;
+  transition: left 1s;
+}
+.side-menu-bar .side-menu-box ul > li {
+  position: relative;
+  background-color: #dfdfdf;
+}
+.side-menu-bar .side-menu-box > ul {
+  margin-top: 40px;
+}
+.side-menu-bar .side-menu-box ul > li > a {
+  display: block;
+  padding: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.side-menu-bar .side-menu-box > ul > li > a {
+  padding-left: 40px;
+}
+.side-menu-bar .side-menu-box ul > li:hover > a {
+  color: white;
+  background-color:  #93D8D9;
+}
+.side-menu-bar .side-menu-box ul ul {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+.side-menu-bar .side-menu-box ul > li:hover > ul {
+  display: block;
+}
+
+
+
+
+#logoimg {
+	width: 100px;
+	height: 30px;
+	
+}
+
+#blogo{
+	border: 0px;
+	background: white;
+	outline: none;
+}
+#logo{
+	
+	padding-top: 45px;
+	padding-left: 90px;
+}
+#my{
+	padding-left: 150px;
+	padding-top: 50px;
+	margin-top: 50px;
+	background: #FAFAFA;
+	border-radius: 15px;
+	border: 2px solid #93D8D9;
+	
+}
+.bmain{
+	border-radius: 15px;
+	background: #93D8D9;
+	width: 200px;
+	height: 100px;
+	font-size: 20px;
+	color: white;
+	border: 0px;
+	outline: none;
+	margin-top: 20px;
+}
+.box {
+    width: 150px;
+    height: 150px; 
+    border-radius: 70%;
+    overflow: hidden;
+    border: 2px solid #93D8D9;
+    display: inline-block;
+}
+.profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#mainb{
+	
+	width: 80%;
+	float: right;
+}
+
+#nu{
+	
+	 width: 70%;
+	 float: right;
+	 padding-right: 190px;
+	
+}
+
+.nt {
+	border: 0px;
+	background: white;
+	outline: none;
+	/* border : 2px solid red; */
+	float: left;
+	margin-right: 25px;
+	margin-left: 25px;
+	
+	font-size: 15px;
+	font-weight: bold;
+	
+	letter-spacing: 0;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	
+}
+
+.nt:hover,
+.nt:focus,
+.nt:active {
+	letter-spacing: 5px;
+}
+.nt:after,
+.nt:before {
+	border: 1px solid rgba(255, 255, 255, 0);
+	bottom: 0;
+	content: " ";
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	width: 0;
+}
+.nt:hover:after,
+.nt:hover:before {
+	border-color: #93D8D9;
+	-webkit-transition: width 350ms ease-in-out;
+	transition: width 350ms ease-in-out;
+	width: 80%;
+}
+.nt:hover:before {
+	bottom: auto;
+	top: 0;
+}
+
+.inputs{
+
+	width: 300px;
+	height: 40px;
+
+}
+
+</style>
+<script type="text/javascript">
+$(function(){
+	
+	  $('#insert').on('click',function(){
+		  data=  $('#recruitInsert').serializeArray();
+	      $.ajax({
+	         url : '/CommitProject/ResumeInsert.do',
+	         data : data,
+	         type : 'post',
+	         success : function(res) {
+	         },
+	         dataType : 'json'
+	      })
+	     <%--  location.href="<%=request.getContextPath()%>/freedom/freedomMain.jsp"; --%>
+	   })
+	   
+})
+	
+</script>
+
+</head>
+<body>
+
+<div class="side-menu-button">
+  <div class="img-box">
+    <img src="사이드바.png" alt="">
+  </div>
+  <div class="side-menu-bar">
+    <nav class="side-menu-box">
+      <ul>
+        <li>
+          <a href="#">MyHome</a>
+        </li>
+        <li>
+          <a href="#">이력서</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">지원현황</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">관심공고/기업</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">개인정보관리</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+    </nav>
+  </div>
+</div>
+
+
+
+<div class="prod-list-bar con">
+
+  <div class="prod-list-box">
+  
+    <div id="logo">
+  <button onclick="location.href='<%=request.getContextPath() %>/board/main.jsp'" type="button" id="blogo" href="main.jsp">
+	<img  style='cursor:pointer' id="logoimg" alt="로고.png" src="<%=request.getContextPath() %>/images/심플로고1.PNG">
+	</button>
+	
+	<div id ="nu">
+	  	<button style='cursor:pointer' onclick="location.href='<%=request.getContextPath() %>/recruit/recruitMain.jsp'" type="button" class="nt">채용공고</button>
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">회사정보</button>
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">인재풀</button>
+		<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">커뮤니티</button>
+    </div>
+    
+	</div>
+
+	
+	<form>
+	<div id="my">
+  	 		
+  	 	
+  	 	<h1>유저네임을 가져옵니다,,</h1>
+  	 	<input class="inputs" id="title" type="text" placeholder="이력서 제목을 입력하세요"><br><br>
+  	 	📧유저이메일을 가져옵니다,,<br>
+  	 	📞<input id="tel" type ="text" placeholder="010-1234-1234"><br>
+  		🏴‍☠️ <select  id="area" name='area'>
+			  <option selected>-- 지역 --</option>
+			  <option value="대전">대전</option>
+			  <option value="서울">서울</option>
+			  <option value="경기">경기</option>
+			  <option value="제주">제주</option>
+			  <option value="광주">광주</option>
+			  <option value="세종">세종</option>
+			  <option value="경상">경상</option>
+			  <option value="충청">충청</option>
+			  <option value="인천">인천</option>
+			  <option value="부산">부산</option>
+			  <option value="대구">대구</option>
+			  <option value="울산">울산</option>
+			  <option value="강원">강원</option>
+			  <option value="전라">전라</option>
+		  </select>
+  	 	<br>
+  	 	💼<select id="career" name='career'>
+			  <option value='' selected>-- 경력 --</option>
+			  <option>신입</option>
+			  <option value="1">1년차</option>
+			  <option value="2">2년차</option>
+			  <option value="3">3년차</option>
+			  <option value="4">4년차</option>
+			  <option value="5">5년차</option>
+			  <option value="6">6년차</option>
+			  <option value="7">7년차</option>
+			  <option value="8">8년차</option>
+			  <option value="9">9년차</option>
+			  <option value="10">10년차 이상</option>
+		  </select><br><br>
+		  
+  	 	<h2>기술스택/직무</h2>
+  	 	<font size = "4"><b>기술스택</b></font><br>
+  	 	<input class="inputs" id="skill" type="text" placeholder="ex. javascript"><br><br>
+  	 	<font id = "job" size = "4"><b>직무</b></font><br>
+  	 	<input class="inputs" type="text" placeholder="프론트엔드"><br><br>
+  	 	
+  	 	<h2>학력</h2>
+  	 	<font  class="inputs" size = "4"><b>학교명</b></font>
+  	 	<font size = "4"><b>학과명</b></font><br><br>
+  	 	<input  class="inputs" id="school" type="text" placeholder="ex. 옹기대학교">
+  	 	<input  class="inputs" id="major" type="text" placeholder="컴퓨터공학과"><br><br>
+  	 	<font size = "4"><b>학점</b></font><br>
+  	 	<input  class="inputs" id="score" type="text" placeholder="ex. 1.0/4.5"><br><br>
+  	 	
+  	 	<h2>자기소개서</h2>
+  	 	<textarea id="self" rows="10" cols="50">뭐라도 써보슈</textarea>
+		<br>
+		
+		<h2>포트폴리오</h2>
+		<input id="portpolio" type="file"><br><br>
+		
+		<input id="insert" type="button" value="저장">
+	</div>
+	</form>
+	
+	</div>
+  
+  
+</div>
+</body>
+</html>

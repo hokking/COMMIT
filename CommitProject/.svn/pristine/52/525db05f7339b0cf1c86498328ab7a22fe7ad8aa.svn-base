@@ -1,0 +1,13 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.commit.vo.RecruitVO;
+
+public interface IRecruitDao {
+	
+	public List<RecruitVO> selectAllRecruit() throws SQLException;
+	
+	public RecruitVO selectRecruit(int recruitNum) throws SQLException;
+}

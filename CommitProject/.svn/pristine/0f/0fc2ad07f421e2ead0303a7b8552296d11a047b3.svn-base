@@ -1,0 +1,15 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.commit.vo.HrVO;
+
+public interface IHrDao {
+	
+	public List<HrVO> getAllhr() throws SQLException;
+		
+	public HrVO detailhr(int no) throws SQLException;
+
+
+}

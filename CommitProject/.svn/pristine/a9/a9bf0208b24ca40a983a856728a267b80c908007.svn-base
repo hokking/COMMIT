@@ -1,0 +1,133 @@
+<%@page import="kr.or.ddit.commit.vo.FreerepleVO"%>
+<%@page import="kr.or.ddit.commit.service.FreeRepleServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFreeRepleService"%>
+<%@page import="kr.or.ddit.commit.vo.FreedomVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.FreedomServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFreedomService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+
+<script>
+$(function(){
+	$('#tomain').on('click',function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomMain.jsp";
+	})
+
+	$('#reple_write').on('click',function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomDetail.jsp";
+	})
+	
+	$('#board_write').on('click', function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomBoard.jsp";
+	})	
+})
+
+</script>
+
+
+</head>
+<body>
+
+<% 
+	String a = request.getParameterValues("search_select");
+	String title_search = request.getParameter("search_text");
+%>
+<%=search_text%>(으)로 검색한 게시글입니다.
+
+
+
+<%
+	IFreedomService service = FreedomServiceImpl.getService();
+	List<FreedomVO> list = service.selectAllFreeBoard();
+	
+%>
+
+<%
+if(list != null) {
+	for(FreedomVO vo : list ){
+
+%>
+
+<table>
+<tr><th>No</th><td><%=vo.getFreedom_num() %></td></tr>
+<tr><th>제목</th><td><%=vo.getFreedom_title() %></td></tr>
+<tr><th>작성자</th><td><%=vo.getMem_id() %></td></tr>
+<tr><th>작성일</th><td><%=vo.getFreedom_date().substring(0, 10) %></td></tr>
+<tr><th>조회수</th><td><%=vo.getFreedom_view() %></td></tr>
+<tr><th>내용</th><td><%=vo.getFreedom_con() %></td></tr>
+</table>
+<br>
+<div>	
+	<button type="button" id="board_write">게시글 작성</button>
+	<button type="button" id="tomain">목록으로 돌아가기</button>
+</div>
+
+<%
+	}
+} else {	
+%>
+<h4>게시물이 없습니다</h4>
+
+<%
+}
+%>
+
+
+
+<%
+ 	IFreeRepleService service2 = FreeRepleServiceImpl .getService(); 
+ 	List<FreerepleVO> list2 = service2.selectAllFreeReple();
+%>
+
+<%
+if(list2 != null) {
+	for(FreerepleVO vo : list2 ){
+
+%>
+
+<br>
+<br>
+<table>
+<tr><td>#댓글#</td></tr>
+<tr><th>No</th><td><%=vo.getReple_num() %></td></tr>
+<tr><th>작성자</th><td><%=vo.getMem_id() %></td></tr>
+<tr><th>작성일</th><td><%=vo.getReple_date().substring(0, 10) %></td></tr>
+<tr><th>내용</th><td><%=vo.getReple_con() %></td></tr>
+</table>
+<br>
+<br>
+
+<%
+	}
+} else {	
+%>
+
+<br>
+<h4>댓글이 없습니다</h4>
+
+<%
+}
+%>
+
+<div>
+	<textarea placeholder="댓글을 입력해주세요"></textarea>
+</div>
+<div>	
+	<button type="button" id="reple_write">댓글 작성</button>
+	<button type="button" id="reple_update">댓글 수정</button>
+	<button type="button" id="reple_delete">댓글 삭제</button>
+</div>
+
+
+</body>
+</html>

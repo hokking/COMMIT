@@ -1,0 +1,33 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.or.ddit.commit.vo.FreerepleVO;
+import kr.or.ddit.ibatis.config.SqlMapClientFactory;
+
+public class FreeRepleDaoImpl implements IFreeRepleDao{
+
+	private SqlMapClient client;
+	private static IFreeRepleDao dao;
+	
+	public FreeRepleDaoImpl() {
+		client = SqlMapClientFactory.getSqlMapClient();
+	}
+	
+	public static IFreeRepleDao getDao() {
+		if(dao ==null) dao = new FreeRepleDaoImpl();
+		return dao;
+	}
+
+	@Override
+	public List<FreerepleVO> selectAllFreeReple() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

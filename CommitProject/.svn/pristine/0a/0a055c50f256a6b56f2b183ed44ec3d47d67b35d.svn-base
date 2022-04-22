@@ -1,0 +1,9 @@
+package kr.or.ddit.commit.service;
+
+import kr.or.ddit.commit.vo.JobapplyVO;
+
+public interface IApplyResumeService {
+	
+	public void insertApply(JobapplyVO vo);
+
+}

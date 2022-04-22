@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="company">
+	<select id="companyInfoAll" resultClass="CompanyVO">
+		select * from company
+	</select>
+	
+	<select id="companyDetail" resultClass="CompanyVO" parameterClass="String">
+		select * from company where mem_id = #mem_id#
+	</select>
+	
+	<select id="searchCompany" resultClass="CompanyVO" parameterClass="String">
+		select * from company where com_name like '%'||#com_name#||'%'	
+	</select>
+	
+	<update id="companyUpdate" parameterClass="map">
+		update company set com_name=#name#, com_num=#num#, com_url=#url#, com_tel=#tel#, com_ceo=#ceo#
+		where mem_id = #id#
+	</update>
+	<update id="companyUpdatepass" parameterClass="map">
+		update member set member_pass=#pass#
+		where mem_id = #id#
+	</update>
+	
+</sqlMap>

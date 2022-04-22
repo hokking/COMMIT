@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<!-- 
+회원 정보 조회 및 삭제
+- 회원 관리 버튼(구직자, 회사)
+- 회원 목록
+- 회원마다 우측에 조회버튼 > 상세조회
+- 회원상세페이지 - 하단에 삭제버튼
+ -->
+
+<div>관리자 페이지 입니다.</div>
+
+
+
+</body>
+</html>

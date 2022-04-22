@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="join">
+
+	<select id="checkId" resultClass="String" parameterClass="String">
+		select mem_id from member where mem_id=#mem_id#
+	</select>
+	
+	<select id="selectByDong" resultClass="ZipVO" parameterClass="String">
+		select * from ziptb where dong like #data#||'%'
+	</select>
+	
+	<insert id="memberJoin" parameterClass="MemberVO">
+		insert into member values (#mem_id#, #mem_pass#, #mem_num#)
+		
+		<selectKey keyProperty="mem_id" resultClass="String" type="post">
+			select mem_id from member where mem_id=#mem_id#
+		</selectKey>
+	</insert>
+	
+	<insert id="workerJoin" parameterClass="WorkerVO">
+		insert into worker values (#mem_id#, #mem_name#, #mem_gender#, #mem_bir#, #mem_addr#, #mem_tel#)
+		
+		<selectKey keyProperty="mem_id" resultClass="String" type="post">
+			select mem_id from worker where mem_id=#mem_id#
+		</selectKey>
+	</insert>
+	<insert id="companyJoin" parameterClass="CompanyVO">
+		insert into company 
+		values (#mem_id#, #com_num#, #com_name#, #com_tel#, #com_url#, #com_addr#, null, #com_ceo#, #com_img#, #com_job#, #com_div#, #com_bir#, #com_sales#, #com_income#, #com_memnum#)
+		
+		<selectKey keyProperty="mem_id" resultClass="String" type="post">
+			select mem_id from company where mem_id=#mem_id#
+		</selectKey>
+	</insert>
+
+
+</sqlMap>

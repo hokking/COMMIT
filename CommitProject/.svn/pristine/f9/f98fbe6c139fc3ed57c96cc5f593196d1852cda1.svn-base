@@ -1,0 +1,44 @@
+package kr.or.ddit.commit.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ddit.commit.service.IRecruitService;
+import kr.or.ddit.commit.service.IRegionService;
+import kr.or.ddit.commit.service.RecruitServiceImpl;
+import kr.or.ddit.commit.service.RegionServiceImpl;
+import kr.or.ddit.commit.vo.RecruitVO;
+
+@WebServlet("/recruitInsert.do")
+public class RecruitInsert extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
+		RecruitVO recruitVo = new RecruitVO();
+		
+		recruitVo.setMem_id("b001");
+		recruitVo.setRecruit_name(request.getParameter("title"));
+		recruitVo.setRecruit_start(request.getParameter("sdate"));
+		recruitVo.setRecruit_end(request.getParameter("edate"));
+		recruitVo.setRecruit_spec(request.getParameter("spec"));
+		recruitVo.setRecruit_duty(request.getParameter("duty"));
+		recruitVo.setRecruit_qlt(request.getParameter("qlt"));
+		recruitVo.setRecruit_bnf(request.getParameter("bnf"));
+		recruitVo.setWork_num(Integer.parseInt(request.getParameter("pst")));
+		recruitVo.setReg_num(Integer.parseInt(request.getParameter("reg")));
+		recruitVo.setPay_num(1);
+		
+		IRecruitService service = RecruitServiceImpl.getInstance();
+		
+		service.insertRecruit(recruitVo);
+		
+		request.getRequestDispatcher(request.getContextPath() + "recruit/recruitInsert.jsp").forward(request, response);
+	}
+
+}

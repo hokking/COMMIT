@@ -1,0 +1,57 @@
+<%@page import="kr.or.ddit.commit.service.RecruitServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IRecruitService"%>
+<%@page import="kr.or.ddit.commit.vo.RecruitVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>채용 공고</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script>
+	$(function() {		
+		$('#insertR').on('click', function () {
+			location.href="<%=request.getContextPath()%>/recruit/recruitInsert.jsp";
+		})
+	})
+</script>
+</head>
+<body>
+<%
+	IRecruitService service = RecruitServiceImpl.getInstance();
+
+	List<RecruitVO> recruitList = service.selectAllRecruit();
+%>
+	<input type="button" id="insertR" value="채용 공고 등록">
+	<div class="option">
+		<select>
+			<option>서울</option>
+		</select>
+	</div>
+	<table border="1">
+<%
+	if(recruitList != null) {
+		for(RecruitVO r : recruitList) {
+%>
+		<tr>
+			<td><a href="<%= request.getContextPath()%>/recruitDetail.do?recruit_num=<%= r.getRecruit_num()%>">
+				<%= r.getRecruit_name() %><br>
+				<%= r.getRecruit_spec() %>
+			</a></td>
+		</tr>
+<%
+		}
+	} else {
+%>
+		<tr>
+			<td>공고가 없습니다.</td>
+		</tr>
+<%
+	}
+%>
+	</table>
+	
+</body>
+</html>

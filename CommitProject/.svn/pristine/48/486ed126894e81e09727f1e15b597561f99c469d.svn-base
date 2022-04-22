@@ -1,0 +1,57 @@
+<%@page import="kr.or.ddit.commit.vo.FreedomVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.FreedomServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFreedomService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+	IFreedomService service = FreedomServiceImpl.getService();
+	List<FreedomVO> list = service.selectAllFreeBoard();
+	
+%>
+
+<%
+if(list != null) {
+	for(FreedomVO vo : list ){
+
+%>
+
+<table>
+<tr><th>No</th><td><%=vo.getFreedom_num() %></td></tr>
+<tr><th>제목</th><td><%=vo.getFreedom_title() %></td></tr>
+<tr><th>작성일</th><td><%=vo.getFreedom_date().substring(0, 10) %></td></tr>
+<tr><th>조회수</th><td><%=vo.getFreedom_view() %></td></tr>
+<tr><th>내용</th><td><%=vo.getFreedom_con() %></td></tr>
+</table>
+
+<%
+	}
+} else {	
+%>
+<h4>게시물이 없습니다</h4>
+
+<%
+}
+%>
+
+<table>
+<%-- <tr><th>No</th><td><%=vo.getFreedom_num() %></td></tr> --%>
+<%-- <tr><th>제목</th><td><%=vo.getFreedom_title() %></td></tr> --%>
+<%-- <tr><th>작성일</th><td><%=vo.getFreedom_date().substring(0, 10) %></td></tr> --%>
+<%-- <tr><th>조회수</th><td><%=vo.getFreedom_view() %></td></tr> --%>
+<%-- <tr><th>내용</th><td><%=vo.getFreedom_con() %></td></tr> --%>
+</table>
+
+<button type="button" id="board_write">댓글 작성</button>
+
+
+</body>
+</html>

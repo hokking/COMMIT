@@ -1,0 +1,251 @@
+/**
+ * 
+ */
+
+
+
+function listPage(cpage){
+	
+	 $.ajax({
+//			url : '/CommitProject/manager.do' ,
+			url : '/CommitProject/managerSearch.do' ,
+			data : { "page" :cpage },
+			type : 'get',
+			success : function(res){
+			   code = '<div class="panel-group" id="accordion">';
+			   $.each(res.datas,function(i, v){
+				  code +='<div class="panel panel-default"> ';
+				  code +='	<div class="panel-heading"> ';
+				  code +='		<h4 class="panel-title"> ';
+				  code +='			<a  idx="'+v.id+'"name="list" class="action" data-toggle="collapse" data-parent="#accordion" href="#collapse'+i+'">'+v.id+'</a>';
+				  code +='		</h4>';
+				  code +='	</div>';
+				  code +='	<div id="collapse' + i + '" class="panel-collapse collapse">';
+				  code +='	<div class="panel-body pbody"> ';                                              
+				  code +='		<p class="p1">  ';                                                    
+				  code +='			회원분류 : ' +  v.num ;
+				  code +='		</p>';
+				  code +='		<p class="p2 listp2">';
+				  code +='			회원아이디 : ' +  v.id + '<br>';
+				  code +='			회원비밀번호 : ' +  v.pass + '<br>';
+				  code +='		</p>';
+				  code +='		<p class="p3">';
+				  code +='			<input  idx="' + v.id +'" type="button" name="delete"  class="action" value="삭제">';
+				  code +='			<input  idx="' + v.id +'" type="button" name="detail"  class="action" value="상세보기">';
+				  code +='		</p>';
+				  code +='	</div>';
+				  code +='	</div>';
+				  code +='</div>';
+			   })
+			   code += '</div>';
+			   $('#list').html(code);
+			   
+			   $('#pageList').empty();
+			   
+			   //이전버튼 만들기 
+			   if(res.sp > 1) {
+				  pager='<ul class="pager">';
+				  pager +=' <li><a class="prev" href="#">Previous</a></li>';
+				  pager +=' </ul>';
+				  
+				  $('#pageList').append(pager)
+			   }
+			
+			 //페이지번호 만들기 
+			  pager = '<ul class="pagination pager">';
+			 for(i=res.sp; i<=res.ep; i++){
+				if(currentPage == i) {
+					 pager += '<li class="active"><a class="paging" href="#">' + i + '</a></li>';
+				}else{
+					 pager += '<li><a  class="paging" href="#">' + i + '</a></li>';
+				} 
+			 }
+			  pager += '</ul>';
+			  $('#pageList').append(pager) 
+			
+			 //다음버튼 만들기 
+			  if(res.ep < res.tp){
+				  pager='<ul class="pager">';
+				  pager +=' <li><a class="next" href="#">Next</a></li>';
+				  pager +=' </ul>';
+				  
+				  $('#pageList').append(pager)
+			  }
+			   
+			},
+			error : function(xhr){
+				alert("상태 : " + xhr.status);//200
+	    	},
+	    	dataType : 'json'
+		 })
+}//listPage
+
+function deleteBoard(){
+	$.ajax({
+		url : '/CommitProject/managerDelete.do' ,
+		type : "get",
+		data : {"id" : idx},
+		success : function(res){
+			alert(res.sw);
+			//currentPage 와  totalPage 를 비교 
+		   	
+			if(res.sw == "성공") {
+			    
+				if(currentPage > res.tpage) currentPage = res.tpage;
+			
+			    //다시 전체 리스트 중 currentPage의 리스트을  출력
+			    listPage(currentPage);
+			}
+			
+		},
+		error : function(xhr){
+			alert("상태 :" + xhr.status);
+		},
+		dataType : 'json'
+	})
+}
+
+function detailMember(){
+	
+	$.ajax({
+		url : '/CommitProject/managerDetail.do' ,
+		type : "get",
+		data : {"id" : idx},
+		success : function(res){
+			
+			code = '<div class = "maodal">';
+	
+			if(mem_num==1){				
+				$.each(res.datas, function(i,v){
+					
+						code += '<div class = "modal">';
+						code += 	'<div class = "modal_content" title="클릭하면 창이 닫힙니다.">';
+						code += 	'아이디 : ' + v.id + '<br>';
+						code += 	'이름 : ' + v.name + '<br>';
+						code += 	'성별 : ' + v.gender + '<br>';
+						code += 	'생년월일 : ' + v.bir + '<br>';
+						code += 	'주소 : ' + v.addr + '<br>';
+						code += 	'전화번호 : ' + v.tel + '<br>';
+						code +=		'</div>';
+						code += '</div>';
+					})
+				
+			}else if(mem_num==2){
+				$.each(res.datas, function(i,v){
+					
+					code += '<div class = "modal">';
+					code += 	'<div class = "modal_content" title="클릭하면 창이 닫힙니다.">';
+					code += 	'내용출력';
+					code +=		'</div>';
+					code += '</div>';
+				})
+				
+			}else if(mem_num==3){
+				
+				$.each(res.datas, function(i,v){
+					
+					code += '<div class = "modal">';
+					code += 	'<div class = "modal_content" title="클릭하면 창이 닫힙니다.">';
+					code += 	'관리자는 상세보기 또는 삭제 할 수 없습니다.';
+					code +=		'</div>';
+					code += '</div>';
+				})
+			
+			
+			}
+		
+		},
+		error : function(xhr){
+			alert("상태 :" + xhr.status);
+		},
+		dataType : 'json'
+	})
+}
+
+function searchMember(cpage){
+	
+	$.ajax({
+		url : '/CommitProject/managerSearch.do',
+		type : "get",
+		data : {"page":cpage, "option":option, "text":text},
+		success : function(res){
+			
+			  code = '<div class="panel-group" id="accordion">';
+			
+			  $.each(res.datas,function(i, v){
+		
+				  code +='<div class="panel panel-default"> ';
+				  code +='	<div class="panel-heading"> ';
+				  code +='		<h4 class="panel-title"> ';
+				  code +='			<a  idx="'+v.id+'"name="list" class="action" data-toggle="collapse" data-parent="#accordion" href="#collapse'+i+'">'+v.id+'</a>';
+				  code +='		</h4>';
+				  code +='	</div>';
+				  code +='	<div id="collapse' + i + '" class="panel-collapse collapse">';
+				  code +='	<div class="panel-body pbody"> ';                                              
+				  code +='		<p class="p1">';                                                    
+				  code +='			회원분류 :<span class="wr listwr"> ' + v.num;
+				  code +='		</p>';
+				  code +='		<p class="p2 listp2">';
+				  code +='			회원아이디 : ' +  v.id + '<br>';
+				  code +='			회원비밀번호 : ' +  v.pass + '<br>';
+				  code +='		</p>';
+				  code +='		<p class="p3">';
+				  code +='			<input  idx="' + v.id +'" type="button" name="delete"  class="action" value="삭제">';
+				  code +='			<input  idx="' + v.id +'" type="button" name="detail"  class="action" value="상세보기">';
+				  code +='		</p>';
+				  code +='	</div>';
+				  code +='	</div>';
+				  code +='</div>';
+				  				
+			   })
+			   code += '</div>';
+			   $('#list').html(code);
+			   
+			 //  $('#pageList').empty();
+			   var pager = "";
+			   //이전버튼 만들기 
+			   if(res.sp > 1) {
+				  pager +='<ul class="pager">';
+				  pager +=' <li><a class="prev" href="#">Previous</a></li>';
+				  pager +=' </ul>';
+				  
+//				  $('#pageList').append(pager)
+			   }
+			
+			 //페이지번호 만들기 
+			  pager += '<ul class="pagination pager">';
+			 for(i=res.sp; i<=res.ep; i++){
+				if(cpage == i) {
+					 pager += '<li class="active"><a class="paging" href="#">' + i + '</a></li>';
+				}else{
+					 pager += '<li><a  class="paging" href="#">' + i + '</a></li>';
+				} 
+			 }
+			  pager += '</ul>';
+//			  $('#pageList').append(pager) 
+			
+			 //다음버튼 만들기 
+			  if(res.ep < res.tp){
+				  pager +='<ul class="pager">';
+				  pager +=' <li><a class="next" href="#">Next</a></li>';
+				  pager +=' </ul>';
+				  
+//				  $('#pageList').append(pager)
+			  }
+			  $('#pageList').html(pager)
+			   
+		
+		},
+		error : function(xhr){
+			alert("상태 :" + xhr.status);
+		},
+		dataType : 'json'
+	})
+			
+
+	
+}
+
+
+
+

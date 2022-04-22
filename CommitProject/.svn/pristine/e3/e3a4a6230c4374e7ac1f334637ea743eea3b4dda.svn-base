@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script>
+//024d6ad1cca6e08143bfd68c23308467 앱키
+	Kakao.init('024d6ad1cca6e08143bfd68c23308467');
+
+	function kakaoLogin(){
+		window.Kakao.Auth.login({
+			scope : 'profile_nickname, account_email, gender, age_range', //로그인 동의항목
+			success : function(authObj){
+				console.log(authObj);
+				window.Kakao.API.request({
+					url:'/v2/user/me',
+					success : res => {
+						const kakao_account = res.kakao_account;
+						console.log(kakao_account);
+					}
+				})
+			}
+		});
+		
+	}
+</script>
+</body>
+</html>

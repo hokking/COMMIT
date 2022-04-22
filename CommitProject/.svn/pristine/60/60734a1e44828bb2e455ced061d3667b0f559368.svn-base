@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>채용 공고</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script>
+	$(function() {
+		$.ajax({
+			url : '<%=request.getContextPath()%>/recruit.do',
+			type : 'get',
+			success : function(res) {
+				src = "<table border='1'>";
+				$.each(res, function(i, v) {
+					src += "<tr><td>";
+					src += v.rname + "<br>";
+					src += v.rspec + "<br>";
+					src += "</td></tr>";
+				})
+				src += "</table>";
+				$('#recruit').html(src);
+			},
+			dataType : 'json'
+		})
+	})
+</script>
+</head>
+<body>
+	<select name="loc">
+		<option>서울</option>
+		<option>경기</option>
+	</select>
+	<select>
+		<option>백앤드</option>
+		<option>프론트앤드</option>
+	</select>
+	<div id="recruit"></div>
+</body>
+</html>

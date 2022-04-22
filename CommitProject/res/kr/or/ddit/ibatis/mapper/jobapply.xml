@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="jobapply">
+	<select id="genderStats" resultClass="JobapplyVO" parameterClass="JobapplyVO">
+		select count(*) as gender_cnt
+ 		from jobapply a, resume b, worker c
+		where a.resume_num = #resume_num#
+  		and b.mem_id = #mem_id#
+		group by c.mem_gender
+	</select>
+	
+	<select id="ageStats" resultClass="JobapplyVO" parameterClass="JobapplyVO">
+		select age, count(*) as age_cnt
+		from (select floor((to_char(sysdate, 'YYYY') - substr(c.mem_bir,0,4)) / 10) * 10 as age
+        		from jobapply a, resume b, worker c
+      		   where a.resume_num = b.resume_num
+        		 and b.mem_id = c.mem_id
+     		 ) o
+		group by age
+	</select>
+	
+	<insert id="insertApply" parameterClass="JobapplyVO">
+		insert into jobapply values (#recruit_num#, #resume_num#)
+	</insert>
+	
+	<select id="selectApply" parameterClass="String" resultClass="RecruitVO">
+		select c.recruit_name, c.recruit_num
+		from jobapply a, resume b, recruit c
+		where a.resume_num = b.resume_num
+		and a.recruit_num = c.recruit_num
+		and b.mem_id = #mem_id#
+	</select>
+	
+	<select id="selectRecruit2" resultClass="int" parameterClass="JobapplyVO">
+		select count(*) 
+		from jobapply a, resume b
+		where a.resume_num = b.resume_num
+		and a.recruit_num = #recruit_num#
+		and b.mem_id = #mem_id#
+	</select>
+	
+	<select id="selectRecruit" parameterClass="String" resultClass="RecruitVO">
+		select *
+		from recruit
+		where mem_id = #mem_id#
+	</select>
+	
+	<select id="selectApplicant" parameterClass="int" resultClass="ResumeVO">
+		select b.*
+		from jobapply a, resume b, recruit c
+		where a.resume_num = b.resume_num
+		and a.recruit_num = c.recruit_num
+		and c.recruit_num = #recruit_num#
+	</select>
+	
+	<select id="selectID" parameterClass="String" resultClass="WorkerVO">
+		select *
+		from worker
+		where mem_id = #mem_id#
+	</select>
+	
+</sqlMap>

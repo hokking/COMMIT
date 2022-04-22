@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<script>
+<%
+// 	int freeRepleNum = Integer.parseInt(request.getParameter("freeRepleNum"));
+ 	IFreeRepleService service = FreeRepleServiceImple.getService();
+ 	FreeRepleVO vo = service.updateFreeReple(freeRepleNum);
+%>
+</script>
+
+</head>
+<body>
+<form id="freeRepleUpdate">
+	<input type="hidden" name="num" value="<%=vo.getReple_num() %>">
+
+</form>
+
+
+
+</body>
+</html>

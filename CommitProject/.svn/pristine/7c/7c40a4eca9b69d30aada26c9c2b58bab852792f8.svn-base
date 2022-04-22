@@ -1,0 +1,79 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<style>
+#board_content{
+	height : 50px;
+}
+</style>
+
+<script>
+$(function(){
+	$('#insert').on('click',function(){
+		ins = $('#freedomInsert').serializeArray();
+		$.ajax({
+			url : '/CommitProject/freedomInsert.do',
+			data : ins,
+			type : 'post',
+			success : function(res) {
+			},
+			dataType : 'json'
+		})
+		location.href="<%=request.getContextPath()%>/freedom/freedomMain.jsp";
+	})
+	$('#tomain').on('click',function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomMain.jsp";
+	})
+})
+
+</script>
+
+</head>
+<body>
+
+
+
+<form id="freedomInsert">
+	<div>
+		<br>
+		<div>
+			<input type="text" placeholder="제목을 입력해주세요" name="title">
+		</div>
+		<br>
+		<div>
+			<textarea placeholder="내용을 입력해주세요" name="content"></textarea>
+		</div>
+		<br>
+		<div>
+			<div>#해시태그 입력</div>
+			
+			<input type="radio" value="1" name="tag">
+			<label>#취준</label>
+		
+			<input type="radio" value="2" name="tag">
+			<label>#이직</label>
+		
+			<input type="radio" value="3" name="tag">
+			<label>#퇴사</label>
+		
+			<input type="radio" value="4" name="tag">
+			<label>#잡담</label>
+		</div>
+		<br>		
+		<div>
+			<button type="button" id="insert">게시글등록</button>
+		</div>
+		<br>	
+		<div>
+			<button type="button" id="tomain">목록으로 돌아가기</button>
+		</div>
+	</div>
+</form>
+
+</body>
+</html>

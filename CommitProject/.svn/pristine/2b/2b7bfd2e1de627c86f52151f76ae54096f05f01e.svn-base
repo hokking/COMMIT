@@ -1,0 +1,60 @@
+<%@page import="kr.or.ddit.commit.vo.CompanyVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.vo.WorkerVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+	<!-- 서블릿에서 request의  자료 공유   -->
+  	
+  	<%
+  	List<WorkerVO>  workerList  = (List<WorkerVO>)request.getAttribute("workerList");
+	%>
+
+    <%
+     for(int i=0; i<workerList.size(); i++){
+    	  WorkerVO vo = workerList.get(i);
+    	  if(i > 0) out.print(",");
+	%>
+		   {
+		      "id"   :"<%= vo.getMem_id() %>",
+		      "name" :"<%= vo.getMem_name() %>",
+		      "gender" :"<%= vo.getMem_gender() %>",
+		      "birth" :"<%= vo.getMem_bir() %>",
+		      "addr" :"<%= vo.getMem_addr() %>",
+		      "tel" :"<%= vo.getMem_tel() %>"
+		
+		  	}    	  
+	  <%   	  
+	  }
+	  %>
+	  
+	  
+  	<%
+  	List<CompanyVO>  companyList  = (List<CompanyVO>)request.getAttribute("companyList");
+	%>
+
+    <%
+     for(int i=0; i<companyList.size(); i++){
+    	 CompanyVO vo = companyList.get(i);
+    	  if(i > 0) out.print(",");
+	%>
+		   {
+		      "id"   :"<%= vo.getMem_id() %>",
+		      "name" :"<%= vo.getCom_name() %>",
+		      "num" :"<%= vo.getCom_num() %>",
+		      "ceo" :"<%= vo.getCom_ceo() %>",
+		      "url" :"<%= vo.getCom_url() %>",
+		      "addr1" :"<%= vo.getCom_addr1() %>",
+		      "addr2" :"<%= vo.getCom_addr2() %>",
+		      "addNum" :"<%= vo.getCom_addnum() %>",
+		      "tel" :"<%= vo.getCom_tel() %>",
+		      "memNum" :"<%= vo.getCom_memnum() %>",
+		      "tel" :"<%= vo.getCom_tel() %>",
+		      "birth" :"<%= vo.getCom_bir() %>",
+		      "div" :"<%= vo.getCom_div() %>",
+		      "job" :"<%= vo.getCom_job() %>"		      
+		
+		  	}    	  
+	  <%   	  
+	  }
+	  %>

@@ -1,0 +1,114 @@
+<%@page import="kr.or.ddit.commit.vo.RegionVO"%>
+<%@page import="kr.or.ddit.commit.service.RegionServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IRegionService"%>
+<%@page import="kr.or.ddit.commit.vo.JobworkVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.JobworkServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IJobworkService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script>
+	$(function() {
+		$('#plu').on('click', function() {
+			$('#di').append("<input type='text' class='spec'><br>");
+		})
+		
+		$('#ok').on('click', function() {
+			// 글 수정폼에서 수정 후 확인 버튼
+			// modal창에 입력한 내용 가져오기
+//	 		a = $('#modifyModal input[name=subject]').val();
+//	 		b = $('#modifyModal input[name=writer]').val();
+//	 		$('#modifyModal input[name=mail]').val();
+//	 		$('#modifyModal textarea').val();
+//	 		$('#modifyModal input[name=num]').val();
+//	 		fdata = {"subject" : a, "writer" : b,...};
+					
+			data = $('#recruitInsert').serializeArray();
+	 			console.log(data);
+				// 서버로 전송 - ajax
+			$.ajax({
+				url : '/CommitProject/recruitInsert.do',
+				data : data,
+				type : 'post',
+				success : function(res) {
+					
+				},
+				dataType : 'json'
+			})
+		})	
+	})
+</script>
+</head>
+<body>
+<%
+	IJobworkService service = JobworkServiceImpl.getInstance();
+	List<JobworkVO> jobList = service.selectAllJobwork();
+	
+	IRegionService gservice = RegionServiceImpl.getInstance();
+	List<RegionVO> regionList = gservice.selectAllRegion();
+%>
+	<div>
+		<form id="recruitInsert">
+			<table>
+				<tr>
+					<td><label>공고명</label></td>
+					<td><input class="intxt" type="text" name="title"></td>
+				</tr>
+				<tr>
+    				<td><label>공고시작일</label></td>
+    				<td><input class="intxt" type="date" name="sdate"></td>
+    			</tr>
+    			<tr>
+		    		<td><label>공고마감일</label></td>
+		    		<td><input class="intxt" type="date" name="edate"></td>
+		    	</tr>
+		    	<tr>
+		    		<td><label>포지션</label></td>
+		    		<td><select name="pst">
+<%
+				for(JobworkVO jw : jobList) {
+%>
+    				<option value="<%= jw.getWork_num()%>"><%= jw.getWork_name() %></option>
+<%
+				}
+%>
+    					</select>
+    				</td>
+    			</tr>
+    			<tr>
+    				<td><label>지역</label></td>
+    				<td><select name="reg">
+<%
+				for(RegionVO rg : regionList) {
+%>
+    				<option value="<%= rg.getReg_num() %>"><%= rg.getReg_name() %></option>
+<%
+				}
+%>
+    					</select>
+    				</td>
+    			</tr>
+      			<tr><td colspan="2"><label>우대사항</label><br></td></tr>
+    			<tr><td colspan="2"><textarea name="spec" rows="10" cols="50"></textarea></td></tr>
+	   			<tr><td colspan="2"><label>주요업무</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="duty" rows="10" cols="50"></textarea></td></tr>
+		   		<tr><td colspan="2"><label>자격요건</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="qlt" rows="10" cols="50"></textarea></td></tr>
+		   		<tr><td colspan="2"><label>복지및 혜택</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="bnf" rows="10" cols="50"></textarea></td></tr>
+				<tr>
+					<td><input type="button" value="확인" id="ok"></td>
+					<td><input type="button" value="저장" id="ok"></td>
+				</tr>
+			</table>
+   		</form>
+	</div>
+</body>
+</html>

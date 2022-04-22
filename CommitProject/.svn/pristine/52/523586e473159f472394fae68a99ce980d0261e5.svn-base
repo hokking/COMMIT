@@ -1,0 +1,62 @@
+package kr.or.ddit.commit.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ddit.commit.service.IRecruitService;
+import kr.or.ddit.commit.service.RecruitServiceImpl;
+import kr.or.ddit.commit.vo.RecruitVO;
+
+@WebServlet("/recruitFilter.do")
+public class RecruitFilter extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
+		String[] rarr = request.getParameterValues("rarr[]");
+		String[] jarr = request.getParameterValues("jarr[]");
+		
+		IRecruitService service = RecruitServiceImpl.getInstance();
+		List<RecruitVO> list = new ArrayList<RecruitVO>();
+		RecruitVO vo = new RecruitVO();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		if(rarr != null && jarr == null) {
+			for(String s : rarr) {
+				list = service.selectRegRecruit(Integer.parseInt(s));
+			}
+		} else if(rarr == null && jarr != null) {
+			
+			for(String s : jarr) {
+				list = service.selectJobRecruit(Integer.parseInt(s));
+			}
+		} else if(rarr == null && jarr == null) {
+			list = service.selectAllRecruit();
+		} else {
+			for(String r : rarr) {
+				map.put("reg_num", Integer.parseInt(r));
+				for(String j : jarr) {
+					map.put("work_num", Integer.parseInt(j));
+					vo = service.selectRJRecruit(map);
+				}
+				list.add(vo);
+			}
+		}
+		
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher("/recruit/recruitList.jsp").forward(request, response);
+		
+		
+	}
+
+}

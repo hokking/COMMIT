@@ -1,0 +1,36 @@
+package kr.or.ddit.commit.service;
+
+import java.sql.SQLException;
+
+import org.apache.catalina.tribes.membership.MemberImpl;
+
+import kr.or.ddit.commit.dao.IMemberDao;
+import kr.or.ddit.commit.dao.MemberDaoImpl;
+import kr.or.ddit.commit.vo.WorkerVO;
+
+public class MemberServiceImpl implements IMemberService{
+	private IMemberDao dao;
+	private static IMemberService service;
+	
+	private MemberServiceImpl() {
+		dao = MemberDaoImpl.getInstance();
+	}
+	
+	public static IMemberService getInstance() {
+		if(service == null) service = new MemberServiceImpl();
+		return service;
+	}
+
+	@Override
+	public WorkerVO workerDetail(String id) {
+		WorkerVO wvo = null;
+		try {
+			wvo = dao.workerDetail(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return wvo;
+	}
+
+}

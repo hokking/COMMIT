@@ -1,0 +1,208 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+var index = 0;   //이미지에 접근하는 인덱스
+window.onload = function(){
+    slideShow();
+}
+
+function slideShow() {
+var i;
+var x = document.getElementsByClassName("silde1");  //slide1에 대한 dom 참조
+for (i = 0; i < x.length; i++) {
+   x[i].style.display = "none";   //처음에 전부 display를 none으로 한다.
+}
+index++;
+if (index > x.length) {
+    index = 1;  //인덱스가 초과되면 1로 변경
+}   
+x[index-1].style.display = "block";  //해당 인덱스는 block으로
+setTimeout(slideShow, 4000);   //함수를 4초마다 호출
+
+}
+
+</script>
+<style type="text/css">
+
+header{
+border: 1px solid red;
+height: 80px;
+}
+
+section{ /* 아니섹션 미친럼 inline이라 옆에 아무도 올 수 없는 개왕따 */
+	border: 3px solid yellow;
+	width: 50%;
+	padding-left: 160px;
+	display: inline-block;
+	float: left;
+}
+
+aside{
+	border: 1px solid black;
+	width: 25%;
+	float: right;
+	margin-right: 100px;
+
+}
+
+#logo {
+	float: left;
+	padding-left: 180px;
+	padding-top: 40px;
+	width:150px;
+}
+
+#logoimg {
+	width: 100px;
+	height: 30px;
+	
+}
+
+.nt {
+	/* border : 2px solid red; */
+	float: left;
+	margin-right: 35px;
+	margin-left: 35px;
+	margin-top: 25px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#nu {
+	margin-left: 250px;
+	margin-bottom: 40px;
+}
+
+li {
+	list-style-type: none;
+}
+
+a:link {
+	color: #FB4A22;
+	font-weight: bold;
+	font-size: 15px;
+	text-decoration: none; /* line-through, underline, verline, overline */
+}
+
+a:visited {
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: black;
+	background: white
+}
+
+a:active {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+button {
+	width: 50px;
+	height: 30px;
+	border: 0px;
+	background: white;
+	float: right;
+	outline: none;
+}
+
+#sbar1 {
+	margin-right: 200px;
+	float: right;
+	width: 220px;
+	height: auto;
+
+	/* border : 1px solid black; */
+}
+
+#sbar2 {
+	width: 150px;
+	height: 20px;
+	float: left;
+}
+
+#searchimg {
+	width: 20px;
+	height: 20px;
+}
+
+
+#login {
+	border: 1px solid red;
+	height: 100%;
+	background: #FAFAFA;
+	padding-top: 20px;
+
+	
+	
+}
+#joinbutton{
+	background: black;
+	color : white;
+	font-size: 15px;	
+	font-weight: bold;
+	width: 300px;
+	height: 50px;
+	margin-top: 15px;
+	
+}
+
+
+
+</style>
+</head>
+<body>
+<header>
+	
+	<button onclick="location.href='main.jsp'" type="button" id="logo" href="main.jsp">
+	<img  style='cursor:pointer' id="logoimg" alt="로고.png" src="./images/심플로고1.PNG">
+	</button>
+
+	<ul id ="nu">
+	  	<li class="nt"><a href="">채용공고</a></li>
+	  	<li class="nt"><a href="">회사정보</a></li>
+	  	<li class="nt"><a href="">인재풀</a></li>
+		<li class="nt"><a href="">커뮤니티</a></li>
+    </ul>
+   
+   
+	<div id="sbar1">
+	<input id = "sbar2" type = "text" placeholder = "입력해라">
+	<button type = "button" style='cursor:pointer'>
+	<img id="searchimg" src="./images/돋보기.png" style='cursor:pointer' >
+	</button>
+	</div>
+
+</header>
+
+<section>
+		<!-- 로고사진 이미지 크기는 미리 650*230으로 저장한걸 가져와야한다. 여기서 크기 조정 x -->
+        <img class="silde1" src="./images/슬라이드1.PNG" alt="">
+        <img class="silde1" src="./images/슬라이드2.PNG" alt="">
+        <img class="silde1" src="./images/슬라이드1.PNG" alt="">
+        <img class="silde1" src="./images/슬라이드2.PNG" alt="">   
+</section>
+
+<aside>
+	<div id="login">
+	회원가입/로그인하고<br>
+	커밋의 다양한 혜택을 만나보세요.<br>
+	<input  style='cursor:pointer' id="joinbutton" type="button" value="회원가입 / 로그인"> 
+	<!-- <button id="joinbutton" type = "button" style='cursor:pointer'>
+	<div id="jtext">회원가입/로그인</div>
+	</button> -->
+	</div>
+</aside>
+
+</body>
+</html>
+
+

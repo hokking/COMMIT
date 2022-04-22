@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE sqlMap
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+<sqlMap namespace="resume">
+
+   <select id="selectresume" parameterClass="String" resultClass="int">
+   select count(*) from resume where mem_id=#mem_id#
+   </select>
+   
+   <insert id="insertresume" parameterClass="ResumeVO">
+   insert into resume values(
+   resume_num_seq.nextval, 
+   #mem_id#, 
+   #resume_title#,
+   #resume_chk#,
+   #resume_job#,
+   #resume_schoolname#, 
+   #resume_major#, 
+   #resume_score#, 
+   #resume_career#, 
+   #resume_tel#, 
+   #resume_area#,  
+   #resume_skill#,  
+   #resume_self#)
+   </insert>
+   
+   <update id="updateresume" parameterClass="ResumeVO">
+   update resume set resume_title = #resume_title#,
+   resume_chk = #resume_chk#, resume_job = #resume_job#, resume_schoolname = #resume_schoolname#, 
+   resume_major = #resume_major#, resume_score = #resume_score#, resume_career = #resume_career# ,
+   resume_area =#resume_area# where resume_num=#resume_num# 
+   </update>
+   
+   <select id = "listresume" parameterClass="String" resultClass="ResumeVO">
+   	select * from resume where mem_id=#mem_id#
+   </select>
+   
+   	<select id="detailresume" parameterClass="int" resultClass="ResumeVO">
+   		select * from resume where resume_num=#resum_num#
+   	</select>
+   
+</sqlMap>

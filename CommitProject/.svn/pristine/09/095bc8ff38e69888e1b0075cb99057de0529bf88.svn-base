@@ -1,0 +1,11 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+
+import kr.or.ddit.commit.vo.JobapplyVO;
+
+public interface IApplyResumeDao {
+	
+	public void insertApply(JobapplyVO vo) throws SQLException;
+	
+}

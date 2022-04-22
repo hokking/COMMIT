@@ -1,0 +1,275 @@
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@page import="kr.or.ddit.commit.vo.RecruitVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+   
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
+<style type="text/css">
+
+/* border 스타일에 white 절대 삭제하지 말것. */
+
+/* html, body{ 이거 엉케해ㅑ야되노
+	width: 100%;
+	height: 100%;
+} */
+body{
+	min-width : 1300px;
+}
+
+header{
+ border: 1px solid white; 
+height: 80px;
+margin-bottom: 20px;
+
+}
+
+
+article{
+	margin-left: 280px;
+	border:3px solid white;
+	display: block;
+	display: inline-block;
+	width: 40%;
+	padding-top: 20px;
+	border:3px solid red;
+	
+	
+}
+
+aside{
+	width: 30%;
+	border: 1px solid red;
+	float: right;
+	padding-right: 50px;
+}
+
+footer{
+	
+	border:3px solid red;
+	margin-top: 200px;
+	
+}
+
+#logo {
+	float: left;
+	margin-left: 150px;
+	padding-top: 40px;
+	width:150px;
+}
+
+#logoimg {
+	width: 100px;
+	height: 30px;
+	
+}
+
+.nt {
+	/* border : 2px solid red; */
+	float: left;
+	margin-right: 25px;
+	margin-left: 25px;
+	margin-top: 40px;
+	font-size: 15px;
+	font-weight: bold;
+	
+	letter-spacing: 0;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	
+}
+
+
+.nt:hover,
+.nt:focus,
+.nt:active {
+	letter-spacing: 5px;
+}
+.nt:after,
+.nt:before {
+	border: 1px solid rgba(255, 255, 255, 0);
+	bottom: 0;
+	content: " ";
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	width: 0;
+}
+.nt:hover:after,
+.nt:hover:before {
+	border-color: #93D8D9;
+	-webkit-transition: width 350ms ease-in-out;
+	transition: width 350ms ease-in-out;
+	width: 80%;
+}
+.nt:hover:before {
+	bottom: auto;
+	top: 0;
+}
+
+
+
+li {
+	list-style-type: none;
+}
+
+button {
+	border: 0px;
+	background: white;
+	outline: none;
+}
+
+#apply{
+	background: #93D8D9;
+	width: 150px;
+	height: 35px;
+	border-radius: 5px;
+}
+
+#sbar1{
+	display: inline-block;
+	float: right;
+	margin-right: 140px;
+	margin-top: 40px;
+	
+}
+
+#my{
+	padding-top:5px;
+	float: left;
+}
+
+#sbar2 {
+	width: 150px;
+	height: 23px;
+	border-radius: 5px;
+	border: 2px solid #68C8CA;
+	display: inline-block;
+	float: left;
+	
+}
+
+#sbar3{
+
+ 	background-image: url('<%= request.getContextPath()%>/images/돋보기3.png');
+    background-repeat: no-repeat;
+    width: 30px;
+    height:30px;
+    border: 0px;
+ 	cursor:pointer;
+ 	outline: 0;
+ 	background-color: white;
+ 	margin-left: 3px;
+ 	margin-right: 10px;
+ 	float: left;
+ 
+}
+
+#searchimg {
+	width: 20px;
+	height: 20px;
+}
+
+#service{
+	text-align: center;
+	font-size: 7px;
+}
+</style>
+<%
+	RecruitVO recruitVo = (RecruitVO)request.getAttribute("recruitVo");
+
+	HttpSession session1 = request.getSession();
+	
+	MemberVO mvo = null;
+	if(session1.getAttribute("loginMember")!=null){
+		mvo = (MemberVO)session1.getAttribute("loginMember");
+	}
+%>
+<script>
+$(function(){
+	function apply(){
+		if(<%=mvo%> == null){
+			alert("회원가입이 필요합니다.");
+			location.href = "<%=request.getContextPath()%>/join/joinMain.jsp";
+		}
+		location.href = "<%=request.getContextPath()%>/recruit/recruitResume.jsp?recruitNum=<%=recruitVo.getRecruit_num()%>";
+	}
+})
+</script>
+</head>
+<body>
+
+
+<header>
+	
+	<button onclick="location.href='<%=request.getContextPath() %>/board/main.jsp'" type="button" id="logo" href="main.jsp'" type="button" id="logo" >
+	<img  style='cursor:pointer' id="logoimg" alt="로고.png" src="<%= request.getContextPath() %>/images/심플로고1.PNG">
+	</button>
+
+	<div id ="nu">
+	  	<button style='cursor:pointer' onclick="location.href='<%=request.getContextPath()%>/recruit/recruitMain.jsp'" type="button" class="nt">채용공고</button>
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">회사정보</button>
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">인재풀</button>
+		<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">커뮤니티</button>
+    </div>
+   
+   <form>
+	<div id="sbar1">
+	<input id = "sbar2" type = "text" placeholder = "검색어를 입력하세요">
+	<input id = "sbar3" type = "submit" style='cursor:pointer' value="">
+	<button id="my" style='cursor:pointer' type="button" onclick="location.href='login.jsp'">
+		<font size="2"><b>회원가입/로그인</b></font></button>
+	</div>
+	</form>
+</header>
+
+
+<article>
+<!-- 이거제목 db에서 어케가져오냐 난몰라 ㅋ -->
+<h1><b><%= recruitVo.getRecruit_name() %></b></h1>
+<h3><%= recruitVo.getCom_name() %></h3><br>
+<hr width="95%">
+<!-- 내용은 채용공고 db에서 가져온다. -->
+<h4>포지션</h4>
+<%= recruitVo.getWork_name() %>
+<h4>주요업무</h4>
+<%= recruitVo.getRecruit_duty() %>
+<h4>자격요건</h4>
+<%= recruitVo.getRecruit_qlt() %>
+<h4>우대사항</h4>
+<%= recruitVo.getRecruit_spec() %>
+<h4>복지및혜택</h4>
+<%= recruitVo.getRecruit_bnf() %>
+<h4>기업/서비스 소개</h4>
+
+</article>
+
+<aside>
+<button id="apply" type="button" onclick="apply()" style='cursor:pointer'>
+<font size="3"><b>지원하기</b></font></button>
+</aside>
+<footer>
+	<div id="service">
+	<a>서비스소개</a>
+	<a>이용약관</a>
+	<a>개인정보처리방침</a>
+	<a>제휴문의</a>
+	<a>고객센터</a>
+	커밋 고객센터: 010-2949-1459(평일 9:00~18:00), 점심시간 12:00~13:00, 주말/공휴일 휴무)<br>
+	이메일: help@commit.co.kr/Fax: 042-1111-1111(세금계산서)<br>
+	(주)커밋HR, 우:0000, 대전광역시 서구 둔산동, 대표:옹기
+	사업자 등록:000-00-00000/직업정보제공사업: 서울 관악 제 0000-0호/ 통신판매업: 제0000호<BR>
+	Copyright(c) (주)커밋HR, All rights reserved
+	</div>
+</footer>
+</body>
+</html>
+
+

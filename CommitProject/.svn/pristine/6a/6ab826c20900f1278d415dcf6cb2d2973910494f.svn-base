@@ -1,0 +1,52 @@
+<%@page import="kr.or.ddit.commit.vo.NoticeVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.NoticeServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.INoticeService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공지사항 메인</title>
+</head>
+<body>
+
+<%
+	INoticeService service = NoticeServiceImpl.getInstance();
+	List<NoticeVO> nolist = service.getAllNotice();
+	
+%>
+
+
+
+<h2>공지사항 게시판</h2>
+<br><br>
+<table border='1'>
+<tr>
+	<td colspan="3" style="text-align : right">
+	<button type="submit" onclick="<%=request.getContextPath()%>/notice/noticeinsert.jsp">글쓰기</button>
+	</td>		
+</tr>
+<%
+
+for(NoticeVO nvo : nolist){
+
+%>
+
+<tr>
+<th>No</th><th>제목</th><th>작성일</th>
+</tr>
+<tr>
+	<td><%=nvo.getNotice_num() %></td>
+	<td><%=nvo.getNotice_title() %></td>
+	<td><%=nvo.getNotice_date().substring(0, 10) %></td>
+</tr>
+</table>
+
+<%
+}
+%>
+
+</body>
+</html>

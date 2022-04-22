@@ -1,0 +1,14 @@
+package kr.or.ddit.commit.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.commit.vo.FreedomVO;
+
+public interface IFreedomService {
+	
+	  public List<FreedomVO> selectByPage(Map<String, Integer> map) throws SQLException;
+	   
+
+}

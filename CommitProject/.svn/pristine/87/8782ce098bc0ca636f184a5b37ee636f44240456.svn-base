@@ -1,0 +1,96 @@
+<%@page import="kr.or.ddit.commit.vo.CompanyVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.CompanyInfoServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.ICompanyInfoService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	#logo {
+		width: 150px;
+		height: 150px;
+		display: inline-block;
+		float: left;
+	}
+	#name{
+		/* border: 1px solid red; */
+		width: 500px;
+		
+	}
+	#cominfo{
+		/* border: 1px solid red; */
+		margin-top: 100px;
+		width: 900px;
+	}
+	.imgg{
+		width: 60px;
+		height: 60px;
+		margin-right: 80px;
+	}
+	#cominfo2{
+	/* 	border: 1px solid red; */
+		width: 100px;
+		height: 400px;
+		display: inline-block;
+		float: left;
+		font-size: 17px;
+		font-weight: bold;
+		margin-left: 100px;
+	}
+	#cominfo3{
+	/* border: 1px solid blue; */
+	float: left;
+	width: 300px;
+	height: 400px;
+	font-size: 17px;
+	
+	}
+	#cominfo11{
+	
+		padding-left: 100px;
+	}
+	
+</style>
+</head>
+<body>
+<%
+	String id = request.getParameter("mem_id");
+	ICompanyInfoService service = CompanyInfoServiceImpl.getInstance();
+	CompanyVO cvo = service.companyDetail(id);
+%>
+<img src="/CommitProject/companylogo/<%=cvo.getCom_img()%>" id="logo">
+		<div id="name"><h2><%=cvo.getCom_name()%></h2></div><br><br>
+
+	<div id="cominfo">
+	<h2><b>기업개요</b></h2>
+	<hr><br>
+	<div id ="cominfo11">
+	<img class="imgg" src="<%=request.getContextPath() %>/images/time.png">
+	<img class="imgg" src="<%=request.getContextPath() %>/images/office-building.png">
+	<img class="imgg" src="<%=request.getContextPath() %>/images/group.png">
+	<img class="imgg" src="<%=request.getContextPath() %>/images/profit.png">
+	<img class="imgg" src="<%=request.getContextPath() %>/images/payment.png"><br>
+	
+	<font class ="fontc" size="4"><b><%=cvo.getCom_bir().substring(0, 10) %></b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<font class ="fontc" size="4"><b><%=cvo.getCom_div() %></b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<font class ="fontc" size="4"><b><%=cvo.getCom_memnum() %>명</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<font class ="fontc" size="4"><b><%=cvo.getCom_sales().replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",") %>원</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<font class ="fontc" size="4"><b><%=cvo.getCom_income().replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",") %>원</b></font><br>
+	설립연도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	기업형태&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	사원수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	매출액&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	평균연봉&nbsp;&nbsp;
+	</div>
+	<br><hr><br><br>
+	<div id="cominfo2">업종<br><br>대표자명<br><br>홈페이지<br><br>기업주소<br><br>이메일<br><br>대표번호</div>
+	<div id="cominfo3"><%=cvo.getCom_job() %><br><br><%=cvo.getCom_ceo() %><br><br><%=cvo.getCom_url() %><br><br>
+	<%=cvo.getCom_addr() %><br><br><%=cvo.getMem_id() %><br><br><%=cvo.getCom_tel() %></div>
+	</div><br>
+	
+</body>
+</html>

@@ -1,0 +1,71 @@
+<%@page import="kr.or.ddit.commit.vo.NoticeVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.NoticeServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.INoticeService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>공지사항 게시판</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="../js/notice.js">
+
+$(function(){
+	
+	$('#delete').click(function(){
+		var result = confirm("게시글을 삭제하시겠습니까?");
+		if(result){
+			location.href="/CommitProject/NoticeDelete.do";
+			location.href = "/CommitProject/notice/noticemain.jsp"
+		}
+	});
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+<%
+		
+	int no = Integer.parseInt(request.getParameter("notice_num"));
+	INoticeService service = NoticeServiceImpl.getInstance();
+	NoticeVO nvo = service.selectNotice(no);
+	
+%>
+
+
+
+<table border="1">
+	<tr>	
+	<td colspan="3" style="text-align : center">	
+	<h3><%=nvo.getNotice_title() %></h3>
+	</td>
+	</tr>
+	
+	<tr>
+	<th><span>No : </span><%=nvo.getNotice_num() %></th>
+	<th><span>작성일 : </span><%=nvo.getNotice_date().substring(0, 10) %></th>
+	<th><span>조회수 : </span><%=nvo.getNotice_view() %></th>
+	</tr>
+	
+	<tr>
+	<td id="con" colspan="3"><%=nvo.getNotice_con() %></td>
+	<tr>
+	
+	<tr>
+	<td colspan="3" style="text-align : center">
+	<input type="button" value="수정하기" onclick="location.href = 'noticeupdate.jsp?notice_num=<%=nvo.getNotice_num() %>'">
+	<input type="button" value="삭제하기" id="delete" onclick="location.href = 'noticedelete.jsp?notice_num=<%=nvo.getNotice_num() %>'">
+	</td>
+	</tr>
+</table>
+
+

@@ -1,0 +1,33 @@
+package kr.or.ddit.commit.service;
+
+import java.sql.SQLException;
+
+import kr.or.ddit.commit.dao.ApplyResumeDaoImpl;
+import kr.or.ddit.commit.dao.IApplyResumeDao;
+import kr.or.ddit.commit.vo.JobapplyVO;
+
+public class ApplyResumeServiceImpl implements IApplyResumeService{
+	private IApplyResumeDao dao;
+	private static IApplyResumeService service;
+	
+	private ApplyResumeServiceImpl() {
+		dao = ApplyResumeDaoImpl.getInstance();
+	}
+	
+	public static IApplyResumeService getInstance() {
+		if(service == null) service = new ApplyResumeServiceImpl();
+		return service;
+	}
+	
+	
+	@Override
+	public void insertApply(JobapplyVO vo) {
+		try {
+			dao.insertApply(vo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

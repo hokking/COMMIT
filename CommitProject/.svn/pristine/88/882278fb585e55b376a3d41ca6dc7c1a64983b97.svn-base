@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div>
+	<a href="http://localhost/CommitProject/freedom/freedomMain.jsp">전체게시글</a>
+</div>
+<br>
+<div>
+	<div>
+		<h1>글제목</h1>
+	</div>
+	<div>
+		글내용
+	</div>
+</div>
+<br>
+<div class="post_tag_list">
+	<a href="" class="post_tag">#취준</a>
+</div>
+<br>
+<div class="qna_data_infos">
+	<span class="qna_info qna_like">공감하기</span>
+	<span class="qna_info qna_reply">댓글달기</span>
+	<span class="qna_info qna_view">조회수 <strong>""</strong></span>	
+</div>
+<br>
+<div>
+	<textarea placeholder="나도 이런 고민이 있어요~"></textarea>
+	<button type="button">댓글등록</button>
+</div>
+
+
+
+</body>
+</html>

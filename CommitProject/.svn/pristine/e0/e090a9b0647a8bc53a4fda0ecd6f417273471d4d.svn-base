@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+<sqlMap namespace="fav">
+
+	<select id="getAllfav" resultClass="FavoriteVO">
+		select * from favorite where mem_id=#mem_id#
+	</select>
+	
+	<insert id="insertfav" parameterClass="map">
+		insert into favorite
+		values(
+		#recruit_num#,
+		#mem_id#,
+		favorite_num_seq.nextval
+		)
+		<selectKey keyProperty="favorite_num" resultClass="int">
+			select favorite_num_seq.currval from dual
+		</selectKey>
+	</insert>
+	
+	<delete id="deletefav" parameterClass="int">
+		delete favorite where favorite_num=#favorite_num#
+	</delete>
+	
+	<select id="selectrec" parameterClass="int" resultClass="String"></select>
+	
+</sqlMap>   

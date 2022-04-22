@@ -1,0 +1,61 @@
+package kr.or.ddit.commit.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ddit.commit.service.IRecruitService;
+import kr.or.ddit.commit.service.RecruitServiceImpl;
+import kr.or.ddit.commit.vo.RecruitVO;
+
+@WebServlet("/recruitFilter.do")
+public class RecruitFilter extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
+		String[] rlist = request.getParameterValues("rchk_arr");
+		String[] jlist = request.getParameterValues("jchk_arr");
+		
+		IRecruitService service = RecruitServiceImpl.getInstance();
+		
+		List<RecruitVO> list = new ArrayList<RecruitVO>();
+		Map<String, Integer> map = new HashMap();
+		if(rlist != null && jlist == null) {
+			for(String s : rlist) {
+				list.add((RecruitVO) service.selectRegRecruit(Integer.parseInt(s)));
+			}
+		} else if(rlist == null && jlist != null) {
+			
+			for(String s : jlist) {
+				list.add((RecruitVO) service.selectRegRecruit(Integer.parseInt(s)));
+			}
+		} else if(rlist == null && jlist == null) {
+			list.add((RecruitVO)service.selectAllRecruit());
+		} else {
+			for(String r : rlist) {
+				map.put("reg_num", Integer.parseInt(r));
+				for(String j : jlist) {
+					map.put("work_num", Integer.parseInt(j));
+					list.add((RecruitVO)service.selectRJRecruit(map));
+				}
+			}
+		}
+		
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher("/recruit/recruitList.jsp").forward(request, response);
+		
+		
+	}
+
+}

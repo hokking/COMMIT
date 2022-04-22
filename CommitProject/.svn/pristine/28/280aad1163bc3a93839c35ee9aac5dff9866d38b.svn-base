@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+var index = 0;   //이미지에 접근하는 인덱스
+window.onload = function(){
+    slideShow();
+}
+
+function slideShow() {
+var i;
+var x = document.getElementsByClassName("silde1");  //slide1에 대한 dom 참조
+for (i = 0; i < x.length; i++) {
+   x[i].style.display = "none";   //처음에 전부 display를 none으로 한다.
+}
+index++;
+if (index > x.length) {
+    index = 1;  //인덱스가 초과되면 1로 변경
+}   
+x[index-1].style.display = "block";  //해당 인덱스는 block으로
+setTimeout(slideShow, 4000);   //함수를 4초마다 호출
+
+}
+
+</script>
+<style type="text/css">
+
+#logo{
+float: left;
+padding-left: 200px;
+padding-top: 22px;
+}
+
+
+#logoimg{
+	width: 130px;
+	height: 40px;
+}
+
+.nt {
+/* border : 2px solid red; */
+	float: left;
+	margin-right: 35px;
+	margin-left: 35px;
+	margin-top: 25px;
+	font-size: 18px;
+	font-weight: bold;
+	
+}
+
+#nu{
+margin-left: 180px;
+}
+
+li{
+	list-style-type : none;
+}
+
+a:link{
+
+	color :  #FB4A22;
+	font-weight: bold;
+	font-size: 15px;
+	text-decoration:  none; /* line-through, underline, verline, overline */
+}
+a:visited{
+ color : black;
+
+}
+a:hover{
+	text-decoration : underline;
+	 color : black;
+	 background: white
+}
+a:active{
+	color : black;
+	font-weight: bold;
+	text-decoration:  none;
+}
+
+button{
+	width: 50px;
+	height: 30px;
+	border : 0px;
+	background: white;
+	float : right;
+	outline : none;
+}
+
+
+#sbar1{
+	margin-right: 200px;
+	float : right;
+	width: 220px;
+	height: auto;
+	margin-top: 25px;
+	/* border : 1px solid black; */
+}
+
+#sbar2{
+	width : 150px;
+	height: 20px;
+	float: left;
+} 
+
+#searchimg{
+	width: 20px;
+	height: 20px;
+}
+
+
+
+#slide{
+
+border: 1px solid blue;
+padding-left: 200px;
+}
+
+nav {
+margin-top: 40px;
+}
+
+</style>
+</head>
+
+<body>
+<header>
+	<!-- <a href="main.html"><img id="img1" alt="심플로고.jpg" src="./images/심플로고.png"></a> -->
+	<a id="logo" href="main.html"><img id="logoimg" alt="로고.png" src="./images/심플로고1.PNG"></a>
+	
+	<div>
+	<ul id ="nu">
+  	<div class="nt"><li><a href="">채용공고</a></li></div>
+  	<div class="nt"><li><a href="">회사정보</a></li></div>
+  	<div class="nt"><li><a href="">인재풀</a></li></div>
+  	<div class="nt"><li class="n1"><a href="">커뮤니티</a></li></div>
+    </ul>
+    </div>
+   
+	<div id="sbar1">
+	<input id = "sbar2" type = "text" placeholder = "입력해라">
+	<button type = "button" style='cursor:pointer'><img id="searchimg" src="./images/돋보기.png" style='cursor:pointer' >
+	</button>
+	<!-- <img id="searchimg" src="./images/돋보기.png" style='cursor:pointer' > -->
+	</div>
+	<br><br>
+
+</header>
+
+<nav>
+
+	<div id="slide">
+        <img class="silde1" src="./images/슬라이드1.PNG" alt="">
+        <img class="silde1" src="./images/슬라이드2.PNG" alt="">
+        <img class="silde1" src="./images/슬라이드1.PNG" alt="">
+        <img class="silde1" src="./images/슬라이드2.PNG" alt="">
+    </div>
+    
+</nav>
+
+</body>
+
+</html>

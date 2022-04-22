@@ -1,0 +1,185 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+<script type="text/javascript">
+var index = 0;   //이미지에 접근하는 인덱스
+window.onload = function(){
+    slideShow();
+}
+
+function slideShow() {
+var i;
+var x = document.getElementsByClassName("slide1");  //slide1에 대한 dom 참조
+for (i = 0; i < x.length; i++) {
+   x[i].style.display = "none";   //처음에 전부 display를 none으로 한다.
+}
+index++;
+if (index > x.length) {
+    index = 1;  //인덱스가 초과되면 1로 변경
+}   
+x[index-1].style.display = "block";  //해당 인덱스는 block으로
+setTimeout(slideShow, 4000);   //함수를 4초마다 호출
+
+}
+
+</script>
+
+<style type="text/css">
+
+/* border 스타일에 white 절대 삭제하지 말것. */
+/* html, body{ 이거 엉케해ㅑ야되노
+	width: 100%;
+	height: 100%;
+} */
+
+body{
+	min-width : 3000px;
+}
+
+header{
+border: 1px solid white;
+height: 80px;
+margin-bottom: 50px;
+}
+
+
+#logo {
+	float: left;
+	margin-left: 150px;
+	padding-top: 40px;
+	width:150px;
+}
+
+#logoimg {
+	width: 100px;
+	height: 30px;
+	
+}
+
+.nt {
+	/* border : 2px solid red; */
+	float: left;
+	margin-right: 25px;
+	margin-left: 25px;
+	margin-top: 40px;
+	font-size: 15px;
+	font-weight: bold;
+	
+	letter-spacing: 0;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	
+}
+
+
+.nt:hover,
+.nt:focus,
+.nt:active {
+	letter-spacing: 5px;
+}
+.nt:after,
+.nt:before {
+	border: 1px solid rgba(255, 255, 255, 0);
+	bottom: 0;
+	content: " ";
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	width: 0;
+}
+.nt:hover:after,
+.nt:hover:before {
+	border-color: #93D8D9;
+	-webkit-transition: width 350ms ease-in-out;
+	transition: width 350ms ease-in-out;
+	width: 80%;
+}
+.nt:hover:before {
+	bottom: auto;
+	top: 0;
+}
+
+
+#nu {
+	margin-left: 250px;
+	margin-bottom: 40px;
+}
+
+li {
+	list-style-type: none;
+}
+
+
+
+button {
+
+	border: 0px;
+	background: white;
+	
+	outline: none;
+}
+
+#sbar1 {
+	margin-right: 200px;
+	float: right;
+	width: 220px;
+	height: auto;
+
+	/* border : 1px solid black; */
+}
+
+#sbar2 {
+	width: 130px;
+	height: 20px;
+	float: right;
+	display: inline-block;
+}
+
+
+
+#searchimg {
+	width: 20px;
+	height: 20px;
+}
+
+
+</style>
+</head>
+<body>
+<header>
+	
+	<button onclick="location.href='main.jsp'" type="button" id="logo" href="main.jsp">
+	<img  style='cursor:pointer' id="logoimg" alt="로고.png" src="./images/심플로고1.PNG">
+	</button>
+
+	<div id ="nu">
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">채용공고</button>
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">회사정보</button>
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">인재풀</button>
+		<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">커뮤니티</button>
+    </div>
+   
+   
+	<div id="sbar1">
+	<input id = "sbar2" type = "text" placeholder = "입력해라">
+	<button id = "sbar3" type = "button" style='cursor:pointer'>
+	<img id="searchimg" src="./images/돋보기.png" style='cursor:pointer' >
+	</button>
+	</div>
+
+</header>
+
+
+	
+
+</body>
+</html>
+
+

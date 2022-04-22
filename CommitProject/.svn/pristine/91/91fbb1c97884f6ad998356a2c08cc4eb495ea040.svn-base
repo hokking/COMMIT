@@ -1,0 +1,7 @@
+package kr.or.ddit.commit.service;
+
+import kr.or.ddit.commit.vo.WorkerVO;
+
+public interface IMemberService {
+	public WorkerVO workerDetail(String id);
+}

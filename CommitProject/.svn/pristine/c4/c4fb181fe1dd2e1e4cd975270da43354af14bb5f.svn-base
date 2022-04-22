@@ -1,0 +1,56 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.or.ddit.commit.vo.QnaVO;
+import kr.or.ddit.ibatis.config.SqlMapClientFactory;
+
+public class QnaDaoImpl implements IQnaDao {
+	
+	private SqlMapClient smc;
+	private static QnaDaoImpl dao;
+	
+	private QnaDaoImpl() {
+		smc = SqlMapClientFactory.getSqlMapClient();
+	}
+
+	@Override
+	public List<QnaVO> selectByPage(Map<String, Integer> map) throws SQLException {
+		List<QnaVO> list =  smc.queryForList("Qna.selectByPage", map);
+		return list;
+	}
+
+	@Override
+	public int totalCount() throws SQLException {
+		int totalCount = (int) smc.queryForObject("Qna.totalCount");
+		return totalCount;
+	}
+
+	@Override
+	public int insertQna(QnaVO vo) throws SQLException {
+		return ;
+	}
+
+	@Override
+	public int updateQna(QnaVO vo) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteQna(int no) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public QnaVO readQna(int no) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

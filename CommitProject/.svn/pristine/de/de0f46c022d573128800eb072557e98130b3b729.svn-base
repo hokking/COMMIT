@@ -1,0 +1,164 @@
+<%@page import="java.util.Map"%>
+<%@page import="kr.or.ddit.commit.vo.FreedomVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.FreedomServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFreedomService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<style>
+#searchFreeBoard{
+	height : 25px;
+}
+</style>
+<script>
+$(function(){
+	$('input:radio').on('change', function() {
+		tag = $('input[name=search]:checked').val();
+
+		location.href = "<%=request.getContextPath()%>/freedomTagSearch.do?tag="+tag;
+	})
+<%
+	List<FreedomVO> searchlist = (List<FreedomVO>)request.getAttribute("list");
+	Integer tag = (Integer)request.getAttribute("tag");
+	IFreedomService service = FreedomServiceImpl.getService();
+	
+	// IFreedomService(타입)를 service로 선언하고 FreedomServiceImpl에서 getService()를 받아옴
+	// 받아옴으로써 servcie가 FreedomServiceImpl에 있는 service와 동일해짐
+	// 후자에서 전자로 대입
+	
+	List<FreedomVO> list = service.selectAllFreeBoard();
+	
+	// List<FreedomVO> list = FreedomServiceImpl.getService().selectAllFreeBoard();
+	// service에 FreedomServiceImpl.getService()를 대입
+	// <FreedomVO>는 타입
+	// 여기 List에는 무조건 <FreedomVO>형태만 들어감
+	// service.selectAllFreeBoard(); 는 FreedomServiceImpl 안에 있는 selectAllFreeBoard()를 사용하겠다는 의미
+	
+	if(searchlist != null){
+		list = searchlist;
+	}
+	
+	if(tag!=null){
+%>
+		$('input:radio[value=<%=tag%>]').attr("checked", "checked")
+
+<%		
+	}
+%>
+	$('#board_write').on('click', function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomInsert.jsp";
+	})
+
+
+
+	$('#search').on('click',function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomSearch.jsp";
+	})
+	
+})
+
+
+</script>
+
+</head>
+<body>
+
+
+
+<br>
+<div>
+	<div>"게시글 <strong><%=list.size()%></strong>건"</div>
+	<br>
+	<div>
+		<div>
+			<form action="<%=request.getContextPath()%>/freedom/freedomSearch.jsp">
+			<select name="search_select">
+			 	 <option value="1" >제목</option> 
+			 	 <option value="2" >작성자</option>
+			</select>
+			 	<input type="text" name="search_text" placeholder="어떤 이야기가 있을까?">
+			 	<button type="submit" id="search">검색</button>
+			</form>
+		</div>
+	</div>
+</div>
+<br>
+<div>
+	 <div>
+		<span>
+			<input type="radio" value="0" name="search" >
+			<label>전체보기</label>
+		</span>
+		<span>
+			<input type="radio" value="1" name="search">
+			<label>#취준</label>
+		</span>
+		<span>
+			<input type="radio" value="2" name="search">
+			<label>#이직</label>
+		</span>
+		<span>
+			<input type="radio" value="3" name="search">
+			<label>#퇴사</label>
+		</span>
+		<span>
+			<input type="radio" value="4" name="search">
+			<label>#잡담</label>
+		</span>
+	</div>
+	<br>
+	<button type="button" id="board_write">게시글 작성</button>
+</div>
+<br>
+
+<table>
+<th>No</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th>
+
+<%
+if(list != null) {
+	for(FreedomVO vo : list ){
+
+%>
+
+<tr>
+	<td><%=vo.getFreedom_num() %></td>
+	<td><a href="<%= request.getContextPath() %>/freedom/freedomDetail.jsp?freedomnum=<%= vo.getFreedom_num()%>"><%=vo.getFreedom_title() %></a></td>
+	<td><%=vo.getMem_id() %></td>
+	<td><%=vo.getFreedom_date().substring(0, 10) %></td>
+	<td><%=vo.getFreedom_view() %></td>
+</tr>
+
+<%
+	}
+} else {
+%>
+<h4>게시물이 없습니다</h4>
+
+<%
+}
+%>
+
+</table>
+
+
+<!-- <div id="pageList"> -->
+<!-- 	<ul class="pagination pager"> -->
+<!-- 		<li class="active"><a class="paging" href="#">1</a></li> -->
+<!-- 		<li><a class="paging" href="#">2</a></li> -->
+<!-- 	</ul> -->
+	
+<!-- 	<ul class="pager">  -->
+<!-- 		<li><a class="next" href="#">Next</a></li> -->
+<!-- 	</ul> -->
+<!-- </div> -->
+
+
+</body>
+</html>

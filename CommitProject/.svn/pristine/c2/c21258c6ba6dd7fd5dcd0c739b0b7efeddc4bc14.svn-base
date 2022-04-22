@@ -1,0 +1,76 @@
+<%@page import="kr.or.ddit.commit.vo.QnaVO"%>
+<%@page import="kr.or.ddit.commit.service.QnaServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IQnaService"%>
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Qna 상세페이지</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="../js/qna.js"></script>
+
+  <style type="text/css">
+  
+  table{
+  
+  width : 300px;
+  margin : 5px;
+  text-align : center;
+  
+  }
+  
+  th , td{
+  text-align : center;
+  }
+  
+  
+  </style>
+</head>
+<body>
+<%
+
+	int num = Integer.parseInt(request.getParameter("num"));
+	IQnaService service = QnaServiceImpl.getInstance();
+	QnaVO vo = service.readQna(num);
+
+%>
+
+<table border='1'>
+	<tr><td colspan="2" style="text-align : center">
+	<h3><%=vo.getQna_title() %></h3></td></tr>
+	<tr>
+		<th><span>No : </span><%=vo.getQna_num()%></th>
+		<th><span>작성일 : </span><%=vo.getQna_date().substring(0,10)%></th>
+	</tr>
+	<tr>
+	<td id="con1" colspan="2"><%=vo.getQna_con().replaceAll("\r", "").replaceAll("\n", "<br>") %>
+	</tr>
+	
+	<% if(vo.getAns_con() != null) {%>
+	<tr>
+		<td colspan="2"><h3>답변</h3></td>
+	</tr>
+	<tr>
+		<th><span>작성자 : 관리자</span></th>
+		<th><span>작성일 : </span><%=vo.getAns_date().substring(0,10)%></th>
+	</tr>
+	<tr>
+		<td id="con2" colspan="2"><%=vo.getAns_con().replaceAll("\r", "").replaceAll("\n", "<br>") %>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	
+	<% } %>
+
+</table>
+
+
+</body>
+</html>

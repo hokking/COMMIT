@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="recruit">
+	<select id="selectAllRecruitPop" resultClass="RecruitVO">
+	<![CDATA[
+		select * from recruit
+		where to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end, 'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		order by recruit_views desc
+	]]>
+	</select>
+	
+	<select id="selectAllRecruitNew" resultClass="RecruitVO">
+	<![CDATA[
+		select * from recruit
+		where to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		order by recruit_start desc
+	]]>
+	</select>
+	
+	<select id="selectRegRecruitPop" resultClass="RecruitVO" parameterClass="int">
+	<![CDATA[
+		select * from recruit 
+		where reg_num = #reg_num#
+		and to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		order by recruit_views desc
+	]]>
+	</select>
+	
+	<select id="selectRegRecruitNew" resultClass="RecruitVO" parameterClass="int">
+	<![CDATA[
+		select * from recruit 
+		where reg_num = #reg_num#
+		and to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		order by recruit_start desc
+	]]>
+	</select>
+
+	<select id="selectJobRecruitPop" resultClass="RecruitVO" parameterClass="int">
+	<![CDATA[
+		select * from recruit 
+		where work_num = #work_num#
+		and to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		order by recruit_views desc
+	]]>
+	</select>
+
+	<select id="selectJobRecruitNew" resultClass="RecruitVO" parameterClass="int">
+	<![CDATA[
+		select * from recruit 
+		where work_num = #work_num#
+		and to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		order by recruit_start desc
+	]]>
+	</select>
+	
+	<select id="selectRJRecruitPop" resultClass="RecruitVO" parameterClass="java.util.Map">
+	<![CDATA[
+		select * from recruit 
+		where reg_num = #reg_num#
+		and to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		intersect
+		select * from recruit 
+		where work_num = #work_num#
+		and to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		order by 13 desc
+	]]>	
+	</select>
+	
+	<select id="selectRJRecruitNew" resultClass="RecruitVO" parameterClass="java.util.Map">
+	<![CDATA[
+		select * from recruit 
+		where reg_num = #reg_num#
+		and to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		intersect
+		select * from recruit 
+		where work_num = #work_num#
+		and to_char(recruit_start,'yyyy-MM-dd') <= to_char(sysdate, 'yyyy-MM-dd')
+		and to_char(recruit_end,'yyyy-MM-dd') >= to_char(sysdate, 'yyyy-MM-dd')
+		order by 4 desc
+	]]>
+	</select>
+	
+	<select id="selectRecruit" resultClass="RecruitVO" parameterClass="int">
+		select b.com_name, a.recruit_name, a.recruit_start, a.recruit_end,
+			a.recruit_spec, c.work_name, a.reg_num, a.paytype_num, a.recruit_bnf,
+			a.recruit_duty, a.recruit_qlt, a.recruit_num, a.mem_id, a.recruit_skill
+		from recruit a, company b, jobwork c
+		where a.mem_id = b.mem_id
+		and a.work_num = c.work_num
+		and a.recruit_num = #recruit_num#
+	</select>
+	
+	<insert id="insertRecruit" parameterClass="RecruitVO">
+		insert into recruit
+		values(recruit_num_seq.nextval, #mem_id#, #recruit_name#, #recruit_start#, 
+		#recruit_end#, #recruit_spec#, #work_num#, #reg_num#, 
+		(select paytype_num from paytype where paytype_name = #paytype_name#), 
+		#recruit_bnf#, #recruit_skill#, #recruit_qlt#, 0, #recruit_duty#)
+	</insert>
+	
+	<update id="updateRecruit" parameterClass="RecruitVO">
+		update recruit
+		set recruit_name = #recruit_name#,
+		recruit_spec = #recruit_spec#,
+		work_num = #work_num#,
+		reg_num = #reg_num#,
+		recruit_bnf = #recruit_bnf#,
+		recruit_skill = #recruit_skill#,
+		recruit_qlt = #recruit_qlt#,
+		recruit_duty = #recruit_duty#
+		where recruit_num = #recruit_num#
+	</update>
+</sqlMap>

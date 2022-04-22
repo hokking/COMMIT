@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="freedom">
+	<select id="selectAllFreeBoard" resultClass="FreedomVO">
+		select * from freedom
+	</select>
+
+	<insert id="insertFreeBoard" parameterClass="FreedomVO">
+		insert into freedom
+		values(
+			#mem_id#,
+			freedom_num_seq.nextval,
+			0,
+			#freedom_con#,
+			#freedom_title#,
+			sysdate,
+			#tag_num#
+			)	
+	</insert>
+	
+		
+	<select id="selectOneFreeBoard" parameterClass="int" resultClass="FreedomVO">
+		select * from freedom where freedom_num=#freedom_num#
+	</select>
+	
+	<select id="searchTitleFreeBoard" parameterClass="string" resultClass="FreedomVO">
+		select * from freedom where freedom_title like '%'||#freedom_title#||'%'
+	</select>
+	
+	<select id="searchMemIdFreeBoard" parameterClass="string" resultClass="FreedomVO">
+		select * from freedom where mem_id=#mem_id#
+	</select>
+
+	<update id="updateFreeBoard" parameterClass="FreedomVO">
+		update freedom set freedom_con = #freedom_con#,
+						   freedom_title = #freedom_title#,
+						   tag_num = #tag_num#,
+						   freedom_date = sysdate
+					 where freedom_num = #freedom_num#
+	</update>
+	
+	<delete id="deleteFreeBoard" parameterClass="int">
+		delete freedom where freedom_num = #freedom_num#
+	</delete>
+	
+</sqlMap>

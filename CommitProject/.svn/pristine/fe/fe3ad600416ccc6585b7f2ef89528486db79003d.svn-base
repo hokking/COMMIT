@@ -1,0 +1,13 @@
+package kr.or.ddit.commit.service;
+
+import kr.or.ddit.commit.vo.ResumeVO;
+
+public interface IResumeService {
+	
+	public int selectResume(String mem_id);
+	
+	public int insertResume(ResumeVO vo);
+	
+	public int updateResume(ResumeVO vo);
+	
+}

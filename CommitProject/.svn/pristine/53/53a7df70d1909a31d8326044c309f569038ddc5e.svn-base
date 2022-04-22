@@ -1,0 +1,13 @@
+package kr.or.ddit.commit.service;
+
+import java.util.List;
+
+import kr.or.ddit.commit.vo.HrVO;
+
+public interface IHrService {
+	
+	public List<HrVO> getAllhr();
+	
+	public HrVO detailhr(int no);	
+	
+}

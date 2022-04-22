@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+*{
+
+}
+body{
+	min-width : 1900px;
+	
+}
+#img1{
+padding-left: 830px;
+	width: 180px;
+	height: 180px;	
+}
+h1{
+padding-left: 800px;
+ padding-top: 20px;
+ color: #FB4A22;
+}
+
+hr{
+	width: 100%;
+}
+.nt {
+/* border : 2px solid red; */
+float: left;
+margin-right: 140px;
+margin-left: 120px;
+margin-top: 5px;
+font-size: 20px;
+font-weight: bold;
+}
+
+nav{
+/* 	border : 2px solid green; */
+	height: 80px;
+}
+
+#nu{
+margin-left: 180px;
+}
+
+li{
+	list-style-type : none;
+	
+}
+.lt{
+
+	margin-bottom: 40px;
+	font-size: 20px;
+		
+}
+iframe{
+	width:1120px;
+	height: 380px;
+
+}
+section{
+float: left;
+margin-left: 25px;
+margin-top: 25px;
+}
+
+a:link{
+	color :  #FB4A22;
+	font-weight: bold;
+	font-size: 20px;
+	text-decoration:  none; /* line-through, underline, verline, overline */
+}
+a:visited{
+ color : #EB5E1C;
+
+}
+a:hover{
+	text-decoration : underline;
+	 color : #EB5E1C;
+	 background: white
+}
+a:active{
+	color : #EB5E1C;
+	font-weight: bold;
+	text-decoration:  none;
+}
+
+#left{
+	float: left;
+	width: 15%;
+	
+	margin-left: 30px;
+	margin-right: 30px;
+}
+#right{
+	float: left;
+	width: 15%;
+	height :400px;
+	
+	
+	margin-left:70px;
+		
+}
+
+h2{
+
+
+width: 50px;
+}
+label{
+ 	display : inline-block;
+ 	width : 70px;
+ 	height : 30px;
+}
+
+#rb{
+float: left;
+}
+
+button{
+width: 100px;
+height: 70px;
+
+margin-top: 32px;
+margin-left: 40px;
+font-size: 25px;
+}
+#rd{
+
+float: left;
+
+width: 50%;
+font-size: 15px;
+}
+
+footer{
+	width: 1800px;
+	height: 150px;
+	
+	margin-top: 450px;
+	margin-left: 30px;
+	
+}
+#mg{
+ 	float : left; 
+	width: 400px;
+	height: 120px;	
+	margin-left: 40px;
+	margin-top: 5px;
+	
+
+	
+}
+
+
+</style>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+
+<header>
+	<a href="website.html"><img id="img1" alt="바잇미로고2.jpg" src="../images/바잇미로고2.jpg"></a>
+
+	<hr>
+</header>
+
+
+<nav>
+  <ul id ="nu">
+  	<div class="nt"><li><a href="">펫플마켓</a></li></div>
+  	<div class="nt"><li><a href="">신상품</a></li></div>
+  	<div class="nt"><li><a href="">베스트</a></li></div>
+  	<div class="nt"><li class="n1"><a href="">이벤트</a></li></div>
+  	<div class="nt"><li class="n1"><a href="">입점문의</a></li></div>
+  </ul>
+ <br> <br>
+  <hr>
+</nav>
+
+
+<aside id="left">
+	
+	<ul>
+	  	<div class="lt"><li><a href="frame1.html" target="ifr1">사료/간식</a></li></div>
+	  	<div class="lt"><li><a href="frame2.html" target="ifr1">의류</a></li></div>
+	  	<div class="lt"><li><a href="frame3.html" target="ifr1">생활용품</a></li></div>
+	  	<div class="lt"><li><a href="frame4.html" target="ifr1">장난감</a></li></div>
+	  	<div class="lt"><li><a href="frame5.html" target="ifr1">캣보드차트바로가기</a></li></div>
+	  	<div class="lt"><li> <a href="frame6.html" target="ifr1">멍튜브바로가기</a></li></div>
+	  	
+<!-- 	  	 <div class="lt"><li><a href="http://naver.com" target="ifr">멍튜브바로가기</a></li></div> -->
+
+	  </ul>
+</aside>
+
+
+<section>
+<article>
+<iframe name="ifr1" src="main.html">
+
+</iframe>
+</article>
+</section>
+
+<aside id="right">
+<h2>Cart</h2>
+<a id= "ra" href="cart.html">바로가기</a>
+<br><br>
+<form action="website2.html">
+<div id = "rd">
+  <label>아이디</label><input type="text" id="x"><br>
+  <label>비밀번호</label><input type="text" id="y">
+ </div>
+  <button id="rb" type="submit" onclick="log()">login</button><br>
+<!--   <button type="reset">취소</button> -->
+
+<br><br><br><br><br>
+<a href="join.html">회원가입</a>
+
+</form>
+</aside>
+
+<footer>
+<hr>
+<img id="mg" alt="메인3.JPG" src="../images/메인3.JPG">
+<img id="mg" alt="메인4.JPG" src="../images/메인4.JPG">
+<img id="mg" alt="메인5.JPG" src="../images/메인5.JPG">
+<img id="mg" alt="메인5.JPG" src="../images/메인6.JPG">
+
+
+
+</footer>
+</body>
+</html>

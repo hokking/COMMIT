@@ -1,0 +1,298 @@
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@page import="kr.or.ddit.commit.service.FreeRepleServiceImpl"%>
+<%@page import="kr.or.ddit.commit.vo.FreeRepleVO"%>
+<%@page import="kr.or.ddit.commit.service.IFreeRepleService"%>
+
+<%@page import="kr.or.ddit.commit.vo.FreedomVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.FreedomServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IFreedomService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/reple.js"></script>
+<style>
+#repleUpdate{
+ 	display : none; 
+}
+
+</style>
+<%
+	
+	int freedomnum = Integer.parseInt(request.getParameter("freedomnum"));
+	IFreedomService service = FreedomServiceImpl.getService();
+	FreedomVO vo = service.selectOneFreeBoard(freedomnum);
+	service.FreedomView(vo);
+	vo = service.selectOneFreeBoard(freedomnum);
+	IFreeRepleService repleService = FreeRepleServiceImpl.getService(); 
+	List<FreeRepleVO> repleList = repleService.selectAllFreeReple(freedomnum);
+
+	//현재 Session가져오기 위한 객체 생성
+	HttpSession session1 = request.getSession();
+	
+	//Session값을 읽어오기
+	MemberVO mem = (MemberVO)session1.getAttribute("loginMember");
+	
+%>	
+	
+
+<script>
+
+$(function(){
+	
+	//비회원
+ 	<%
+ 	if(mem==null){
+ 	%>
+ 		$('#board_update').hide();
+ 		$('#board_delete').hide();
+ 		$('#reple_write').hide();
+ 		$('#reple_delete').hide();
+ 		$('#reple_update').hide();
+ 		$('#repleContnet').hide(); 		
+ 		
+ 	<%
+ 	//관리자
+ 	}else if(mem.getMem_num()==3){
+ 	%>
+ 		$('#board_update').hide();
+ 		$('#reple_write').hide();
+ 		$('#reple_update').hide();
+ 		$('#repleContnet').hide(); 	
+ 		$('#board_delete').show();
+ 		$('#reple_delete').show();
+ 	
+ 	<%
+ 	}
+ 	%>
+ 	
+	$('#tomain').on('click',function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomMain.jsp";
+	});
+	
+	$('#board_update').on('click', function(){
+		location.href="<%=request.getContextPath()%>/freedom/freedomUpdate.jsp?freedomnum=<%=freedomnum%>";
+	});
+	
+	$('#board_delete').on('click', function(){
+		del = <%=vo.getFreedom_num() %>;
+		$.ajax({
+			url : "/CommitProject/freedomDelete.do",
+			data : {"num": del}, // num : key, del : value값(데이터)
+			type : 'post',
+			success : function(res) {				
+			},
+			dataType : 'json'
+		})	
+		location.href="<%=request.getContextPath()%>/freedom/freedomMain.jsp";
+	});
+		
+	$('#reple_delete').on('click', function(){
+		
+		del = $('#reple_delete').attr("freedomNum");
+		//attr(속성) : 속성값을 가져온다
+		
+		$.ajax({ // 보내주는 정보(주소, 데이터, 타입)
+			url : "/CommitProject/freedomRepleDelete.do",
+			data : {"replenum": del}, // num : key, del : value값(데이터)
+			type : 'post',
+			success : function(res) {	
+// 				alert(res.sw); 
+				// res에 있는 sw값을 출력하는 것, 여기서 res는 function의 변수
+				
+			},
+			dataType : 'json'
+		})	
+		location.href="<%=request.getContextPath()%>/freedom/freedomDetail.jsp?freedomnum=<%=freedomnum%>";
+	});
+	
+	$(document).on('click', '#reple_update', function(){
+			
+	
+			 oldtext = $(this).parent().prev().html();
+			 num = $(this).attr("freedomNum"); 
+			 // attr은 속성값을 의미, 한개면 get, 두개면 set
+			 newtext =  oldtext.replace(/<br>/g, "\n");
+// 			 newtext = oldtext;
+			 
+			 $('#repleUpdate textarea').val(newtext);
+			 
+			 $('#repleUpdate textarea').attr("freedomNum", num);
+			 
+			 $(this).parent().prev().empty();
+			 
+			 $(this).parent().prev().append($('#repleUpdate'));
+ 			 $('#repleUpdate').show();
+			 
+			 if($(this).is(":visible") == true) {
+			 	$(this).attr("style", "visibility:hidden");
+// 			 	$(this).hide();
+			 } else {				 
+			 	$(this).attr("style", "visibility:visible");
+// 			 	$(this).show();
+			 }
+	
+		
+ 	});
+	
+	
+	
+	$('#ok').on('click', function(){
+			
+		//textarea 에서 수정한 내용을 가져오기  -\r\n -> <br>
+		 oldtext = $('#repleUpdate textarea').val();	
+		 newtext = oldtext.replace(/\r/g, "").replace(/\n/g, "<br>");
+		 rnum = $('#repleUpdate textarea').attr("freedomNum");
+		 var okbtn = this;			 
+		
+		$.ajax({
+			url : "/CommitProject/freedomRepleUpdate.do",
+			data : {"content" : newtext,
+					"num" : rnum		
+			},
+			type : "post",
+			success : function(res) {	
+				
+				$('#reple_update', $(okbtn).parents(".re")).attr("style", "visibility:visible");
+				
+				//p 부분을 검색 - 원래 내용이 있었던 자리 
+				p =  $('#repleUpdate').parent();
+				 		
+				//수정폼닫기
+				$('#repleUpdate').appendTo($('body'));
+				$('#repleUpdate').hide();
+			
+				//수정내용을 원래자리p으로 보내기 
+				$(p).html(newtext);
+								
+			},
+			dataType : 'json'
+		})
+	})
+	
+	$('#cancle').on('click',function(){
+		
+		$('#reple_update', $(this).parents(".re")).attr("style", "visibility:visible");
+		
+		p =  $('#repleUpdate').parent();
+		
+		$('body').append($('#repleUpdate'));
+		$('#repleUpdate').hide();
+	
+		$(p).html(oldtext);
+		
+		
+		
+	})
+})
+</script>
+
+
+</head>
+<body>
+<br>
+<div>
+	<button type="button" id="tomain">목록으로 돌아가기</button>
+</div>
+<br>
+
+
+<%
+if(vo != null) {
+	
+	String tagName = null; 
+	if(vo.getTag_num()==1){
+		tagName = "#취준";
+	}else if(vo.getTag_num()==2){
+		tagName = "#이직";
+	}else if(vo.getTag_num()==3){
+		tagName = "#퇴사";
+	}else if(vo.getTag_num()==4){
+		tagName = "#잡담";
+	}
+%>
+
+<table>
+<tr><th>No</th><td><%=vo.getFreedom_num() %></td></tr>
+<tr><th>제목</th><td><%=vo.getFreedom_title() %></td></tr>
+<tr><th>태그</th><td><%=tagName%></td></tr>
+<tr><th>작성자</th><td><%=vo.getMem_id() %></td></tr>
+<tr><th>작성일</th><td><%=vo.getFreedom_date().substring(0, 10) %></td></tr>
+<tr><th>조회수</th><td><%=vo.getFreedom_view() %></td></tr>
+<tr><th>내용</th><td><%=vo.getFreedom_con().replaceAll("\r", "").replaceAll("\n", "<br>") %></td></tr>
+</table>
+<br>
+
+<%
+	
+} else {	
+%>
+<h4>게시물이 없습니다</h4>
+
+<%
+}
+%>
+
+<div>	
+	<button type="button" id="board_update" class="board_update">게시글 수정</button>
+	<button type="button" id="board_delete" class="board_delete">게시글 삭제</button>	
+</div>
+<br>
+
+
+
+<%
+	if(repleList != null) {
+ 		for(FreeRepleVO rvo : repleList ){
+ 			
+ %>
+ 			
+
+ <div class="re">                                   
+	  <p>=======================</p>
+	  <p><%=rvo.getMem_id() %> &nbsp; 날짜 :<span class="date"> <%=rvo.getReple_date().substring(0, 10) %></span></p>
+	  <p><%=rvo.getReple_con().replaceAll("\r", "").replaceAll("\n", "<br>")  %></p>                 
+	  <p>
+	  <input freedomNum="<%=rvo.getReple_num() %>" type="button" id="reple_delete"  class="action" value="댓글삭제">
+	  <input freedomNum="<%=rvo.getReple_num() %>" type="button" id="reple_update"  class="action" value="댓글수정" style="visibility: visible;">
+	  </p>
+ </div>	
+	 
+<%
+ 	}
+ } else {	
+%>
+
+<br>
+<h4>댓글이 없습니다</h4>
+
+<%
+ }
+%>
+
+<div id="repleUpdate" >
+<textarea rows="5" cols="50"></textarea>
+<br>
+<input type="button" value="확인" id="ok">
+<input type="button"  value="취소" id="cancle">
+</div>
+
+
+
+<form action="<%=request.getContextPath()%>/freedomRepleInsert.do" method="post">
+	<input type="hidden" name="freedom_num" value="<%=vo.getFreedom_num() %>">
+<div>
+	<p>=======================</p>
+	<textarea placeholder="댓글을 입력해주세요" name="repleContnet" id="repleContnet"></textarea>
+</div>
+<div>	
+	<button type="submit" id="reple_write">댓글 작성</button>
+</div>
+</form>
+</body>
+</html>

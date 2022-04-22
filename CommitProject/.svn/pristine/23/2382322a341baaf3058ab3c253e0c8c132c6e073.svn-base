@@ -1,0 +1,30 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.or.ddit.commit.vo.CompanyVO;
+import kr.or.ddit.ibatis.config.SqlMapClientFactory;
+
+public class CompanyInfoDaoImpl implements ICompanyInfoDao{
+	private SqlMapClient client = null;
+	private static ICompanyInfoDao dao;
+	
+	private CompanyInfoDaoImpl() {
+		client = SqlMapClientFactory.getSqlMapClient();
+	}
+	
+	public static ICompanyInfoDao getInstance() {
+		if(dao == null) dao = new CompanyInfoDaoImpl();
+		return dao;
+	}
+	
+	
+	@Override
+	public List<CompanyVO> companyInfoAll() throws SQLException {
+		return client.queryForList("");
+	}
+
+}

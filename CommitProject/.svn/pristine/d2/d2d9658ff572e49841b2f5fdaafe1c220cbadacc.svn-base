@@ -1,0 +1,59 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.or.ddit.commit.vo.FreedomVO;
+import kr.or.ddit.ibatis.config.SqlMapClientFactory;
+
+public class FreedomDaoImpl implements IFreedomDao{
+	
+	private SqlMapClient client;
+	private static IFreedomDao dao;
+	
+	public FreedomDaoImpl() {
+		client = SqlMapClientFactory.getSqlMapClient();
+	}
+	
+	public static IFreedomDao getDao() {
+		if(dao == null) dao = new FreedomDaoImpl();
+		return dao;
+	}
+
+	@Override
+	public List<FreedomVO> selectAllFreeBoard() throws SQLException {
+		return client.queryForList("freedom.selectAllFreeBoard");
+	}
+
+	@Override
+	public int insertFreeboard(FreedomVO vo) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateFreeboard(FreedomVO vo) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteFreeboard(int freedomnum) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int searchFreeboard(FreedomVO vo) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+
+
+}

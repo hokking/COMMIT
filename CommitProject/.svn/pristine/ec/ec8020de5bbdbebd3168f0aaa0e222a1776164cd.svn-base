@@ -1,0 +1,34 @@
+package kr.or.ddit.commit.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.or.ddit.commit.dao.FreedomDaoImpl;
+import kr.or.ddit.commit.dao.IFreedomDao;
+import kr.or.ddit.commit.vo.FreedomVO;
+import kr.or.ddit.ibatis.config.SqlMapClientFactory;
+
+public class FreedomServiceImpl implements IFreedomService{
+	
+	private SqlMapClient client;
+	private static IFreedomService service;
+	
+	public FreedomServiceImpl() {
+		client = SqlMapClientFactory.getSqlMapClient();
+	}
+	
+	public static IFreedomService getService() {
+		if(service == null) service = new FreedomServiceImpl();
+		return service;
+	}
+
+	@Override
+	public List<FreedomVO> selectByPage(Map<String, Integer> map) throws SQLException {
+		
+		return null;
+	}
+
+}

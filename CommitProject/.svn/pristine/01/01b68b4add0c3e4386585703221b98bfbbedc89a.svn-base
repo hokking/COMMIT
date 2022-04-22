@@ -1,0 +1,14 @@
+package kr.or.ddit.commit.service;
+
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.commit.vo.MemberVO;
+
+public interface IManagerService {
+
+	public Map<String, Integer> pageInfo(int page);
+
+	public List<MemberVO> selectByPage(Map<String, Integer> map);
+
+}

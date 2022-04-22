@@ -1,0 +1,147 @@
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<script src="<%=request.getContextPath()%>/manager/board.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+
+body {
+  margin : 10px;
+}
+
+.p1{
+  width : 80%;
+  padding : 5px;
+  margin : 3px;
+  float : left;
+}
+.p2{
+  clear : both;
+}
+.p3{
+  width : 17%;
+  padding : 5px;
+  margin : 2px;
+  float : right ; 
+}
+.pager{
+  width : 100px;
+  float : left;
+  margin :5px;
+  margin-left : 5%;
+}
+</style>
+
+<!-- 
+회원 정보 조회 및 삭제
+- 회원 관리 버튼(구직자, 회사)
+- 회원 목록
+- 회원마다 우측에 조회, 삭제 버튼 > 상세조회 <아코디언> 
+ -->
+
+<%	
+//현재 Session가져오기 위한 객체 생성
+HttpSession session1 = request.getSession();
+
+//Session값을 읽어오기
+MemberVO mem = (MemberVO)session1.getAttribute("loginMember");
+%>	
+
+
+<script>
+currentPage = 1;
+
+$(function(){
+	
+	listPage(currentPage);
+	
+	//리스트 이벤트 
+	$('#list').on('click', '.action', function(){
+		 idx = $(this).attr('idx');
+		 name = $(this).attr('name');	 
+		
+		if(name== "delete"){
+// 			 alert(idx + "번째 글을 삭제합니다");
+		 
+			 deleteBoard();//db삭제 - 후 다시 리스트 출력
+		}
+		if(name== "detail"){
+		 
+			 detailMember();
+		}
+	})	
+	
+	//페이지번호  리스트 이벤트 
+	$('#pageList').on('click', '.paging', function(){
+		currentPage =   $(this).text().trim();
+		
+		option = $('select[name=search_MemNum]').val();
+		text = $('input[name=search_MemId]').val();
+// 		listPage(currentPage);
+		searchMember(currentPage);
+	})
+	//next이벤트 
+	$('#pageList').on('click', '.next', function(){
+		 currentPage =   parseInt($('.paging').last().text().trim()) + 1;
+		 option = $('select[name=search_MemNum]').val();
+		 text = $('input[name=search_MemId]').val();
+// 		 listPage(currentPage);
+			searchMember(currentPage);
+	})
+	//previous 이벤트
+	$('#pageList').on('click', '.prev', function(){
+		 currentPage =   parseInt($('.paging').first().text().trim()) - 1;
+		 option = $('select[name=search_MemNum]').val();
+		 text = $('input[name=search_MemId]').val();
+// 		 listPage(currentPage);
+			searchMember(currentPage);
+	})
+	
+	// 검색이벤트
+	$('#search').on('click', function(){
+		 select = $(this).parent().find('select');
+		 option = $('option:checked', select).val();
+		 text = $(this).parent().find('input').val();
+// 		 searchMember(currentPage);
+		 searchMember(1);
+	})
+	
+})//$function 
+</script>
+
+</head>
+<body>
+
+<h2>관리자 메인 페이지 입니다.</h2>
+<br>
+<div>
+	<form>
+<%-- 	<form action="<%=request.getContextPath()%>"> --%>
+	<select name="search_MemNum">
+	 	 <option value="1" >개인회원</option> 
+	 	 <option value="2" >기업회원</option>
+	 	 <option value="3" >관리자</option>
+	</select>
+	 	<input type="text" name="search_MemId" placeholder="입력하세요">
+	 	<button type="button" id="search">검색</button>
+	 	<button type="button" id="total" onclick="location.href='<%=request.getContextPath() %>/manager/manager.jsp'">전체보기</button>
+	 	<button type="button" id="total" onclick="location.href='<%=request.getContextPath() %>/board/main.jsp'">홈가기</button>	 	
+	</form>
+	<br>
+</div>
+
+<div id="list"></div>
+<div id="pageList"></div>
+
+</body>
+</html>

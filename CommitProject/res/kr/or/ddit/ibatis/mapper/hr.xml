@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+<sqlMap namespace="hr">
+
+	<select id="getAllhr" resultClass="HrVO">
+		select * from resume where resume_chk = 1
+	</select>
+
+	<select id="detailhr" parameterClass="int" resultClass="HrVO">
+		select * from resume where resume_num = #resume_num#
+	</select>
+	
+	<select id="selectReghr" resultClass="HrVO" parameterClass="String">
+		select * from resume where resume_area = #resume_area#	
+	</select>
+	
+	<select id="selectJobhr" resultClass="HrVO" parameterClass="String">
+		select * from resume where resume_job = #resume_job#	
+	</select>
+	
+	<select id="selectRJhr" resultClass="HrVO" parameterClass="map">
+		select * from resume where resume_area = #resume_area#
+		intersect
+		select * from resume where resume_job = #resume_job#	
+	</select>
+</sqlMap>

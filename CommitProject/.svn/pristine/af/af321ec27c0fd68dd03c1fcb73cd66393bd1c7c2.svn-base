@@ -1,0 +1,379 @@
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@page import="kr.or.ddit.commit.service.ResumeServiceImple"%>
+<%@page import="kr.or.ddit.commit.service.IResumeService"%>
+<%@page import="kr.or.ddit.commit.vo.ResumeVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+body,ul,li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/*라이브러리*/
+html,body {
+  overflow-x : hidden;
+}
+.con {
+  margin: 0 auto;
+}
+.row::after {
+  content:"";
+  display: block;
+  clear: both;
+}
+.cell {
+  float: left;
+}
+.img-box img {
+  display: block;
+  width: 100%;
+}
+
+/*커스텀*/
+
+.con {
+  max-width: 1200px;
+}
+
+/*사이드 메뉴 바*/
+.side-menu-button {
+  display: none;
+}
+@media (max-width: 1400px) {
+  .side-menu-button {
+    display: block;
+  }
+}
+/*사이드 메뉴 버튼*/
+.side-menu-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  
+}
+.side-menu-button .img-box {
+  margin-top: 30px;
+  width: 20px;
+}
+/*사이드 메뉴 박스*/
+.side-menu-button:hover .side-menu-bar {
+  left: 0;
+}
+.side-menu-bar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  height: 100%;
+  width: 300px;
+  background-color: white;
+  box-sizing: border-box;
+  z-index:3;
+  transition: left 1s;
+}
+.side-menu-bar .side-menu-box ul > li {
+  position: relative;
+  background-color: #dfdfdf;
+}
+.side-menu-bar .side-menu-box > ul {
+  margin-top: 40px;
+}
+.side-menu-bar .side-menu-box ul > li > a {
+  display: block;
+  padding: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.side-menu-bar .side-menu-box > ul > li > a {
+  padding-left: 40px;
+}
+.side-menu-bar .side-menu-box ul > li:hover > a {
+  color: white;
+  background-color:  #93D8D9;
+}
+.side-menu-bar .side-menu-box ul ul {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+.side-menu-bar .side-menu-box ul > li:hover > ul {
+  display: block;
+}
+
+
+
+
+#logoimg {
+	width: 100px;
+	height: 30px;
+	
+}
+
+#blogo{
+	border: 0px;
+	background: white;
+	outline: none;
+}
+#logo{
+	
+	padding-top: 45px;
+	padding-left: 90px;
+}
+#my{
+	padding-left: 90px;
+	margin-top: 10px;
+	background: #FAFAFA;
+	border-radius: 15px;
+	border: 2px solid #93D8D9;
+	padding-bottom: 10px
+}
+
+#my2{
+	margin-top: 90px;
+	margin-left: 90px;
+	
+}
+
+.bmain{
+	border-radius: 15px;
+	background: #93D8D9;
+	width: 200px;
+	height: 100px;
+	font-size: 20px;
+	color: white;
+	border: 0px;
+	outline: none;
+	margin-top: 20px;
+}
+.box {
+    width: 150px;
+    height: 150px; 
+    border-radius: 70%;
+    overflow: hidden;
+    border: 2px solid #93D8D9;
+    display: inline-block;
+}
+.profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#mainb{
+	
+	width: 80%;
+	float: right;
+}
+
+#nu{
+	
+	 width: 70%;
+	 float: right;
+	 padding-right: 190px;
+	
+}
+
+.nt {
+	border: 0px;
+	background: white;
+	outline: none;
+	/* border : 2px solid red; */
+	float: left;
+	margin-right: 25px;
+	margin-left: 25px;
+	
+	font-size: 15px;
+	font-weight: bold;
+	
+	letter-spacing: 0;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	
+}
+
+.nt:hover,
+.nt:focus,
+.nt:active {
+	letter-spacing: 5px;
+}
+.nt:after,
+.nt:before {
+	border: 1px solid rgba(255, 255, 255, 0);
+	bottom: 0;
+	content: " ";
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	width: 0;
+}
+.nt:hover:after,
+.nt:hover:before {
+	border-color: #93D8D9;
+	-webkit-transition: width 350ms ease-in-out;
+	transition: width 350ms ease-in-out;
+	width: 80%;
+}
+.nt:hover:before {
+	bottom: auto;
+	top: 0;
+}
+#bresume{
+	border-radius: 15px;
+	background: #93D8D9;
+	width: 150px;
+	height: 50px;
+	font-size: 15px;
+	color: white;
+	border: 0px;
+	outline: none;
+	
+}
+
+</style>
+
+
+</head>
+<body>
+
+<div class="side-menu-button">
+  <div class="img-box">
+    <img src="사이드바.png" alt="">
+  </div>
+  <div class="side-menu-bar">
+    <nav class="side-menu-box">
+      <ul>
+        <li>
+          <a href="#">MyHome</a>
+        </li>
+        <li>
+          <a href="#">이력서</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">지원현황</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">관심공고/기업</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">개인정보관리</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+    </nav>
+  </div>
+</div>
+
+
+
+<div class="prod-list-bar con">
+
+  <div class="prod-list-box">
+  
+    <div id="logo">
+  <button onclick="location.href='<%=request.getContextPath() %>/board/main.jsp'" type="button" id="blogo" href="main.jsp">
+	<img  style='cursor:pointer' id="logoimg" alt="로고.png" src="<%=request.getContextPath() %>/images/심플로고1.PNG">
+	</button>
+	
+	<div id ="nu">
+	  	<button style='cursor:pointer' onclick="location.href='<%=request.getContextPath() %>/recruit/recruitMain.jsp'" type="button" class="nt">채용공고</button>
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">회사정보</button>
+	  	<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">인재풀</button>
+		<button style='cursor:pointer' onclick="location.href='main.jsp'" type="button" class="nt">커뮤니티</button>
+    </div>
+    
+	</div>
+
+	<div id="my2">
+	<h1>이력서 관리</h1>
+	</div>
+	
+	<div id="my">
+	
+	<%
+		
+	HttpSession session1 = request.getSession();
+	MemberVO mvo = new MemberVO();
+	mvo = (MemberVO)session1.getAttribute("loginMember");
+	String memid = mvo.getMem_id();
+	
+	IResumeService service = ResumeServiceImple.getInstance();
+	int rs = service.selectresume(memid);
+	
+	List<ResumeVO> list = service.listresume(memid);
+	%> 
+	
+	<!-- 만약에 이력서가 한개도없으면 이력서 등록버튼 나오고 한개라도 있으면 이력서리스트/개수와 등록버튼 -->
+	
+	<%
+	if(rs==0){ //이력서 없으면
+	%>
+	등록된 이력서가 없습니다. 이력서를 등록해주세요<br><br>
+	
+	<%
+	}else if(rs!=0){ // 이력서 있으면
+	%>
+	
+	<br><br>
+	총 <%=rs%>건
+
+	<% for(ResumeVO vo : list) {
+		vo
+%>
+
+<% 
+	}
+%>
+	<hr>
+	
+	<% 	
+	}
+	%> 
+	
+	<button id="bresume" style='cursor:pointer' onclick="location.href='<%=request.getContextPath() %>/mypage/resumeWrite.jsp'" type="button" >
+	이력서 등록하기</button>
+	
+	</div>
+	
+	</div>
+  
+  
+</div>
+</body>
+</html>

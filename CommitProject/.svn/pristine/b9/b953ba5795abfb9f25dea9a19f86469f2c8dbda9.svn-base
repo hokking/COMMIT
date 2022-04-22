@@ -1,0 +1,287 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+body,ul,li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/*라이브러리*/
+html,body {
+  overflow-x : hidden;
+}
+.con {
+  margin: 0 auto;
+}
+.row::after {
+  content:"";
+  display: block;
+  clear: both;
+}
+.cell {
+  float: left;
+}
+.img-box img {
+  display: block;
+  width: 100%;
+}
+
+/*커스텀*/
+
+.con {
+  max-width: 1200px;
+}
+
+/*사이드 메뉴 바*/
+.side-menu-button {
+  display: none;
+}
+@media (max-width: 1400px) {
+  .side-menu-button {
+    display: block;
+  }
+}
+/*사이드 메뉴 버튼*/
+.side-menu-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  
+}
+.side-menu-button .img-box {
+  margin-top: 20px;
+  width: 20px;
+}
+/*사이드 메뉴 박스*/
+.side-menu-button:hover .side-menu-bar {
+  left: 0;
+}
+.side-menu-bar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  height: 100%;
+  width: 300px;
+  background-color: white;
+  box-sizing: border-box;
+  z-index:3;
+  transition: left 1s;
+}
+.side-menu-bar .side-menu-box ul > li {
+  position: relative;
+  background-color: #dfdfdf;
+}
+.side-menu-bar .side-menu-box > ul {
+  margin-top: 40px;
+}
+.side-menu-bar .side-menu-box ul > li > a {
+  display: block;
+  padding: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.side-menu-bar .side-menu-box > ul > li > a {
+  padding-left: 40px;
+}
+.side-menu-bar .side-menu-box ul > li:hover > a {
+  color: white;
+  background-color:  #93D8D9;
+}
+.side-menu-bar .side-menu-box ul ul {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+.side-menu-bar .side-menu-box ul > li:hover > ul {
+  display: block;
+}
+
+
+/*상단 배너 박스*/
+.top-bn-box {
+  margin-top: 20px;
+}
+@media (max-width:800px) {
+  .top-bn-box .img-box {
+    margin-left: -50%;
+  }
+}
+
+/*상품 리스트 바*/
+
+/*상품 리스트 사이즈*/
+.prod-list-bar .prod-list-box > ul > li {
+  width:calc(100%/ 5);
+  box-sizing: border-box;
+  padding: 0 10px;
+  margin-top: 10px;
+  
+}
+.prod-list-bar .prod-list-box > ul {
+  margin: 0 -10px;
+}
+/*상품 리스트 반응형 사이즈*/
+@media (max-width:1000px) {
+  .prod-list-bar .prod-list-box > ul > li {
+    width: calc(100%/4);
+  }
+}
+@media (max-width:800px) {
+  .prod-list-bar .prod-list-box > ul > li {
+    width: calc(100%/3);
+  }
+}
+@media (max-width:600px) {
+  .prod-list-bar .prod-list-box > ul > li {
+    width: calc(100%/2);
+  }
+}
+@media (max-width:400px) {
+  .prod-list-bar .prod-list-box > ul > li {
+    width: calc(100%/1);
+  }
+}
+/*상품 이름,가격*/
+.prod-list-bar .prod-list-box > ul > li > a > .prod-name,.prod-price {
+  font-weight: bold;
+  text-align: center;
+}
+.prod-list-bar .prod-list-box > ul > li > a > .prod-price {
+  font-size: 1.5rem;
+}
+
+/*상품 리스트 강조*/
+.prod-list-bar .prod-list-box > ul > li > a > .img-box {
+  overflow: hidden;
+  position: relative;
+}
+/*상품 리스트 강조-배경*/
+.prod-list-bar .prod-list-box > ul > li > a > .img-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 1;
+}
+.prod-list-bar .prod-list-box > ul > li:hover > a > .img-box::before {
+  opacity: 0.5;
+}
+/*상품 리스트 강조-view*/
+.prod-list-bar .prod-list-box > ul > li > a > .img-box::after {
+  content:"VIEW";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  border: 3px solid white;
+  padding: 5px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 2;
+}
+.prod-list-bar .prod-list-box > ul > li:hover > a > .img-box::after {
+  opacity: 1;
+}
+/*상품 리스트 강조-확대*/
+.prod-list-bar .prod-list-box > ul > li > a > .img-box img {
+  transition: transform 0.5s;
+}
+.prod-list-bar .prod-list-box > ul > li:hover > a > .img-box img {
+  transform: scale(1.3);
+}
+</style>
+</head>
+<body>
+
+<div class="side-menu-button">
+  <div class="img-box">
+    <img src="사이드바.png" alt="">
+  </div>
+  <div class="side-menu-bar">
+    <nav class="side-menu-box">
+      <ul>
+        <li>
+          <a href="#">CommITHome</a>
+        </li>
+        <li>
+          <a href="#">MyHome</a>
+        </li>
+        <li>
+          <a href="#">이력서</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">지원현황</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">관심공고/기업</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">개인정보관리</a>
+          <ul>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+            <li><a href="#">2차메뉴아이템</a></li>
+          </ul>
+        </li>
+    </nav>
+  </div>
+</div>
+
+
+
+<div class="prod-list-bar con">
+
+  <div class="prod-list-box">
+  	<h1>MyPage</h1>
+  	<h4>열정구직자 옹기님!</h4>
+       
+          <button type="button" value="지원현황">이력서</button>
+          <button type="button" value="지원현황">지원현황</button>
+          <button type="button" value="지원현황">관심공고/기업</button>
+          <button type="button" value="지원현황">개인정보관리</button>
+  
+  </div>
+  
+  
+</div>
+</body>
+</html>

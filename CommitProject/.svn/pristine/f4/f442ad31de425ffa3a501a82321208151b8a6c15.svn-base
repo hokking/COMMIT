@@ -1,0 +1,40 @@
+package kr.or.ddit.commit.controller;
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class NoticeList
+ */
+@WebServlet("/NoticeList.do")
+public class NoticeList extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public NoticeList() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	//0. page받기
+		String page = request.getParameter("page");
+		int spage = Integer.parseInt(page);
+		
+	//1. service객체
+		//Map<String, Integer> map 
+	//2. service메소드 호출
+	//3. 결과값 저장
+	//4. 응답결과 getRequestDispatcher로 보낸다
+	
+	
+	
+	}
+
+}

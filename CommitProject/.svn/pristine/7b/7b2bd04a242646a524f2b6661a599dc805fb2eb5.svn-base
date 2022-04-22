@@ -1,0 +1,62 @@
+package kr.or.ddit.commit.service;
+
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.commit.dao.FreedomDaoImpl;
+import kr.or.ddit.commit.dao.IFreedomDao;
+import kr.or.ddit.commit.vo.FreedomVO;
+
+public class FreedomServiceImpl implements IFreedomService {
+
+	private IFreedomDao dao;
+	private static IFreedomService service;
+	
+	public FreedomServiceImpl() {
+		dao = FreedomDaoImpl.getDao();
+	}
+	
+	public static IFreedomService getService() {
+		if(service ==null) service = new FreedomServiceImpl();
+		
+		return service;
+		
+	}
+	
+	@Override
+	public List<FreedomVO> selectAllFreeBoard() {
+		List<FreedomVO> list = null;
+		
+		try {
+			list = dao.selectAllFreeBoard();			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int insertFreeboard(FreedomVO vo) {
+		
+		return 0;
+	}
+
+	@Override
+	public int updateFreeboard(FreedomVO vo)  {
+		
+		return 0;
+	}
+
+	@Override
+	public int deleteFreeboard(int freedomnum)  {
+		
+		return 0;
+	}
+
+	@Override
+	public int searchFreeboard(FreedomVO vo)  {
+		
+		return 0;
+	}
+
+}

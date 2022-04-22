@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+html, body{
+	margin:0;
+	padding: 0;
+}
+.blind{
+	position: absolute;
+	top:0;
+	left:0;
+	width:1px;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+}
+
+header{
+	border-bottom: 1px solid #000;
+}
+
+a{
+	text-decoration: none;
+}
+.side_toggle_btn::before{
+	content:url("사이드바.png");
+	display: inline-block;
+	width: 50px;
+	line-height: 50px;
+	font-size: 24px;
+	text-align: center;
+	border-right: 1px solid #000;
+}
+
+
+.side_input:checked + .side_toggle_btn::before{
+	
+}
+
+.side_input:checked ~ .side_list{
+	left:0;
+}
+
+.side_list{
+	position: absolute;
+	left : -200px;
+	top: 50px;
+	botoom: 0;
+	border-right: 1px solid #000;
+	width: 200px;
+	font-size: 24px;
+	transition : 0.3s ease-in;
+}
+
+.side_link{
+	display : block;
+	text-align: center;
+	padding: 40px 0;
+	border-bottom: 1px solid #000;
+}
+
+
+
+</style>
+</head>
+<body>
+<header>
+	<button onclick="location.href='main.jsp'" type="button" id="logo" href="main.jsp">
+	<img style='cursor:pointer' id="logoimg" alt="로고.png" src="/images/심플로고1.PNG">
+	</button>
+	<input type="checkbox"  id="side_btn" class="side_input blind">
+	<label for="side_btn" class="side_toggle_btn"></label>
+	<div class= "side_list">
+		<a href ="#" class="side_link">My홈</a>
+		<a href ="#" class="side_link">이력서</a>
+		<a href ="#" class="side_link">지원현황</a>
+		<a href ="#" class="side_link">관심공고/관심기업</a>
+		<a href ="#" class="side_link">개인정보관리</a>
+	</div>
+</header>
+</body>
+</html>

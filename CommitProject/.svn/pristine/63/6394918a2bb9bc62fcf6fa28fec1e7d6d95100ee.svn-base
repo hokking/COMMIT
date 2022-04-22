@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<style>
+#board_content{
+	height : 50px;
+}
+</style>
+</head>
+<body>
+<form>
+	<div>
+		<div>
+			<span>카테고리</span>
+			<button type="button">잡담</button>
+			<div>
+				<ul>
+					<li><a href=""><span>취준</span></a></li>
+					<li><a href=""><span>이직</span></a></li>
+					<li><a href=""><span>퇴사</span></a></li>
+					<li><a href=""><span>잡담</span></a></li>
+				</ul>
+			</div>
+		</div>
+		<div>
+			<input type="text" placeholder="제목을 입력해주세요">
+		</div>
+		<br>
+		<div>
+			<textarea placeholder="내용을 입력해주세요"></textarea>
+		</div>
+		<br>
+		<div>
+			<div>#해시태그 입력</div>
+			<div border='1'>
+				<ul>
+					<li>
+						<div>"잡담"</div>
+					</li>
+				</ul>
+				<div>
+					<input type="text" placeholder="입력 최대 5개">			
+				</div>
+			</div>
+		</div>
+		<br>
+		<div>
+			<button type="button">게시글 등록</button>
+		</div>	
+	</div>
+</form>
+
+
+
+
+</body>
+</html>

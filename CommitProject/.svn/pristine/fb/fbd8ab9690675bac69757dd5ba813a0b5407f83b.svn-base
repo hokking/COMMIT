@@ -1,0 +1,147 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<style>
+#searchFreeBoard{
+	height : 25px;
+}
+</style>
+
+</head>
+<body>
+
+
+<div>
+	<div>"전체 <strong>563,435</strong>건"</div>
+	<div>
+		<div>
+			<select title="검색내용">
+			 	 <option value="1">제목</option> 
+			 	 <option value="2">작성자</option>
+			 </select>
+			 <input type="text" value placeholder="어떤 이야기가 있을까?">
+			 <button type="button" onclick="">검색</button>
+		</div>
+	</div>
+</div>
+<br>
+<div>
+	 <div>
+		<spa>
+			<input type="checkbox" value="list">
+			<label>전체보기</label>
+		</span>
+		<span>
+			<input type="checkbox" value="ready">
+			<label>#취준</label>
+		</span>
+		<span>
+			<input type="checkbox" value="change">
+			<label>#이직</label>
+		</span>
+		<span>
+			<input type="checkbox" value="escape">
+			<label>#퇴사</label>
+		</span>
+		<span>
+			<input type="checkbox" value="talk">
+			<label>#잡담</label>
+		</span>
+	</div>
+	<br>
+	<button type="button" onclick="">게시글 작성</button>
+</div>
+<div>
+	<ul>
+		<div>
+			<span style="transform: translateY(66px);"></span>
+			<li>
+				<div>
+					<span>"회원아이디"님이 작성</span>
+				</div>
+				<div>
+					<span>글제목</span>
+				</div>
+				<div>
+					<span>글내용</span>
+				</div>
+				<br>
+				<span>조회수 <strong>""</strong></span>	
+				<br>
+				<a href="http://localhost/CommitProject/freedom/FreedomDetail.jsp">자세히보기</a>
+			</li>
+			<br>
+			<li>
+				<div>
+					<span>"회원아이디"님이 작성</span>
+				</div>
+				<div>
+					<span>글제목</span>
+				</div>
+				<div>
+					<span>글내용</span>
+				</div>
+				<br>
+				<span>조회수 <strong>""</strong></span>	
+				<br>
+				<a href="http://localhost/CommitProject/freedom/FreedomDetail.jsp">자세히보기</a>
+			</li>
+			<br>
+			<li>
+				<div>
+					<span>"회원아이디"님이 작성</span>
+				</div>
+				<div>
+					<span>글제목</span>
+				</div>
+				<div>
+					<span>글내용</span>
+				</div>
+				<br>
+				<span>조회수 <strong>""</strong></span>	
+				<br>
+				<a href="http://localhost/CommitProject/freedom/FreedomDetail.jsp">자세히보기</a>
+			</li>
+			<br>
+			
+			
+		</div>
+	</ul>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

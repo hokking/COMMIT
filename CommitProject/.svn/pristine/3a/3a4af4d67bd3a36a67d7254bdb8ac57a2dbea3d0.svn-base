@@ -1,0 +1,5 @@
+package kr.or.ddit.commit.service;
+
+public class FreedomServiceImpl implements IFreedomService{
+
+}

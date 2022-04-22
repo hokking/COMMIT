@@ -1,0 +1,111 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+header{
+padding-top: 30px; 
+border : 1px solid red;
+height: 80px;
+}
+
+#logoimg{
+	padding-left: 200px;
+	
+	width: 130px;
+	height: 40px;	
+	float: left;
+
+}
+
+#category{
+	border : 1px solid yellow;
+	height: 100%;
+	width: 60%;
+	float:left;
+	margin-bottom:100px;
+	
+}
+
+.nt{
+	float: left;
+	margin-right: 45px;
+	list-style: none;
+}
+
+a:link {
+	color: #FB4A22;
+	font-weight: bold;
+	font-size: 15px;
+	text-decoration: none; /* line-through, underline, verline, overline */
+}
+
+a:visited {
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: black;
+	background: white
+}
+
+a:active {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#searchimg {
+	width: 20px;
+	height: 20px;
+}
+
+section{
+border : 1px solid black;
+float: clear;
+} 
+
+aside{
+	border : 1px solid blue;
+	float: clear;
+}
+
+
+</style>
+</head>
+<body>
+
+<header>
+
+<a id="logo" href="main.html"><img id="logoimg" alt="로고.png" src="./images/심플로고1.PNG"></a>
+<div id="category">
+	<ul id ="nu">
+  	<li class="nt"><a href="">채용공고</a></li>
+  	<li class="nt"><a href="">회사정보</a></li>
+  	<li class="nt"><a href="">인재풀</a></li>
+  	<li class="nt"><a href="">커뮤니티</a></li>
+    </ul>
+    
+    <input id = "searchbar2" type = "text" placeholder = "입력해라">
+	<button type = "button" style='cursor:pointer'>
+	<img id="searchimg" src="./images/돋보기.png" style='cursor:pointer' >
+	</button>
+</div>
+
+
+</header>
+
+<section>
+섹션입니다.
+</section>
+
+<aside>
+어사이드입니다.
+</aside>
+</body>
+</html>

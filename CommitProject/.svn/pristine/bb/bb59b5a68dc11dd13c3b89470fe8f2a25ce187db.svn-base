@@ -1,0 +1,40 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.or.ddit.commit.vo.RecruitVO;
+import kr.or.ddit.ibatis.config.SqlMapClientFactory;
+
+public class RecruitDaoImpl implements IRecruitDao {
+	private SqlMapClient smc;
+	private static IRecruitDao dao;
+	
+	private RecruitDaoImpl() {
+		smc = SqlMapClientFactory.getSqlMapClient();
+	}
+	
+	public static IRecruitDao getInstance() {
+		if(dao == null) dao = new RecruitDaoImpl();
+		return dao;
+	}
+
+	@Override
+	public List<RecruitVO> selectAllRecruit() throws SQLException {
+		return smc.queryForList("recruit.selectAllRecruit");
+	}
+
+	@Override
+	public RecruitVO selectRecruit(int recruitNum) throws SQLException {
+		return (RecruitVO)smc.queryForObject("recruit.selectRecruit", recruitNum);
+	}
+
+	@Override
+	public void insertRecruit(RecruitVO vo) throws SQLException {
+		smc.insert("recruit.insertRecruit", vo);
+		
+	}
+
+}

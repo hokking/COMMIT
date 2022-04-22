@@ -1,0 +1,21 @@
+package kr.or.ddit.commit.service;
+
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.commit.vo.RecruitVO;
+
+public interface IRecruitService {
+	
+	public List<RecruitVO> selectAllRecruit();
+	
+	public List<RecruitVO> selectRegRecruit(int regNum);
+	
+	public List<RecruitVO> selectJobRecruit(int workNum);
+	
+	public List<RecruitVO> selectRJRecruit(Map<String, Integer> map);
+	
+	public RecruitVO selectRecruit(int recruitNum);
+	
+	public void insertRecruit(RecruitVO vo);
+}

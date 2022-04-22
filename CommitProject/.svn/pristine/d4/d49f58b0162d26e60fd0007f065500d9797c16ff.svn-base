@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+header{
+border : 1px solid red;
+}
+
+#logoimg{
+	
+	width: 130px;
+	height: 40px;
+	
+}
+section{
+border : 1px solid blue;
+width:50%;
+}
+
+aside{
+border : 1px solid black;
+width:50%;
+}
+
+
+</style>
+</head>
+<body>
+
+<header>
+헤더입니다.
+<a href="main.jsp"><img id="logoimg" alt="로고.png" src="./images/심플로고1.PNG"></a>
+
+	<div>
+	<ul id ="nu">
+  	<li class="nt"><a href="">채용공고</a></li>
+  	<li class="nt"><a href="">회사정보</a></li>
+  	<li class="nt"><a href="">인재풀</a></li>
+  	<li class="nt"><a href="">커뮤니티</a></li>
+    </ul>
+    </div>
+   
+	<div id="sbar1">
+	<input id = "sbar2" type = "text" placeholder = "입력해라">
+	<button type = "button" style='cursor:pointer'><img id="searchimg" src="./images/돋보기.png" style='cursor:pointer' >
+	</button>
+	<!-- <img id="searchimg" src="./images/돋보기.png" style='cursor:pointer' > -->
+	</div>
+	<br><br>
+</header>
+
+<section>
+섹션입니다.
+</section>
+
+<aside>
+어사이드입니다.
+</aside>
+
+</body>
+</html>

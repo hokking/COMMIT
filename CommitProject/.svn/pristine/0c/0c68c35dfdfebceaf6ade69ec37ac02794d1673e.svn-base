@@ -1,0 +1,103 @@
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<script src="<%=request.getContextPath()%>/manager/board.js"></script>
+<style>
+
+body {
+  margin : 10px;
+}
+
+</style>
+
+<!-- 
+회원 정보 조회 및 삭제
+- 회원 관리 버튼(구직자, 회사)
+- 회원 목록
+- 회원마다 우측에 조회, 삭제 버튼 > 상세조회 <아코디언> 
+ -->
+
+<%	
+//현재 Session가져오기 위한 객체 생성
+HttpSession session1 = request.getSession();
+
+//Session값을 읽어오기
+MemberVO mem = (MemberVO)session1.getAttribute("loginMember");
+%>	
+
+
+<script>
+currentPage = 1;
+
+$(function(){
+	
+	listPage(currentPage);
+	
+	//리스트 이벤트 
+	$('#list').on('click', '.action', function(){
+			 
+		
+	})
+	
+	//페이지번호  리스트 이벤트 
+	$('#pageList').on('click', '.paging', function(){
+		currentPage =   $(this).text().trim();
+		listPage(currentPage);
+	})
+	//next이벤트 
+	$('#pageList').on('click', '.next', function(){
+		 currentPage =   parseInt($('.paging').last().text().trim()) + 1;
+		 listPage(currentPage);
+	})
+	//previous 이벤트
+	$('#pageList').on('click', '.prev', function(){
+		 currentPage =   parseInt($('.paging').first().text().trim()) - 1;
+		 listPage(currentPage);
+	})
+	
+	// 검색이벤트
+	$('#search').on('click', '.action', function(){
+		<%-- 		<%  --%>
+//			if(mem.getMem_num()==2){
+			
+			
+//			}else if(mem.getMem_num()==3){
+			
+			
+//			}
+
+<%-- 		%> --%>
+		
+	})
+
+})//$function 
+</script>
+
+</head>
+<body>
+
+<h2>관리자 메인 페이지 입니다.</h2>
+<br>
+<div>
+	<form>
+<%-- 	<form action="<%=request.getContextPath()%>"> --%>
+	<select name="search_select">
+	 	 <option value="1" >개인회원</option> 
+	 	 <option value="2" >기업회원</option>
+	</select>
+	 	<input type="text" name="search_text" placeholder="입력하세요">
+	 	<button type="submit" id="search">검색</button>
+	</form>
+</div>
+
+<div id="list"></div>
+<div id="pageList"></div>
+
+</body>
+</html>

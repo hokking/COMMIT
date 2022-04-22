@@ -1,0 +1,154 @@
+<%@page import="kr.or.ddit.commit.vo.CompanyVO"%>
+<%@page import="kr.or.ddit.commit.service.CompanyInfoServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.ICompanyInfoService"%>
+<%@page import="kr.or.ddit.commit.vo.MemberVO"%>
+<%@page import="kr.or.ddit.commit.vo.RegionVO"%>
+<%@page import="kr.or.ddit.commit.service.RegionServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IRegionService"%>
+<%@page import="kr.or.ddit.commit.vo.JobworkVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.commit.service.JobworkServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IJobworkService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">              
+<script language="javascript" type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<title>Insert title here</title>
+<script>
+	$(function() {
+		
+		
+		$('#save').on('click', function() {
+			// 글 수정폼에서 수정 후 확인 버튼
+			// modal창에 입력한 내용 가져오기
+//	 		a = $('#modifyModal input[name=subject]').val();
+//	 		b = $('#modifyModal input[name=writer]').val();
+//	 		$('#modifyModal input[name=mail]').val();
+//	 		$('#modifyModal textarea').val();
+//	 		$('#modifyModal input[name=num]').val();
+//	 		fdata = {"subject" : a, "writer" : b,...};
+					
+			data = $('#recruitInsert').serializeArray();
+	 			console.log(data);
+				// 서버로 전송 - ajax
+			$.ajax({
+				url : '/CommitProject/recruitInsert.do',
+				data : data,
+				type : 'post',
+				success : function(res) {
+					
+				},
+				dataType : 'json'
+			})
+		})
+		
+		$('select[name=rview]').on('change', function() {
+			price = $('select[name=rview] selected').val()*10000;
+			console(price);
+			$('input[name=price]').attr("value", price);
+		})
+	})
+</script>
+</head>
+<body>
+<%
+	IJobworkService service = JobworkServiceImpl.getInstance();
+	List<JobworkVO> jobList = service.selectAllJobwork();
+	
+	IRegionService gservice = RegionServiceImpl.getInstance();
+	List<RegionVO> regionList = gservice.selectAllRegion();
+	
+// 	HttpSession session1 = request.getSession();
+// 	MemberVO loginMember = (MemberVO)session1.getAttribute("loginMember");
+	
+	ICompanyInfoService cservice = CompanyInfoServiceImpl.getInstance();
+	CompanyVO cvo = cservice.companyDetail("pje001@gmail.com");
+%>
+	<div>
+	   
+	   <form id="recruitInsert">
+	   		<table>
+				<tr>
+					<td><label>공고명</label></td>
+					<td><input class="intxt" type="text" name="title"></td>
+				</tr>
+				<tr>
+    				<td><label>공고시작일</label></td>
+    				<td><input class="intxt" type="date" name="sdate"></td>
+    			</tr>
+				<tr>
+    				<td><label>공고게시일</label></td>
+    				<td>
+    					<select name="rview">
+    						<option value=7>7일</option>
+    						<option value=14>14일</option>
+    					</select>
+    				</td>
+    			</tr>
+		    	<tr>
+		    		<td><label>포지션</label></td>
+		    		<td><select name="pst">
+<%
+				for(JobworkVO jw : jobList) {
+%>
+    				<option value="<%= jw.getWork_num()%>"><%= jw.getWork_name() %></option>
+<%
+				}
+%>
+    					</select>
+    				</td>
+    			</tr>
+    			<tr>
+    				<td><label>지역</label></td>
+    				<td><select name="reg">
+<%
+				for(RegionVO rg : regionList) {
+%>
+    				<option value="<%= rg.getReg_num() %>"><%= rg.getReg_name() %></option>
+<%
+				}
+%>
+    					</select>
+    				</td>
+    			</tr>
+      			<tr><td colspan="2"><label>우대사항</label><br></td></tr>
+    			<tr><td colspan="2"><textarea name="spec" rows="10" cols="50"></textarea></td></tr>
+	   			<tr><td colspan="2"><label>주요업무</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="duty" rows="10" cols="50"></textarea></td></tr>
+		   		<tr><td colspan="2"><label>자격요건</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="qlt" rows="10" cols="50"></textarea></td></tr>
+		   		<tr><td colspan="2"><label>복지및 혜택</label></td></tr>
+		 		<tr><td colspan="2"><textarea name="bnf" rows="10" cols="50"></textarea></td></tr>
+				<tr>
+				
+				</tr>
+			</table>
+   		</form>
+		<form id="SendPayForm_id" name="" method="POST" >
+			<input type="hidden"    name="goodname" value="채용공고" >
+	        <input type="hidden"    name="buyername" value="<%= cvo.getCom_name() %>" >
+	        <input type="hidden"    name="buyertel" value="<%= cvo.getCom_tel() %>" >
+	        <input type="hidden"    name="buyeremail" value="<%= cvo.getMem_id() %>" >
+	        <input type="hidden"    name="price">
+	        <input type="hidden"  name="mid" value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+	        <input type="hidden"  name="gopaymethod" value="Card" >
+	        <input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" >
+	        <input type="hidden"  name="signature" value="aac1e4e5b528b4f1a71478daf26307e6b5eb17341f98b8d2b34702ceedec9e45" >
+	        <input type="hidden"  name="oid" value="INIpayTest_1640253510912" >
+	        <input type="hidden"  name="timestamp" value="1640253510912" >
+	        <input type="hidden"  name="version" value="1.0" >
+	        <input type="hidden"  name="currency" value="WON" >
+	        <input type="hidden"  name="acceptmethod" value="below1000" ><!-- 에스크로옵션 : useescrow, 빌링(정기과금)옵션 : BILLAUTH(Card) -->
+	        <input type="hidden"  name="returnUrl" value="http://localhost/stdpay/INIStdPayReturn_simple.asp" >
+	        <input type="hidden"  name="closeUrl" value="<%=request.getContextPath() %>/recruit/recruitMain.jsp" >
+	   </form>
+      <button id="pay" onclick="INIStdPay.pay('SendPayForm_id')" style="padding:10px; margin-left:10%">결제요청</button>
+      <button id="save" style="padding:10px; margin-left:10%">저장</button>
+	</div>
+</body>
+</html>

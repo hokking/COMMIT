@@ -1,0 +1,105 @@
+package kr.or.ddit.commit.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.commit.dao.IRecruitDao;
+import kr.or.ddit.commit.dao.RecruitDaoImpl;
+import kr.or.ddit.commit.vo.RecruitVO;
+
+public class RecruitServiceImpl implements IRecruitService{
+	private IRecruitDao dao;
+	private static IRecruitService service;
+	
+	private RecruitServiceImpl() {
+		dao = RecruitDaoImpl.getInstance();
+	}
+	
+	public static IRecruitService getInstance() {
+		if(service == null) service = new RecruitServiceImpl();
+		return service;
+	}
+
+	@Override
+	public List<RecruitVO> selectAllRecruit() {
+		List<RecruitVO> list = null;
+		try {
+			list = dao.selectAllRecruit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public RecruitVO selectRecruit(int recruitNum) {
+		RecruitVO vo = null;
+		try {
+			vo = dao.selectRecruit(recruitNum);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+	@Override
+	public void insertRecruit(RecruitVO vo) {
+		try {
+			dao.insertRecruit(vo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public List<RecruitVO> selectRegRecruit(int regNum) {
+		List<RecruitVO> list = null;
+		try {
+			list = dao.selectRegRecruit(regNum);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<RecruitVO> selectJobRecruit(int workNum) {
+		List<RecruitVO> list = null;
+		try {
+			list = dao.selectJobRecruit(workNum);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<RecruitVO> selectRJRecruit(Map<String, Integer> map) {
+		List<RecruitVO> list = null;
+		try {
+			list = dao.selectRJRecruit(map);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void updateRecruit(RecruitVO vo) {
+		try {
+			dao.insertRecruit(vo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+}

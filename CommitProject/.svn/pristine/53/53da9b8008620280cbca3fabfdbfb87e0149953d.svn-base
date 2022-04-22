@@ -1,0 +1,41 @@
+/**
+ * 
+ */
+
+function replyList(reple){ //brep : 댓글등록버튼  또는 제목클릭 
+	//idx의 해당하는 댓글을 가져온다 
+	$.ajax({
+		 url : '/CommitProject/freedomRepleList.do',
+		 type : 'post',
+		 data : {'repleNum' : idx},
+		 success : function(res){
+			  code ="";
+			  $(reple).parents('.panel').find('.pbody').find('.repl').remove();
+			 
+			$.each(res, function(i, v){ 
+			  code += '      <div class="panel-body repl"> ';                                              
+			  code += '         <p class="p1">  ';                                                    
+			  code += '               <span class="wr">' + v.name + '</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   ';
+			  code += '               날짜 :<span class="wd">' +v.date + '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ';              
+			  code += '      </p>                                                                   ';
+			  code += '       <p class="p2">                                                        ';
+			  code += '           <input  idx="'  + v.renum + '" type="button" name="r_modify"  class="action" value="댓글수정">    ';
+			  code += '           <input  idx="' + v.renum +'" type="button" name="r_delete"  class="action" value="댓글삭제">    ';
+			  code += '       </p>                                                                  ';
+			  code += '<p class="p3">';
+			  code += '내용 츨력 내용출력 <br>';
+			  code += v.cont ;
+			  code += '</p>';                 
+			  code += '</div>' ;
+			 
+			})//$.each 
+			 
+			$(brep).parents('.panel').find('.pbody').append(rcode);
+		 },
+		 error : function(xhr){
+			 alert("상태 : " + xhr.status);
+		 },
+		 dataType : 'json'
+	})	 
+	
+}

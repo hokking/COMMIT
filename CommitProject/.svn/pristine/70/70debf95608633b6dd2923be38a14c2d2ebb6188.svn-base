@@ -1,0 +1,63 @@
+<%@page import="kr.or.ddit.commit.vo.HrVO"%>
+<%@page import="kr.or.ddit.commit.service.HrServiceImpl"%>
+<%@page import="kr.or.ddit.commit.service.IHrService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<%
+	int num = Integer.parseInt(request.getParameter("resume_num"));
+	System.out.println(num);
+
+	IHrService service = HrServiceImpl.getInstance();
+	HrVO vo = service.detailhr(num);
+	System.out.println(vo);
+	
+	
+%>
+
+<section>
+	<br>
+	<div id="my">
+	 		
+  	 	<h2><%=vo.getResume_title() %></h2><br>
+  	 	📧&nbsp;<%=vo.getMem_id() %><br>
+  	 	📞&nbsp;<%=vo.getResume_tel() %><br>
+  		🏴‍☠️ &nbsp;<%=vo.getResume_area() %><br>
+  	 	💼&nbsp;<%=vo.getResume_career() %><br>
+		  
+
+		<hr width="90%" align="left">
+		
+  	 	<h2>기술스택/직무</h2>
+  	 	<font size = "4"><b>기술스택</b></font><br>
+  	 	<%=vo.getResume_skill() %><br><br>
+  	 	<font  id = "job" size = "4"><b>직무</b></font><br>
+  	 	<%=vo.getResume_job() %><br><br>
+  	 	<hr width="90%" align="left">
+  	 	
+  	 	<h2>학력</h2>
+  	 	<font  class="inputs" size = "4"><b>학교명</b></font>&nbsp;&nbsp;&nbsp;&nbsp;
+  	 	<font size = "4"><b>학과명</b></font><br>
+  	 	<%=vo.getResume_schoolname() %>
+  	 	<%=vo.getResume_major() %><br><br>
+  	 	<font size = "4"><b>학점</b></font><br>
+  	 	<%=vo.getResume_score() %><br><br>
+  	 	
+  	 	<hr width="90%" align="left">
+  	 	
+  	 	<h2>자기소개서</h2>
+  	 	<%=vo.getResume_self() %>
+		<br>
+		<br>
+		</div>
+	
+</section>
+
+
+</body>
+</html>

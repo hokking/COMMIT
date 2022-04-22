@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+#logo{
+float: left;
+padding-left: 200px;
+}
+
+#logoimg{
+	width: 170px;
+	height: 170px;
+}
+
+.nt {
+/* border : 2px solid red; */
+	float: left;
+	margin-right: 50px;
+	margin-left: 50px;
+	margin-top: 40px;
+	font-size: 23px;
+	font-weight: bold;
+}
+
+#nu{
+margin-left: 180px;
+}
+
+
+
+</style>
+</head>
+
+<body>
+<header>
+	<!-- <a href="main.html"><img id="img1" alt="심플로고.jpg" src="./images/심플로고.png"></a> -->
+	<a id="logo" href="main.html"><img id="logoimg" alt="로고.jpg" src="./images/심플로고.png"></a>
+	
+	<div>
+	<ul id ="nu">
+  	<div class="nt"><li><a href="">채용공고</a></li></div>
+  	<div class="nt"><li><a href="">회사정보</a></li></div>
+  	<div class="nt"><li><a href="">인재풀</a></li></div>
+  	<div class="nt"><li class="n1"><a href="">커뮤니티</a></li></div>
+    </ul>
+    </div>
+    
+ <br> <br>
+</header>
+
+<nav>
+
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+package kr.or.ddit.commit.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.or.ddit.commit.vo.MemberVO;
+import kr.or.ddit.ibatis.config.SqlMapClientFactory;
+
+public class ManagerDaoImpl implements IManagerDao{
+	
+	private SqlMapClient client;
+	private static IManagerDao dao;
+
+	public ManagerDaoImpl() {
+		client = SqlMapClientFactory.getSqlMapClient();
+	}
+	
+	public static IManagerDao getDao() {
+		if(dao==null) dao = new ManagerDaoImpl();
+		return dao;
+	}
+	
+	@Override
+	public Map<String, Integer> pageInfo(int spage) {
+		return null;
+	}
+
+	@Override
+	public List<MemberVO> selectByPage(Map<String, Integer> map) throws SQLException {
+		return client.queryForList("manager.selectByPage", map);
+	}
+
+	@Override
+	public int totalCount() throws SQLException {
+		return (int) client.queryForObject("manager.totalCount");
+	}
+
+	@Override
+	public int deleteBoard(String id) throws SQLException {
+		return client.delete("manager.deleteBoard", id);
+	}
+
+	@Override
+	public List<MemberVO> searchMemNum(String num) throws SQLException{
+		return client.queryForList("manager.searchMemNum", num);
+	}
+
+	@Override
+	public List<MemberVO> searchMemId(String id) throws SQLException{
+		return client.queryForList("manager.searchMemId", id);
+	}
+
+}

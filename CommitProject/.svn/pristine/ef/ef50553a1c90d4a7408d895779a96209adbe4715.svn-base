@@ -1,0 +1,174 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+
+
+<style type="text/css">
+
+/* border 스타일에 white 절대 삭제하지 말것. */
+/* html, body{ 이거 엉케해ㅑ야되노
+	width: 100%;
+	height: 100%;
+} */
+
+body{
+	min-width : 1300px;
+	background: #FAFAFA
+}
+
+section{
+	margin-left: 350px;
+	display: inline-block;
+	width: 50%;
+	height: 800px;
+	background: white;
+
+	
+}
+
+#logo {
+	border: 0px;
+	background: white;
+	outline: none;
+	margin-left: 250px;
+
+}
+
+#welcome{
+	
+	padding-left: 30px;
+}
+input{
+	border-radius: 5px;
+	border: 2px solid #93D8D9;
+	
+}
+#input1{
+height: 35px;
+margin-top: 5px;
+width:93%;
+}
+
+
+#input2{
+margin-top: 10px;
+height: 50px;
+width:94%;
+}
+
+hr{
+	display: inline-block;
+	
+}
+#snslogin{
+	padding-top:30px;
+	padding-left: 15px;
+}
+.snsimg{
+	width: 40px;
+	height: 40px;
+	
+}
+.bsns{
+	border: 0px;
+	background: white;
+	outline: none;
+	
+}
+#dsns{
+	margin-top:30px;
+	padding-left: 235px;
+}
+
+#lhr{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+#rhr{
+	margin-left: 5px;
+}
+#join{
+	margin-top: 20px;
+	padding-left: 200px;
+	
+}
+
+a{
+	font-size:13px;
+	text-decoration:  underline;
+}
+
+a:link{
+	color :  black;
+	font-weight: bold;
+	font-size: 13px;
+	text-decoration:  underline; /* line-through, underline, verline, overline */
+}
+
+a:visited{
+ color : black;
+
+}
+a:hover{
+	text-decoration : none;
+	 color : #93D8D9;
+	 background: white;
+	 text-decoration:  underline;
+}
+a:active{
+	color : black;
+	font-weight: bold;
+	text-decoration:  none;
+}
+
+
+</style>
+</head>
+<body>
+
+
+<section>
+<button id="logo" style='cursor:pointer' onclick="location.href='main.jsp'" type="button" id="logo" href="main.jsp">
+	<img  id="logoimg" alt="로고.png" src="./images/로그인로고.png" >
+</button><br>
+
+<div id="welcome">
+<font size="4">반가워요</font><br>
+<font size="5"><b>커밋</b>으로 <b>ComeIT!</b></font><br><br>
+<font size="3"><b>이메일</b></font><br>
+<form action="" method="">
+<input id="input1" type="text" placeholder="이메일을 입력해주세요"><br>
+<input id="input2" type="submit" value="커밋 시작하기" style='cursor:pointer'>
+</form>
+</div>
+<br>
+
+<div id="snslogin">
+<hr id="lhr" width="35%" align="left">SNS로 1초만에 로그인<hr id="rhr" width="35%" align="right"><br>
+	
+	<div id="dsns">
+	<button class="bsns" onclick="location.href='main.jsp'" type="button" id="naver">
+	 <img class="snsimg" src="./images/네이버.png" alt="" style='cursor:pointer' >
+	</button>
+	<button  class="bsns" onclick="location.href='main.jsp'" type="button" id="kakao">
+	<img class="snsimg" src="./images/카카오.png" alt="" style='cursor:pointer' >
+	</button>
+	<button  class="bsns" onclick="location.href='main.jsp'" type="button" id="google" style='cursor:pointer' >
+	<img class="snsimg" src="./images/크롬.png" alt="">
+	</button>
+	</div>
+	
+	<div id="join"><font size="2">기업 고객이신가요? <a href="">기업서비스 바로가기</a></font></div>
+</div>
+</section>
+	
+
+</body>
+</html>
+
+

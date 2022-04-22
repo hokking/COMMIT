@@ -1,0 +1,8 @@
+package kr.or.ddit.commit.service;
+
+import kr.or.ddit.commit.vo.MemberVO;
+
+public interface ILoginService {
+	
+	public String getLoginMember(MemberVO memvo);
+}
